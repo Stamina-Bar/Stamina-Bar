@@ -3,7 +3,7 @@
 //  Stamina Bar Watch App
 //
 //  Created by Bryce Ellis on 11/18/22.
-//
+// Im alive
 
 import SwiftUI
 
