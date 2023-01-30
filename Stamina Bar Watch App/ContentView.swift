@@ -48,13 +48,14 @@ struct DisplayStaminaBar: View {
     private var healthStore = HKHealthStore()
     @State private var minHeartRate: Int = -1
     @State private var maxHeartRate: Int = 0
-    @State private var currentHeartRate = 178
+    @State private var currentHeartRate = 0
     // MARK: - Stamina Bar simplifies Heart Rate Zones
     var body: some View {
         VStack (alignment: .trailing, spacing: 10) {
             if currentHeartRate == 0 {
                 Image("Refresh")
             }
+            
             else if currentHeartRate < 65 {Image("100")}
             else if currentHeartRate < 100 {Image("90")}
             else if currentHeartRate < 110 {Image("80")}
