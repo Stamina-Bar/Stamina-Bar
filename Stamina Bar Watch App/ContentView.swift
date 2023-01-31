@@ -68,23 +68,28 @@ struct DisplayStaminaBar: View {
             }
             
             // Green
-            else if currentHeartRate < 65 {Image("100")}
+            else if currentHeartRate < 70 {Image("100")}
             else if currentHeartRate < 75 {Image("95")}
-            else if currentHeartRate < 85 {Image("90")}
+            else if currentHeartRate < 80 {Image("90")}
             else if currentHeartRate < 100 {Image("85")}
             
             // Yellow
-            else if currentHeartRate < 110 {Image("80")}
-            else if currentHeartRate < 125 {Image("75")}
+            else if currentHeartRate < 105 {Image("80")}
+            else if currentHeartRate < 115 {Image("75")}
             else if currentHeartRate < 135 {Image("70")}
-            else if currentHeartRate < 150 {Image("60")}
+            else if currentHeartRate < 145 {Image("65")}
+            else if currentHeartRate < 155 {Image("60")}
+            else if currentHeartRate < 160 {Image("55")}
 
             // Orange
-            else if currentHeartRate < 160 {Image("50")}
-            else if currentHeartRate < 174 {Image("40")}
+            else if currentHeartRate < 165 {Image("50")}
+            else if currentHeartRate < 169 {Image("45")}
+            else if currentHeartRate < 177 {Image("40")}
 
             // Red
-            else if currentHeartRate < 184 {Image("30")}
+            else if currentHeartRate < 180 {Image("35")}
+            else if currentHeartRate < 185 {Image("30")}
+            //25
             else {Image("20")}
             
             
