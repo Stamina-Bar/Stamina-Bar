@@ -3,8 +3,7 @@
 //  Stamina Bar Watch App
 //
 //  Created by Bryce Ellis on 1/30/23.
-//  Special thanks to Anastasia Ryabenko for her public repo on GitHub
-//  called Heart Rate. I used her code here in my app.
+//
 
 import Foundation
 import SwiftUI

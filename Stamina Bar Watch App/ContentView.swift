@@ -15,12 +15,15 @@ struct DisplayHeartRateHistory: View {
     var body: some View {
         VStack {
             VStack(spacing: 8) {
-                HeartRateHistoryView(title: "Current heart rate", value: hkHelper.currentHeartRate)
+                Text("Weekly Heart Rate")
+                Divider()
+                HeartRateHistoryView(title: "Current HR: ", value: hkHelper.currentHeartRate, unit: "BPM")
                     .accentColor(.blue)
-                HeartRateHistoryView(title: "Max heart rate: ",
-                                     value: hkHelper.maxHeartRate)
+                    .multilineTextAlignment(.leading)
+
+                HeartRateHistoryView(title: "Max HR: ", value: hkHelper.maxHeartRate, unit: "BPM")
                     .accentColor(.red)
-                HeartRateHistoryView(title: "Min heart rate", value: hkHelper.minHeartRate)
+                HeartRateHistoryView(title: "Min HR: ",value: hkHelper.minHeartRate, unit: "BPM")
                     .accentColor(.green)
             }
             Spacer()
@@ -31,14 +34,22 @@ struct DisplayHeartRateHistory: View {
 struct DisplayMessages: View {
     @ObservedObject var hkHelper = HealthKitHelper()
     var body: some View {
-        VStack {
-            VStack(spacing: 8) {
-                if hkHelper.maxHeartRate < 150 {
-                    HeartRateMessageView(message: "Your weekly Max HR: \(hkHelper.maxHeartRate) is low for your age. This may affect your Stamina Bar, so going for a walk or doing a HIIT workout will be beneficial to maintaining a healthy heart.")
+        ScrollView {
+            VStack {
+                Text("Summary")
+                Divider()
+                VStack(spacing: 8) {
+                    if hkHelper.maxHeartRate < 150 {
+                        HeartRateMessageView(message: "Your weekly Max HR: \(hkHelper.maxHeartRate) is abnormally low for your age, and may affect your Stamina Bar. Getting 60 minutes of exercise by doing a brisk walk, running or, other forms of training such as HIIT should do will help you to maintain a healthy heart.")
+                    }
+                    
+                    else {
+                        HeartRateMessageView(message: "Your weekly Max HR: \(hkHelper.maxHeartRate) is normal for your age. Way to stay active and for taking proactive steps to maintain a healthy heart.")
+                    }
                 }
-            }
-            Spacer()
-        }.padding()
+                Spacer()
+            }.padding()
+        }
     }
 }
 
@@ -56,20 +67,35 @@ struct DisplayStaminaBar: View {
                 Image("Refresh")
             }
             
+            // Green
             else if currentHeartRate < 65 {Image("100")}
-            else if currentHeartRate < 100 {Image("90")}
+            else if currentHeartRate < 75 {Image("95")}
+            else if currentHeartRate < 85 {Image("90")}
+            else if currentHeartRate < 100 {Image("85")}
+            
+            // Yellow
             else if currentHeartRate < 110 {Image("80")}
-            else if currentHeartRate < 130 {Image("75")}
-            else if currentHeartRate < 155 {Image("70")}
-            else if currentHeartRate < 160 {Image("60")}
-            else if currentHeartRate < 165 {Image("50")}
-            else if currentHeartRate < 170 {Image("40")}
-            else if currentHeartRate < 175 {Image("30")}
+            else if currentHeartRate < 125 {Image("75")}
+            else if currentHeartRate < 135 {Image("70")}
+            else if currentHeartRate < 150 {Image("60")}
+
+            // Orange
+            else if currentHeartRate < 160 {Image("50")}
+            else if currentHeartRate < 174 {Image("40")}
+
+            // Red
+            else if currentHeartRate < 184 {Image("30")}
             else {Image("20")}
             
             
     // MARK: - UI Elements Under Stamina Bar
-            HStack {Button {start()} label: {Image(systemName: "arrow.clockwise")}   .frame(width: 60, height: 40)
+            HStack {Button {
+                start()
+                
+            } label: {
+                Image(systemName: "arrow.clockwise")
+                
+            }   .frame(width: 80, height: 60)
                 .cornerRadius(5)
                 .tint(.mint)
                     Text("\(currentHeartRate) BPM")
