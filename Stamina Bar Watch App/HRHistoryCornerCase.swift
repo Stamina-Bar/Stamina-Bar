@@ -2,8 +2,9 @@
 //  HRHistoryCornerCase.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 2/8/23.
+//  Created by Bryce Ellis on 3/9/23.
 //
+
 
 import SwiftUI
 

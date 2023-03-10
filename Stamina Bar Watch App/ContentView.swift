@@ -20,10 +20,15 @@ struct DisplayHeartRateHistory: View {
         ScrollView {
             VStack {
                 VStack(spacing: 8) {
-                    if currentHeartRate == 0 {
-                        Text("Press Refresh...")
-                    } else {
-                        Text("Weekly Heart Rate")
+                    HStack {
+                        Button {
+                        start()
+                        
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                        .cornerRadius(5)
+                        .tint(.mint)
                     }
                     Divider()
                     if minHeartRate == -1 && maxHeartRate == 0 {
@@ -44,15 +49,7 @@ struct DisplayHeartRateHistory: View {
                         HeartRateHistoryView(title: "Min HR: ",value: minHeartRate, unit: "BPM")
                             .accentColor(.green)
                     }
-                    HStack {Button {
-                        start()
-                        
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                        
-                    }
-                        .cornerRadius(5)
-                        .tint(.mint)}
+                    
                 }
                 Spacer()
             }.padding()
@@ -111,88 +108,40 @@ struct DisplayHeartRateHistory: View {
 
 // MARK: - Third screen shows a smart message based on weekly HR Stats.
 struct DisplayMessages: View {
-    let heartRateQuantity = HKUnit(from: "count/min")
-    private var healthStore = HKHealthStore()
-    @State private var minHeartRate: Int = -1
-    @State private var maxHeartRate: Int = 0
-    @State private var currentHeartRate = 0
-    @State private var showButton: Bool = true
-    var body: some View {
-        ScrollView {
+    @State private var showModal = false
+        var body: some View {
             VStack {
-                VStack(spacing: 8) {
-                    if currentHeartRate == 0 {
-                        Text("Press Refresh...")
-                    } else {
-                        Text("Summary")
-                    }
-                    Divider()
-                    HStack {
-                        Button {
-                        start()
-                        
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                        .cornerRadius(5)
-                        .tint(.mint)
-                    }
-                }
-                Spacer()
-            }.padding()
-        }
-    }
-    // MARK: - Set up HealthKit
-    func start() {
-        autorizeHealthKit()
-        startHeartRateQuery(quantityTypeIdentifier: .heartRate)
-    }
-    
-    
-    func autorizeHealthKit() {
-        let healthKitTypes: Set = [
-            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-        ]
-        healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { _, _ in }
-    }
-    
-    private func startHeartRateQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier) {
-        // 1
-        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-        // 2
-        let updateHandler: (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void = {
-            query, samples, deletedObjects, queryAnchor, error in
-            // 3
-        guard let samples = samples as? [HKQuantitySample] else {
-            return
-        }
-        self.process(samples, type: quantityTypeIdentifier)
-        }
-        // 4
-        let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: devicePredicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
-        query.updateHandler = updateHandler
-        // 5
-        healthStore.execute(query)
-    }
-    
-    private func process(_ samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) {
-        var lastHeartRate = 0.0
-        for sample in samples {
-            if type == .heartRate {
-                lastHeartRate = sample.quantity.doubleValue(for: heartRateQuantity)
-            }
-            DispatchQueue.main.async {
-                self.currentHeartRate = Int(lastHeartRate)
-                if self.maxHeartRate < self.currentHeartRate {
-                    self.maxHeartRate = self.currentHeartRate
-                }
-                if self.minHeartRate == -1 || self.minHeartRate > self.currentHeartRate {
-                    self.minHeartRate = self.currentHeartRate
+                Text("Welcome to my app!")
+                    .padding()
+                Button("Go to Second View") {
+                    showModal = true
                 }
             }
+            .navigationBarBackButtonHidden(true)
+
+            .sheet(isPresented: $showModal) {
+//                SecondView(showModal: $showModal)
+                
+            }
         }
-    }
 } // DisplayMessages Struct
+
+struct SecondView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var showModal: Bool
+    
+    var body: some View {
+        VStack {
+            Text("This is the Second View")
+                .padding()
+            Button("Dismiss") {
+                showModal = false
+
+            }
+            .navigationBarTitleDisplayMode(.inline)        }
+    }
+}
+
 
 struct DisplayStaminaBar: View {
     // MARK: - Wellness/Heart Data fields to manipulate

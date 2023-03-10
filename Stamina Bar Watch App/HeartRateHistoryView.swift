@@ -2,8 +2,9 @@
 //  HeartRateHistoryView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 1/30/23.
+//  Created by Bryce Ellis on 3/9/23.
 //
+
 
 import SwiftUI
 
