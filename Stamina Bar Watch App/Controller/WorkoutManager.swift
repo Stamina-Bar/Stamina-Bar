@@ -111,6 +111,8 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var averageHeartRate: Double = 0
     @Published var heartRate: Double = 0
     @Published var activeEnergy: Double = 0
+//    @State private var activeEnergy: Double = 0.0
+
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
 
@@ -127,7 +129,7 @@ class WorkoutManager: NSObject, ObservableObject {
                 let energyUnit = HKUnit.kilocalorie()
                 self.activeEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
             case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning), HKQuantityType.quantityType(forIdentifier: .distanceCycling):
-                let meterUnit = HKUnit.meter()
+                let meterUnit = HKUnit.mile()
                 self.distance = statistics.sumQuantity()?.doubleValue(for: meterUnit) ?? 0
             default:
                 return
