@@ -49,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DAA3BCC229288C8700146F96 /* Stamina Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamina_BarApp.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 		DAA3BCBB29288C8700146F96 = {
 			isa = PBXGroup;
 			children = (
+				DA346CA129DB32F8009DCB4E /* README.md */,
 				DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */,
 				DAA3BCCC29288C8700146F96 /* Stamina Bar Watch App */,
 				DAA3BCC329288C8700146F96 /* Products */,
