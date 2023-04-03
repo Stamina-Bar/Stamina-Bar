@@ -6,7 +6,7 @@
       "screen-width" : "<=145"
     },
     {
-      "filename" : "90 40mm@2x.png",
+      "filename" : "90 40mm @2x.png",
       "idiom" : "watch",
       "scale" : "2x",
       "screen-width" : ">161"
@@ -18,7 +18,7 @@
       "screen-width" : ">145"
     },
     {
-      "filename" : "90 44mm@2x.png",
+      "filename" : "90   .png",
       "idiom" : "watch",
       "scale" : "2x",
       "screen-width" : ">183"

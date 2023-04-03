@@ -3,8 +3,8 @@
 //  Stamina Bar Watch App
 //
 //  Created by Bryce Ellis on 3/17/23.
-//
 
+// MARK: - Present animated Activity Rings after Workout is Completed
 
 import Foundation
 import HealthKit

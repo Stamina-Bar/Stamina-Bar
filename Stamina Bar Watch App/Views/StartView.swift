@@ -3,7 +3,9 @@
 //  Stamina Bar Watch App
 //
 //  Created by Bryce Ellis on 3/17/23.
-//
+
+// MARK: - Displays workout types and their respective images
+
 
 import SwiftUI
 import HealthKit
@@ -15,7 +17,6 @@ struct WorkoutType: Identifiable {
     let workoutType: HKWorkoutActivityType
     let imageName: String
 }
-
 
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
@@ -41,6 +42,7 @@ struct StartView: View {
                     }
                     .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
                 }
+                // Adds space to separate Stamina Bar from General Workouts
                 if index == 0 {
                     Divider()
                 }
@@ -55,15 +57,12 @@ struct StartView: View {
 
 }
 
-
-
-
-
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
     }
 }
+
 
 extension HKWorkoutActivityType: Identifiable {
     public var id: UInt {

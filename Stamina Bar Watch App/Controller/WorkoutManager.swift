@@ -112,7 +112,7 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var heartRate: Double = 0
     @Published var activeEnergy: Double = 0
 //    @State private var activeEnergy: Double = 0.0
-
+    @Published var maxHeartRate: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
 

@@ -3,7 +3,8 @@
 //  Stamina Bar Watch App
 //
 //  Created by Bryce Ellis on 3/17/23.
-//
+
+// MARK: - View to pause, resume, and end workouts in MetricsView
 
 import SwiftUI
 

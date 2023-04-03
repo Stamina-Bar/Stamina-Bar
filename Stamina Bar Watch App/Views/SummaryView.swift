@@ -5,6 +5,8 @@
 //  Created by Bryce Ellis on 3/17/23.
 //
 
+// MARK: - View to show statistics after a workout is completed
+
 import Foundation
 import HealthKit
 import SwiftUI
@@ -21,6 +23,7 @@ struct SummaryView: View {
     }()
     
     var body: some View {
+        // Display relative message once the workout is complete (nil)
         if workoutManager.workout == nil {
             if workoutManager.selectedWorkout == .other {
                 ProgressView("Closing Stamina Bar")
@@ -30,9 +33,7 @@ struct SummaryView: View {
                 .navigationBarHidden(true)
         }
         
-      
-        
-        // User Chose Stamina Bar
+        // MARK: - Summary if user chooses stamina bar (hides distance)
         else if workoutManager.selectedWorkout == .other {
             ScrollView {
                 VStack(alignment: .leading) {
@@ -59,6 +60,7 @@ struct SummaryView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         
+        // MARK: - Summary to include total distance
         else {
             ScrollView {
                 VStack(alignment: .leading) {
