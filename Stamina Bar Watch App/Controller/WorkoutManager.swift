@@ -69,6 +69,7 @@ class WorkoutManager: NSObject, ObservableObject {
         // The quantity types to read from the health store.
         let typesToRead: Set = [
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
+            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
             HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
@@ -111,8 +112,8 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var averageHeartRate: Double = 0
     @Published var heartRate: Double = 0
     @Published var activeEnergy: Double = 0
-//    @State private var activeEnergy: Double = 0.0
-    @Published var maxHeartRate: Double = 0
+    @Published var basalEnergy: Double = 0
+//    @Published var maxHeartRate: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
 
@@ -128,9 +129,12 @@ class WorkoutManager: NSObject, ObservableObject {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
                 self.activeEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
+            case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
+                let energyUnit = HKUnit.kilocalorie()
+                self.basalEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
             case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning), HKQuantityType.quantityType(forIdentifier: .distanceCycling):
-                let meterUnit = HKUnit.mile()
-                self.distance = statistics.sumQuantity()?.doubleValue(for: meterUnit) ?? 0
+                let mileUnit = HKUnit.mile()
+                self.distance = statistics.sumQuantity()?.doubleValue(for: mileUnit) ?? 0
             default:
                 return
             }
@@ -143,6 +147,7 @@ class WorkoutManager: NSObject, ObservableObject {
         workout = nil
         session = nil
         activeEnergy = 0
+//        basalEnergy = 0
         averageHeartRate = 0
         heartRate = 0
         distance = 0
@@ -178,6 +183,7 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
 extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
 
+        
     }
 
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {

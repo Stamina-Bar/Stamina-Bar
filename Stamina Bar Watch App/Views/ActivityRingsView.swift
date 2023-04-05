@@ -14,6 +14,7 @@ struct ActivityRingsView: WKInterfaceObjectRepresentable {
     let healthStore: HKHealthStore
 
     func makeWKInterfaceObject(context: Context) -> some WKInterfaceObject {
+//
         let activityRingsObject = WKInterfaceActivityRing()
 
         let calendar = Calendar.current

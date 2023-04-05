@@ -9,19 +9,31 @@ import SwiftUI
 import HealthKit
 
 struct MetricsView: View {
+    let legacyHealthStore = HKHealthStore()
+    @State private var legacyActiveEnergy: Double = 0.0
+    @State private var legacyRestingEnergy: Double = 0.0
+    
+    var totalEnergy: Double {
+        return legacyActiveEnergy + legacyRestingEnergy
+    }
+    
     @EnvironmentObject var workoutManager: WorkoutManager
     var body: some View {
         ScrollView {
-            // 1) Show all metrics if user is doing an outdoor workout
+            // MARK: Show all metrics if user is doing an outdoor workout
             if workoutManager.selectedWorkout == .running || workoutManager.selectedWorkout == .cycling || workoutManager.selectedWorkout == .walking {
                 
                 TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
                                                      isPaused: workoutManager.session?.state == .paused)) { context in
+                    // Stamina Bar Algorithm
                     VStack(alignment: .leading) {
                         ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
                             .foregroundStyle(.yellow)
+                        
                         Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle: .number.precision(.fractionLength(0)))))
+
+                        // MARK: - Displays Green to Yellow, which are great zones
 
                         if workoutManager.heartRate < 69 {
                             Image("100")
@@ -100,6 +112,7 @@ struct MetricsView: View {
                         } else if workoutManager.heartRate < 154.1 {
                             Image("63")
                         }
+                        // MARK: - Orange Zone is a sign of something for sure.
                         else if workoutManager.heartRate < 156.4 {
                             Image("62")
                         } else if workoutManager.heartRate < 157.15 {
@@ -177,6 +190,8 @@ struct MetricsView: View {
                         } else if workoutManager.heartRate < 184.15 {
                             Image("25")
                         }
+                        
+                        // MARK: - Red Zone are signs of high stress.
                         else if workoutManager.heartRate < 184.9 {
                             Image("24")
                         } else if workoutManager.heartRate < 185.65 {
@@ -226,65 +241,67 @@ struct MetricsView: View {
                         } else {
                             Image("1")
                         }
-
                         
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
                     }
+                   
                     .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .ignoresSafeArea(edges: .bottom)
                     .scenePadding()
                 }
             }
-            
-            // 2) Stamina Bar, calories daily total, and stamina bar
+            // MARK: Show Stamina Bar, active + resting calories, and HR BPM + its ranges
             else if workoutManager.selectedWorkout == .other {
-                
-                
                 TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
                                                      isPaused: workoutManager.session?.state == .paused)) { context in
+                    // MARK: Stamina Bar Algorithm
                     VStack(alignment: .trailing) {
                         Spacer(minLength: 50)
                         
-                        if workoutManager.heartRate < 69 {
+                        Text("\(totalEnergy, specifier: "%.0f") kcal")
+//                            .font(.largeTitle)
+                        
+                        if workoutManager.heartRate < 65 {
                             Image("100")
-                        } else if workoutManager.heartRate < 71.3 {
+                        } else if workoutManager.heartRate < 67 {
                             Image("99")
-                        } else if workoutManager.heartRate < 73.6 {
+                        } else if workoutManager.heartRate < 69 {
                             Image("98")
-                        } else if workoutManager.heartRate < 75.9 {
+                        } else if workoutManager.heartRate < 71 {
                             Image("97")
-                        } else if workoutManager.heartRate < 78.2 {
+                        } else if workoutManager.heartRate < 73 {
                             Image("96")
-                        } else if workoutManager.heartRate < 80.5 {
+                        } else if workoutManager.heartRate < 74 {
                             Image("95")
-                        } else if workoutManager.heartRate < 82.8 {
+                        } else if workoutManager.heartRate < 75 {
                             Image("94")
-                        } else if workoutManager.heartRate < 85.1 {
+                        } else if workoutManager.heartRate < 77 {
                             Image("93")
-                        } else if workoutManager.heartRate < 87.4 {
+                        } else if workoutManager.heartRate < 79 {
                             Image("92")
-                        } else if workoutManager.heartRate < 89.7 {
+                        } else if workoutManager.heartRate < 80 {
                             Image("91")
-                        } else if workoutManager.heartRate < 92.0 {
+                        } else if workoutManager.heartRate < 81 {
                             Image("90")
-                        } else if workoutManager.heartRate < 94.3 {
+                        } else if workoutManager.heartRate < 82 {
                             Image("89")
-                        } else if workoutManager.heartRate < 96.6 {
+                        } else if workoutManager.heartRate < 83 {
                             Image("88")
-                        } else if workoutManager.heartRate < 98.9 {
+                        } else if workoutManager.heartRate < 84 {
                             Image("87")
-                        } else if workoutManager.heartRate < 101.2 {
+                        } else if workoutManager.heartRate < 85 {
                             Image("86")
-                        } else if workoutManager.heartRate < 103.5 {
+                        } else if workoutManager.heartRate < 86 {
                             Image("85")
-                        } else if workoutManager.heartRate < 105.8 {
+                        } else if workoutManager.heartRate < 87 {
                             Image("84")
-                        } else if workoutManager.heartRate < 108.1 {
+                        } else if workoutManager.heartRate < 88 {
                             Image("83")
-                        } else if workoutManager.heartRate < 110.4 {
+                        } else if workoutManager.heartRate < 89 {
                             Image("82")
-                        } else if workoutManager.heartRate < 112.7 {
+                            // Image to relax.
+                        } else if workoutManager.heartRate < 112 {
                             Image("81")
                         } else if workoutManager.heartRate < 115.0 {
                             Image("80")
@@ -457,6 +474,11 @@ struct MetricsView: View {
                         }
                         
                     }
+                    .onAppear() {
+                        authorizeLegacyHealthKit()
+                        startLegacyActiveEnergyQuery()
+                        startLegacyRestingEnergyQuery()
+                    }
                     
                 }
             }
@@ -465,11 +487,14 @@ struct MetricsView: View {
             else {
                 TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
                                                      isPaused: workoutManager.session?.state == .paused)) { context in
+                    // MARK: Stamina Bar Algorithm
                     VStack(alignment: .leading) {
                         ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
                             .foregroundStyle(.yellow)
                         Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle: .number.precision(.fractionLength(0)))))
+                        
+                      
 
                         if workoutManager.heartRate < 69 {
                             Image("100")
@@ -676,6 +701,7 @@ struct MetricsView: View {
                             Image("1")
                         }                       
                     }
+                  
                     .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .ignoresSafeArea(edges: .bottom)
@@ -683,7 +709,49 @@ struct MetricsView: View {
                 }
             }
         }
-    } // end view
+    }
+    
+    private func authorizeLegacyHealthKit() {
+        let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!
+        legacyHealthStore.requestAuthorization(toShare: nil, read: Set([activeEnergyType, restingEnergyType])) { (success, error) in
+            if success {
+                print("Successfully authorized to read active and resting energy data")
+            } else {
+                print("Failed to authorize to read active and resting energy data: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
+
+    private func startLegacyActiveEnergyQuery() {
+        let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
+        let query = HKStatisticsQuery(quantityType: activeEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in
+            guard let result = result, let sum = result.sumQuantity() else {
+                print("Failed to retrieve active energy data: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            self.legacyActiveEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
+        }
+        legacyHealthStore.execute(query)
+    }
+    
+    private func startLegacyRestingEnergyQuery() {
+        let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
+        let query = HKStatisticsQuery(quantityType: restingEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in
+            guard let result = result, let sum = result.sumQuantity() else {
+                print("Failed to retrieve resting energy data: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            self.legacyRestingEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
+        }
+        legacyHealthStore.execute(query)
+    }
 }
 
 struct MetricsView_Previews: PreviewProvider {
