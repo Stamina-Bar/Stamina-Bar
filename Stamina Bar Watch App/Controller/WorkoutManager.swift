@@ -110,7 +110,7 @@ class WorkoutManager: NSObject, ObservableObject {
 
     // MARK: - Workout Metrics
     @Published var averageHeartRate: Double = 0
-    @Published var heartRate: Double = 0
+//    @Published var averageHeartRate: Double = 0
     @Published var activeEnergy: Double = 0
     @Published var basalEnergy: Double = 0
 //    @Published var maxHeartRate: Double = 0
@@ -124,7 +124,7 @@ class WorkoutManager: NSObject, ObservableObject {
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .heartRate):
                 let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
-                self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
+                self.averageHeartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
                 self.averageHeartRate = statistics.averageQuantity()?.doubleValue(for: heartRateUnit) ?? 0
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
@@ -149,7 +149,7 @@ class WorkoutManager: NSObject, ObservableObject {
         activeEnergy = 0
 //        basalEnergy = 0
         averageHeartRate = 0
-        heartRate = 0
+        averageHeartRate = 0
         distance = 0
     }
 }

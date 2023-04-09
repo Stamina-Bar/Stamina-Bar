@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "StaminaBar_NewIcon.png",
+      "filename" : "stamina_bar_white.png",
       "idiom" : "universal",
       "platform" : "watchos",
       "size" : "1024x1024"
