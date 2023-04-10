@@ -116,10 +116,10 @@
 				DAC10A2429B667E100D3B004 /* Stamina-Bar-Watch-App-Info.plist */,
 				DAA3BCDF29288CA500146F96 /* Stamina Bar Watch App.entitlements */,
 				DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */,
+				DAA3BCD129288C8A00146F96 /* Assets.xcassets */,
 				DAFEE7F929BA455B0027A3D8 /* Views */,
 				DAFEE7F629BA45170027A3D8 /* Controller */,
 				DA346CA029DB3238009DCB4E /* Legacy */,
-				DAA3BCD129288C8A00146F96 /* Assets.xcassets */,
 			);
 			path = "Stamina Bar Watch App";
 			sourceTree = "<group>";
