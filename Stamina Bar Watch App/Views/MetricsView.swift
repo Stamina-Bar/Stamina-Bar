@@ -562,8 +562,6 @@ struct MetricsView: View {
                         Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle: .number.precision(.fractionLength(0)))))
                         
-                      
-
                         if workoutManager.averageHeartRate < 69 {
                             Image("100")
                         } else if workoutManager.averageHeartRate < 71.3 {
