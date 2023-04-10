@@ -14,6 +14,11 @@ struct MetricsView: View {
     @State private var legacyRestingEnergy: Double = 0.0
    
     // Created 04/10/2023
+    @State var heartRateVariability: Double? = nil
+    @State private var vo2Max: Double = 0.0
+    @State private var isLoaded = false
+    @State private var previousVO2Max: Double? = nil
+    
     // create a timer to automatically refresh the reading every 50 minutes
     var totalEnergy: Double {
         return legacyActiveEnergy + legacyRestingEnergy
@@ -328,7 +333,28 @@ struct MetricsView: View {
                             Image(systemName: "flame.fill")
                                 .foregroundColor(.orange)
 
-                        
+                            Divider()
+                            Text("\(Int(heartRateVariability ?? 0))")
+                            Image(systemName: "waveform.path.ecg")
+                                .foregroundColor(.blue)
+                          
+                            Divider()
+
+                            // MARK: VO2 MAX
+                            if !isLoaded {
+                                ProgressView()
+                                    .onAppear(perform: requestAccess)
+                            } else {
+                                HStack {
+//                                    Text("\(previousVO2Max != nil ? String(format: "%.0f", previousVO2Max!) : "N/A")")
+
+                                    Text("\(vo2Max, specifier: "%.0f")")
+                                    if let previousVO2Max = previousVO2Max {
+                                        Image(systemName: previousVO2Max < vo2Max ? "arrow.up" : "arrow.down")
+                                            .foregroundColor(previousVO2Max < vo2Max ? .green : .red)
+                                    }
+                                }
+                            }
                         }
                     
                         
@@ -548,7 +574,7 @@ struct MetricsView: View {
                         authorizeLegacyHealthKit()
                         startLegacyActiveEnergyQuery()
                         startLegacyRestingEnergyQuery()
-                        // fetchHeartRateVariability()
+                        fetchHeartRateVariability()
                     }
 //                    .onReceive(timer) { _ in
 //                    // automatically refresh the heart rate variability reading every 50 minutes
@@ -825,37 +851,63 @@ struct MetricsView: View {
         }
         legacyHealthStore.execute(query)
     }
+
+    #warning("asks authorization x2")
+    func fetchHeartRateVariability() {
+            // check if HealthKit is available on this device
+            guard HKHealthStore.isHealthDataAvailable() else {
+                print("HealthKit is not available on this device")
+                return
+            }
+
+            // request authorization to read heart rate variability data
+            let readTypes: Set<HKObjectType> = [.quantityType(forIdentifier: .heartRateVariabilitySDNN)!]
+            legacyHealthStore.requestAuthorization(toShare: nil, read: readTypes) { (success, error) in
+                if success {
+                    // read the user's latest heart rate variability data
+                    let heartRateVariabilityType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+                    let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+                    let query = HKSampleQuery(sampleType: heartRateVariabilityType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+                        guard let samples = samples as? [HKQuantitySample], let firstSample = samples.first else {
+                            print("No heart rate variability samples available")
+                            return
+                        }
+                        let heartRateVariability = firstSample.quantity.doubleValue(for: .init(from: "ms"))
+                        DispatchQueue.main.async {
+                            self.heartRateVariability = heartRateVariability
+                        }
+                    }
+                    legacyHealthStore.execute(query)
+                } else {
+                    print("Authorization failed")
+                }
+            }
+        }
     
-//    func fetchHeartRateVariability() {
-//            // check if HealthKit is available on this device
-//            guard HKHealthStore.isHealthDataAvailable() else {
-//                print("HealthKit is not available on this device")
-//                return
-//            }
-//
-//            // request authorization to read heart rate variability data
-//            let readTypes: Set<HKObjectType> = [.quantityType(forIdentifier: .heartRateVariabilitySDNN)!]
-//            legacyHealthStore.requestAuthorization(toShare: nil, read: readTypes) { (success, error) in
-//                if success {
-//                    // read the user's latest heart rate variability data
-//                    let heartRateVariabilityType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-//                    let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-//                    let query = HKSampleQuery(sampleType: heartRateVariabilityType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-//                        guard let samples = samples as? [HKQuantitySample], let firstSample = samples.first else {
-//                            print("No heart rate variability samples available")
-//                            return
-//                        }
-//                        let heartRateVariability = firstSample.quantity.doubleValue(for: .init(from: "ms"))
-//                        DispatchQueue.main.async {
-//                            self.heartRateVariability = heartRateVariability
-//                        }
-//                    }
-//                    legacyHealthStore.execute(query)
-//                } else {
-//                    print("Authorization failed")
-//                }
-//            }
-//        }
+    func requestAccess() {
+        let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max)
+        let typesToRead: Set<HKObjectType> = [vo2MaxType!]
+
+        legacyHealthStore.requestAuthorization(toShare: nil, read: typesToRead) { (success, error) in
+            if success {
+                loadVO2Max()
+            } else {
+                print("Unable to read VO2 Max")
+            }
+        }
+    }
+    #warning("asks authorization x2")
+    func loadVO2Max() {
+        let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max)!
+        let sampleQuery = HKSampleQuery(sampleType: vo2MaxType, predicate: nil, limit: 1, sortDescriptors: nil) { (query, results, error) in
+            if let vo2Max = results?.first as? HKQuantitySample {
+                self.previousVO2Max = self.vo2Max
+                self.vo2Max = vo2Max.quantity.doubleValue(for: HKUnit(from: "ml/kg*min"))
+                self.isLoaded = true
+            }
+        }
+        legacyHealthStore.execute(sampleQuery)
+    }
 }
 
 struct MetricsView_Previews: PreviewProvider {
