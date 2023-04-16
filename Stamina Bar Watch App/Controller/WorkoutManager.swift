@@ -73,7 +73,9 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
             HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
-            HKObjectType.activitySummaryType()
+            HKObjectType.activitySummaryType(),
+            HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
+            HKQuantityType(.vo2Max)
         ]
 
         // Request authorization for those quantity types.
@@ -109,11 +111,10 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     // MARK: - Workout Metrics
+    @Published var heartRate: Double = 0
     @Published var averageHeartRate: Double = 0
-//    @Published var averageHeartRate: Double = 0
     @Published var activeEnergy: Double = 0
     @Published var basalEnergy: Double = 0
-//    @Published var maxHeartRate: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
 
@@ -124,7 +125,7 @@ class WorkoutManager: NSObject, ObservableObject {
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .heartRate):
                 let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
-                self.averageHeartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
+                self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
                 self.averageHeartRate = statistics.averageQuantity()?.doubleValue(for: heartRateUnit) ?? 0
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
@@ -148,8 +149,8 @@ class WorkoutManager: NSObject, ObservableObject {
         session = nil
         activeEnergy = 0
 //        basalEnergy = 0
-        averageHeartRate = 0
-        averageHeartRate = 0
+        heartRate = 0
+        heartRate = 0
         distance = 0
     }
 }

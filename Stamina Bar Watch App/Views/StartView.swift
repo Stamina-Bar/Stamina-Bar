@@ -21,12 +21,14 @@ struct WorkoutType: Identifiable {
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
-        WorkoutType(workoutType: .other, imageName: "bolt.heart"),
-        WorkoutType(workoutType: .cycling, imageName: "bicycle"),
-        WorkoutType(workoutType: .running, imageName: "figure.run"),
-        WorkoutType(workoutType: .walking, imageName: "figure.walk"),
-        WorkoutType(workoutType: .yoga, imageName: "figure.cooldown"),
-        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "figure.strengthtraining.traditional")
+        WorkoutType(workoutType: .other, imageName: "custom.staminaBar"),
+        WorkoutType(workoutType: .cycling, imageName: "custom.bike"),
+        WorkoutType(workoutType: .running, imageName: "custom.run"),
+        WorkoutType(workoutType: .walking, imageName: "custom.walk"),
+        WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
+        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
+        WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
+        WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT")
     ]
 
     var body: some View {
@@ -36,7 +38,8 @@ struct StartView: View {
                                tag: workoutType.workoutType,
                                selection: $workoutManager.selectedWorkout) {
                     HStack {
-                        Image(systemName: workoutType.imageName)
+                        Image(workoutType.imageName)
+//                        Image(systemName: workoutType.imageName)
                             .foregroundColor(.red)
                         Text(workoutType.workoutType.name)
                     }
@@ -83,6 +86,10 @@ extension HKWorkoutActivityType: Identifiable {
             return "Yoga"
         case .traditionalStrengthTraining:
             return "Strength Training"
+        case .hiking:
+            return "Hiking"
+        case .highIntensityIntervalTraining:
+            return "High Intensity Interval Training HIIT"
         default:
             return ""
         }

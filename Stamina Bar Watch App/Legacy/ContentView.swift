@@ -5,6 +5,9 @@
 //  Created by Bryce Ellis on 11/18/22.
 //
 
+// MARK: // Legacy Code
+
+
 import SwiftUI
 import HealthKit
 

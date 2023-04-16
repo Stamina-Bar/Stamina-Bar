@@ -45,7 +45,7 @@ struct SummaryView: View {
                                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
                         .foregroundStyle(.pink)
                     SummaryMetricView(title: "Avg. Heart Rate",
-                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
+                                      value: workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                         .foregroundStyle(.red)
                     Text("Avg. Stamina")
                     if workoutManager.averageHeartRate < 69 {
@@ -497,7 +497,7 @@ struct SummaryView: View {
                                                                 numberFormatStyle: .number.precision(.fractionLength(2)))))
                         .foregroundStyle(.pink)
                     SummaryMetricView(title: "Avg. Heart Rate",
-                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
+                                      value: workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                         .foregroundStyle(.red)
                     
                     
