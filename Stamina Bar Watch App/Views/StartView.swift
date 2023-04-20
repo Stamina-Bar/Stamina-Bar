@@ -22,13 +22,14 @@ struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, imageName: "custom.staminaBar"),
-        WorkoutType(workoutType: .cycling, imageName: "custom.bike"),
-        WorkoutType(workoutType: .running, imageName: "custom.run"),
-        WorkoutType(workoutType: .walking, imageName: "custom.walk"),
-        WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
         WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
+        WorkoutType(workoutType: .walking, imageName: "custom.walk"),
+        WorkoutType(workoutType: .running, imageName: "custom.run"),
+//        WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
         WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
-        WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT")
+        WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT"),
+        WorkoutType(workoutType: .cycling, imageName: "custom.bike"),
+
     ]
 
     var body: some View {
@@ -45,10 +46,8 @@ struct StartView: View {
                     }
                     .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
                 }
-                // Adds space to separate Stamina Bar from General Workouts
-                if index == 0 {
-                    Divider()
-                }
+                
+                
             }
         }
         .listStyle(.carousel)

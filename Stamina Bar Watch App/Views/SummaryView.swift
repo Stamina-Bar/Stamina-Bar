@@ -202,7 +202,6 @@ struct SummaryView: View {
                     } else if workoutManager.averageHeartRate < 184.15 {
                         Image("25")
                     }
-
                     else if workoutManager.averageHeartRate < 184.9 {
                         Image("24")
                     } else if workoutManager.averageHeartRate < 185.65 {
