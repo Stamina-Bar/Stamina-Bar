@@ -15,7 +15,6 @@ import WatchKit
 struct SummaryView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.dismiss) var dismiss
-    let staminaBarView = StaminaBarView()
 
     @State private var durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -49,8 +48,7 @@ struct SummaryView: View {
                                       value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                         .foregroundStyle(.red)
                     Text("Avg. Stamina")
-                    (staminaBarView.visualizeHeartRate(data: workoutManager.averageHeartRate) as AnyView)
-                    
+                    //StaminaBarView(data: workoutManager.averageHeartRate)
                     Divider()
                     
                     Button("Done") {
@@ -80,8 +78,7 @@ struct SummaryView: View {
                         .foregroundStyle(.pink)
                     
                     Text("Avg. Stamina")
-                    (staminaBarView.visualizeHeartRate(data: workoutManager.averageHeartRate) as AnyView)
-
+                    //StaminaBarView(data: workoutManager.averageHeartRate)
                     Divider()
                    
                     SummaryMetricView(title: "Total Distance",

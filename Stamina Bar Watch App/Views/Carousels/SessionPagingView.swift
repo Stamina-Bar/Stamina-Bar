@@ -12,19 +12,18 @@ import WatchKit
 struct SessionPagingView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.isLuminanceReduced) var isLuminanceReduced
-    @State private var selection: Tab = .metrics
+    @State private var selection: Tab = .verticalCarousel
 
     enum Tab {
-        case controls, metrics, nowPlaying
+        case controls, verticalCarousel, nowPlaying
     }
-
+    
     var body: some View {
         TabView(selection: $selection) {
-            ControlsView().tag(Tab.controls)
-            MetricsView().tag(Tab.metrics)
-            NowPlayingView().tag(Tab.nowPlaying)
-        }
-        
+                       ControlsView().tag(Tab.controls)
+                       VerticalCarouselView().tag(Tab.verticalCarousel)
+                       NowPlayingView().tag(Tab.nowPlaying)
+                }
         .navigationTitle("Stamina Bar")
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(selection == .nowPlaying)
@@ -39,7 +38,7 @@ struct SessionPagingView: View {
 
     private func displayMetricsView() {
         withAnimation {
-            selection = .metrics
+            selection = .verticalCarousel
         }
     }
 }

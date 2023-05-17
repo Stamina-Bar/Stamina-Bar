@@ -16,6 +16,8 @@ struct ControlsView: View {
             VStack {
                 Button {
                     workoutManager.endWorkout()
+                    HapticManager.stopHaptic()
+
                 } label: {
                     Image(systemName: "xmark")
                 }
@@ -26,6 +28,9 @@ struct ControlsView: View {
             VStack {
                 Button {
                     workoutManager.togglePause()
+                    
+                    workoutManager.running ? HapticManager.stopHaptic() : HapticManager.startHaptic()
+                    
                 } label: {
                     Image(systemName: workoutManager.running ? "pause" : "play")
                 }

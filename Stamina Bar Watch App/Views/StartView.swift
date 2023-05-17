@@ -21,11 +21,11 @@ struct WorkoutType: Identifiable {
 struct StartView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
-        WorkoutType(workoutType: .other, imageName: "custom.staminaBar"),
-        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
+        WorkoutType(workoutType: .other, imageName: "custom.StaminaBar"),
         WorkoutType(workoutType: .walking, imageName: "custom.walk"),
         WorkoutType(workoutType: .running, imageName: "custom.run"),
-//        WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
+        WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
+        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
         WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
         WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT"),
         WorkoutType(workoutType: .cycling, imageName: "custom.bike"),

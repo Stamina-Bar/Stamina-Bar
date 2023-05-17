@@ -25,10 +25,10 @@ class StaminaBarView {
             let imageName: String
             
             switch data {
-                case ..<65:
+                case ..<50:
                     imageName = "100"
                     messageIndex = 0
-                case 65..<67:
+                case 55..<67:
                     imageName = "99"
                     messageIndex = 0
                 case 67..<69:
@@ -332,8 +332,11 @@ class StaminaBarView {
             
             return AnyView(VStack(alignment: .leading) {
                 Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                 Text(message)
                     .font(.system(size: 12))
+            
                     
             })
         }

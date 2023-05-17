@@ -7,17 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA48B42E2A380BE500E9269B /* SetStaminaBarGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48B42D2A380BE500E9269B /* SetStaminaBarGoalView.swift */; };
+		DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */; };
+		DA5CDB062A36C1990089757D /* UserAgeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5CDB052A36C1990089757D /* UserAgeReader.swift */; };
 		DA8E526F29EEF71700DD26AF /* StaminaBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */; };
-		DA8E527029EEF71700DD26AF /* StaminaBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */; };
 		DA8E527229F0D75A00DD26AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */; };
 		DAA3BCC929288C8700146F96 /* Stamina Bar Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAA3BCCE29288C8700146F96 /* Stamina_BarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */; };
 		DAA3BCD229288C8A00146F96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD129288C8A00146F96 /* Assets.xcassets */; };
 		DAA3BCD529288C8A00146F96 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */; };
+		DAB8D2882A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */; };
+		DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8D28B2A21136200333D83 /* HapticManager.swift */; };
 		DAD35EB829F1C4A600E2E782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD129288C8A00146F96 /* Assets.xcassets */; };
 		DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */; };
 		DAD35EC229F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
 		DAD35EC329F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
+		DAEB44242A34E1D10059081C /* HealthKitDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB44232A34E1D10059081C /* HealthKitDataView.swift */; };
 		DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */; };
 		DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83529C54E9D0027A3D8 /* StartView.swift */; };
 		DAFEE83829C54EEA0027A3D8 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */; };
@@ -61,6 +66,9 @@
 /* Begin PBXFileReference section */
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA3D0E0B29E7329F00195530 /* Stamina Bar Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stamina Bar Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA48B42D2A380BE500E9269B /* SetStaminaBarGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetStaminaBarGoalView.swift; sourceTree = "<group>"; };
+		DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCarouselView.swift; sourceTree = "<group>"; };
+		DA5CDB052A36C1990089757D /* UserAgeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgeReader.swift; sourceTree = "<group>"; };
 		DA8E526929EE2BFF00DD26AF /* Stamina Bar Watch AppTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stamina Bar Watch AppTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarView.swift; sourceTree = "<group>"; };
 		DAA3BCC229288C8700146F96 /* Stamina Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,10 +77,12 @@
 		DAA3BCD129288C8A00146F96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		DAA3BCDF29288CA500146F96 /* Stamina Bar Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Stamina Bar Watch App.entitlements"; sourceTree = "<group>"; };
-		DAC10A2429B667E100D3B004 /* Stamina-Bar-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Stamina-Bar-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stamina-Bar-Watch-App-Info.plist"; sourceTree = "<group>"; };
+		DAB8D28B2A21136200333D83 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		DAD35EBC29F1D24E00E2E782 /* Stamina Bar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stamina Bar-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		DAD35EC129F2364700E2E782 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DAEB44232A34E1D10059081C /* HealthKitDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitDataView.swift; sourceTree = "<group>"; };
 		DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		DAFEE83529C54E9D0027A3D8 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
@@ -100,6 +110,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA48B42C2A380B6F00E9269B /* Carousels */ = {
+			isa = PBXGroup;
+			children = (
+				DAEB44232A34E1D10059081C /* HealthKitDataView.swift */,
+				DA48B42D2A380BE500E9269B /* SetStaminaBarGoalView.swift */,
+				DAFEE83929C550380027A3D8 /* SessionPagingView.swift */,
+				DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */,
+			);
+			path = Carousels;
+			sourceTree = "<group>";
+		};
 		DA8E526D29EE2C1400DD26AF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,17 +129,10 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		DA8E527129EEFAB900DD26AF /* Stamina Bar Algorithms */ = {
-			isa = PBXGroup;
-			children = (
-				DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */,
-			);
-			path = "Stamina Bar Algorithms";
-			sourceTree = "<group>";
-		};
 		DAA3BCBB29288C8700146F96 = {
 			isa = PBXGroup;
 			children = (
+				DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */,
 				DAD35EC129F2364700E2E782 /* LICENSE */,
 				DA346CA129DB32F8009DCB4E /* README.md */,
 				DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */,
@@ -142,34 +156,43 @@
 			isa = PBXGroup;
 			children = (
 				DAA3BCD129288C8A00146F96 /* Assets.xcassets */,
-				DAC10A2429B667E100D3B004 /* Stamina-Bar-Watch-App-Info.plist */,
 				DAA3BCDF29288CA500146F96 /* Stamina Bar Watch App.entitlements */,
 				DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */,
 				DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */,
+				DAFEE7F629BA45170027A3D8 /* Model */,
 				DAFEE7F929BA455B0027A3D8 /* Views */,
-				DAFEE7F629BA45170027A3D8 /* Controller */,
+				DAB8D28A2A2111BF00333D83 /* ViewModel */,
 				DA8E526D29EE2C1400DD26AF /* Tests */,
 			);
 			path = "Stamina Bar Watch App";
 			sourceTree = "<group>";
 		};
-		DAFEE7F629BA45170027A3D8 /* Controller */ = {
+		DAB8D28A2A2111BF00333D83 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DAB8D28B2A21136200333D83 /* HapticManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DAFEE7F629BA45170027A3D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */,
+				DA5CDB052A36C1990089757D /* UserAgeReader.swift */,
 				DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */,
 			);
-			path = Controller;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DAFEE7F929BA455B0027A3D8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DA8E527129EEFAB900DD26AF /* Stamina Bar Algorithms */,
-				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
+				DA48B42C2A380B6F00E9269B /* Carousels */,
 				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
 				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
-				DAFEE83929C550380027A3D8 /* SessionPagingView.swift */,
 				DAFEE84129C551610027A3D8 /* MetricsView.swift */,
+				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
 				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
 			);
 			path = Views;
@@ -286,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB8D2882A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist in Resources */,
 				DAD35EC229F2364700E2E782 /* LICENSE in Resources */,
 				DAD35EB829F1C4A600E2E782 /* Assets.xcassets in Resources */,
 				DA8E527229F0D75A00DD26AF /* Preview Assets.xcassets in Resources */,
@@ -309,7 +333,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA8E527029EEF71700DD26AF /* StaminaBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,11 +345,16 @@
 				DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */,
 				DA8E526F29EEF71700DD26AF /* StaminaBarView.swift in Sources */,
 				DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */,
+				DA5CDB062A36C1990089757D /* UserAgeReader.swift in Sources */,
 				DAA3BCCE29288C8700146F96 /* Stamina_BarApp.swift in Sources */,
 				DAFEE83E29C5507A0027A3D8 /* ControlsView.swift in Sources */,
 				DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */,
+				DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */,
+				DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */,
+				DA48B42E2A380BE500E9269B /* SetStaminaBarGoalView.swift in Sources */,
 				DAFEE84229C551610027A3D8 /* MetricsView.swift in Sources */,
 				DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */,
+				DAEB44242A34E1D10059081C /* HealthKitDataView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +486,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Debug;
 		};
@@ -510,6 +539,7 @@
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Release;
 		};
@@ -521,7 +551,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.8;
+				CURRENT_PROJECT_VERSION = 1.7;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -536,7 +566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.8;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -557,7 +587,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.8;
+				CURRENT_PROJECT_VERSION = 1.7;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -572,7 +602,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.8;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -592,7 +622,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.6.8;
+				CURRENT_PROJECT_VERSION = 1.6.9;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -601,7 +631,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.8;
+				MARKETING_VERSION = 1.6.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -617,7 +647,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.6.8;
+				CURRENT_PROJECT_VERSION = 1.6.9;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -626,7 +656,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.8;
+				MARKETING_VERSION = 1.6.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

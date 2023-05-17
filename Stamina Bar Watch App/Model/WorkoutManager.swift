@@ -75,7 +75,7 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
             HKObjectType.activitySummaryType(),
             HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
-            HKQuantityType(.vo2Max)
+            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
         ]
 
         // Request authorization for those quantity types.
@@ -130,10 +130,10 @@ class WorkoutManager: NSObject, ObservableObject {
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
                 self.activeEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
-            case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
+            case HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
                 self.basalEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
-            case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning), HKQuantityType.quantityType(forIdentifier: .distanceCycling):
+            case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning), HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning):
                 let mileUnit = HKUnit.mile()
                 self.distance = statistics.sumQuantity()?.doubleValue(for: mileUnit) ?? 0
             default:
@@ -148,7 +148,7 @@ class WorkoutManager: NSObject, ObservableObject {
         workout = nil
         session = nil
         activeEnergy = 0
-//        basalEnergy = 0
+        basalEnergy = 0
         heartRate = 0
         heartRate = 0
         distance = 0
@@ -178,6 +178,8 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
     func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
 
     }
+    
+    
 }
 
 // MARK: - HKLiveWorkoutBuilderDelegate
