@@ -10,43 +10,90 @@ import SwiftUI
 import HealthKit
 
 struct HealthKitDataView: View {
-    
-    @State private var userAge: Int = 0
+    @EnvironmentObject var workoutManager: WorkoutManager
+
+    // Data Fields
     let legacyHealthStore = HKHealthStore()
-    @State private var isPremiumFeaturesHidden = true
     @State private var legacyRestingEnergy: Double = 0.0
     @State private var legacyActiveEnergy: Double = 0.0
+    @State private var previousVO2Max: Double? = nil
     @State var heartRateVariability: Double? = nil
+    @State private var isLoaded: Bool = false
+    @State private var vo2Max: Double = 0.0
+    @State private var userAge: Int = 0
+    @State private var timer: Timer?
 
+    
     var body: some View {
-        VStack {
-            //Age
-            VStack {
-                Text("Daily Cals")
-                Text("HRV")
-                Text("User age: \(userAge)")
-                    .onAppear {
-                        UserAgeReader.getUserAge { (age, error) in
-                            if let age = age {
-                                self.userAge = age
-                            } else {
-                                // Handle error here
-                            }
-                        }
-                    }
+        VStack (alignment: .leading) {
+            // HRV
+            HStack {
+                Image(systemName: "waveform.path.ecg")
+                    .foregroundColor(.blue)
+                Text("HRV: ")
+                Text("\(Int(heartRateVariability ?? 143))")
+            } ; Divider()
+            
+            HStack {
+                Image(systemName: "flame.fill")
+                    .foregroundColor(.orange)
+                Text("Total Cals: ")
+                Text("\(getTotalEnergy)")
+            } ; Divider()
+        
+            if workoutManager.selectedWorkout == .other {
+                HStack {
+                    Image(systemName: "flame.fill")
+                        .foregroundColor(.red)
+                    Text("Cals: 99")
+//                    Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+//                        .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+//                                .number.precision(.fractionLength(0)))))
+
+                } ; Divider()
             }
+        
+          
+            
+            
+            HStack {
+                Image(systemName: "lungs.fill")
+                    .foregroundColor(.green)
+                Text("VO2 MAX: ")
+                Text(vo2Max == 0 ? "49" : String(format: "%.0f", vo2Max))
+            }
+                        
+//            Text("User age: \(userAge)")
+//                .onAppear {
+//                    UserAgeReader.getUserAge { (age, error) in
+//                        if let age = age {
+//                            self.userAge = age
+//                        } else {
+//                            // Handle error here
+//                        }
+//                    }
+//                }
+        }
+        .onAppear {
+            // get HRV
+            startLegacyRestingEnergyQuery()
+            startLegacyActiveEnergyQuery()
+            fetchHeartRateVariability()
+            loadVO2Max()
+            startTimer()
         }
     }
-    
+
     // MARK: Functions
-    var totalEnergy: String {
+    var getTotalEnergy: String {
         let total = legacyActiveEnergy + legacyRestingEnergy
+        // Formats 999 to 1.0K, 2.7K, 12.2K etc
         if total >= 1000 {
-            let remainder = total.truncatingRemainder(dividingBy: 1000.0) // get the remainder after dividing by 1000
+            let remainder = total.truncatingRemainder(dividingBy: 1000.0)
             let thousands = Int(total / 1000.0) // get the number of thousands
-            if remainder == 0 { // if there's no remainder, just display the thousands value and "K"
+            if remainder == 0 {
                 return "\(thousands)K"
-            } else { // otherwise, display the thousands value and the remainder with one decimal point and "K"
+            } else {
                 return "\(thousands).\(Int(remainder / 100.0))K"
             }
         } else {
@@ -54,7 +101,6 @@ struct HealthKitDataView: View {
         }
     }
 
-    
     // Execute query to read HRV
     func fetchHeartRateVariability() {
             // check if HealthKit is available on this device
@@ -109,6 +155,31 @@ struct HealthKitDataView: View {
         }
         legacyHealthStore.execute(query)
     }
+    
+    func loadVO2Max() {
+            let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max)!
+            let sampleQuery = HKSampleQuery(sampleType: vo2MaxType, predicate: nil, limit: 1, sortDescriptors: nil) { (query, results, error) in
+                if let vo2Max = results?.first as? HKQuantitySample {
+                    self.previousVO2Max = self.vo2Max
+                    self.vo2Max = vo2Max.quantity.doubleValue(for: HKUnit(from: "ml/kg*min"))
+                    self.isLoaded = true
+                }
+            }
+            legacyHealthStore.execute(sampleQuery)
+        }
+    
+    // Get's HRV every 10 min
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
+            fetchHeartRateVariability()
+            HapticManager.successHaptic()
+            timer?.invalidate()
+            timer = nil
+            startTimer() // Start a new timer after each trigger
+            
+        }
+    }
+
     
     
     

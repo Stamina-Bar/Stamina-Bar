@@ -16,6 +16,7 @@ struct SetStaminaBarGoalView: View {
     var body: some View {
         
         VStack {
+            Text("Set Stamina Goal")
             Image("\(Int(staminaPercentage))")
                 .resizable()
                 .aspectRatio(contentMode: .fit)

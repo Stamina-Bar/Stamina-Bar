@@ -10,17 +10,17 @@ import SwiftUI
 
 struct VerticalCarouselView: View {
     @State private var carouselSelection = 0
-    @EnvironmentObject var workoutManager: WorkoutManager
-
+    
     var body: some View {
-        TabView(selection: $carouselSelection) {
-            MetricsView()
-                .tag(0)
-//            HealthKitDataView()
-//                .tag(1)
-            SetStaminaBarGoalView()
-                .tag(1)
-        }
-        .tabViewStyle(.carousel)
+            TabView(selection: $carouselSelection) {
+                MetricsView()
+                    .tag(0)
+                HealthKitDataView()
+                    .tag(1)
+                SetStaminaBarGoalView()
+                    .tag(2)
+            }
+            .tabViewStyle(.carousel)
+        
     }
 }

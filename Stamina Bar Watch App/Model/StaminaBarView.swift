@@ -320,7 +320,7 @@ class StaminaBarView {
                 case 167..<168:
                     messageIndex = 1
                     imageName = "2"
-                case 167..<169:
+                case 167..<200:
                     messageIndex = 1
                     imageName = "1"
 

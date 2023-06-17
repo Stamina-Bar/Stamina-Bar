@@ -19,8 +19,7 @@ struct MetricsView: View {
     var body: some View {
             // MARK: Stamina Bar selected
             if workoutManager.selectedWorkout == .other {
-                TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
-                                                     isPaused: workoutManager.session?.state == .paused)) { context in
+                TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
                         // Stamina Bar and Heart Rate
                         VStack (alignment: .trailing) {
                             (staminaBarView.visualizeHeartRate(data: workoutManager.heartRate) as AnyView)
@@ -56,46 +55,40 @@ struct MetricsView: View {
                         // Timer
                         ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
                             .foregroundStyle(.yellow)
-                            .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                           .frame(maxWidth: .infinity, alignment: .leading)
-                                           .ignoresSafeArea(edges: .bottom)
-                                           
-                                           .scenePadding()
+                            .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .ignoresSafeArea(edges: .bottom)
+                            .scenePadding()
                         // Active Energy
                         Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
                                     .number.precision(.fractionLength(0)))))
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                       .frame(maxWidth: .infinity, alignment: .leading)
-                                       .ignoresSafeArea(edges: .bottom)
-                                       .scenePadding()
+                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .ignoresSafeArea(edges: .bottom)
+                        .scenePadding()
                         // Stamina Bar
                         (staminaBarView.visualizeHeartRate(data: workoutManager.heartRate) as AnyView)
-
-                        // Distance
-                        
-                        if workoutManager.distance < 1000 {
+                        // Distance and Proper formatting of it.
+                        if workoutManager.distance < 0.5 {
                             Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .ignoresSafeArea(edges: .bottom)
                                 .scenePadding()
-                        }
-                        
-                        else {
+                        } else {
                             Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                                 .ignoresSafeArea(edges: .bottom)
-                                                 .scenePadding()
+                                .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .ignoresSafeArea(edges: .bottom)
+                                .scenePadding()
+                            }
                         }
+
                     }
-                    
                 }
             }
-        
-        
-    }
+    } // End SwiftUI View
     
     // Default code
     struct MetricsView_Previews: PreviewProvider {
@@ -127,4 +120,3 @@ struct MetricsView: View {
         
     }
     
-}
