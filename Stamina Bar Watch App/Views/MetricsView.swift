@@ -15,70 +15,75 @@ struct MetricsView: View {
     
     let staminaBarView = StaminaBarView()
     
-    
     var body: some View {
             // MARK: Stamina Bar selected
-            if workoutManager.selectedWorkout == .other {
+            if workoutManager.selectedWorkout == .other || workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
                 TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
                         // Stamina Bar and Heart Rate
                         VStack (alignment: .trailing) {
+                            // Timer
+                            ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                                .foregroundStyle(.white)
+                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                //.ignoresSafeArea(edges: .bottom)
+                                .scenePadding()
                             (staminaBarView.visualizeHeartRate(data: workoutManager.heartRate) as AnyView)
                             HStack {
                                 Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
+                                    .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                    .fontWeight(.bold)
+
                                 Image(systemName: "heart.fill")
                                     .foregroundColor(.red)
                             }
                         }
                     
-                    .onChange(of: scenePhase) { newScenePhase in
-                        switch newScenePhase {
-                        case .background:
-                            workoutManager.togglePause()
-                            HapticManager.failureHaptic()
-                            // pauseworkout
-                        case .inactive:
-                            workoutManager.togglePause()
-                        case .active:
-                            print("App is active!")
-                        @unknown default:
-                            print("Unknown")
-                        }
-                    }
                 }
             } // end stamina bar selected
             
-            // MARK: Indoor workout selected
             else {
                 TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
                                                      isPaused: workoutManager.session?.state == .paused)) { context in
                     VStack(alignment: .leading) {
                         // Timer
                         ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
-                            .foregroundStyle(.yellow)
+                            .foregroundStyle(.white)
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
                         // Active Energy
-                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                    .number.precision(.fractionLength(0)))))
-                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .ignoresSafeArea(edges: .bottom)
-                        .scenePadding()
+//                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+//                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+//                                    .number.precision(.fractionLength(0)))))
+//                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .ignoresSafeArea(edges: .bottom)
+//                        .scenePadding()
                         // Stamina Bar
                         (staminaBarView.visualizeHeartRate(data: workoutManager.heartRate) as AnyView)
+                        HStack {
+                            Spacer()
+                            Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
+                                .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .fontWeight(.bold)
+
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(.red)
+                        }
                         // Distance and Proper formatting of it.
                         if workoutManager.distance < 0.5 {
                             Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                                .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .fontWeight(.bold)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .ignoresSafeArea(edges: .bottom)
                                 .scenePadding()
                         } else {
                             Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                                .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .fontWeight(.bold)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .ignoresSafeArea(edges: .bottom)
                                 .scenePadding()

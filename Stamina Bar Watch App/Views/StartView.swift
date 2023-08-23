@@ -23,12 +23,12 @@ struct StartView: View {
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, imageName: "custom.StaminaBar"),
         WorkoutType(workoutType: .walking, imageName: "custom.walk"),
-        WorkoutType(workoutType: .running, imageName: "custom.run"),
         WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
-        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
-        WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
-        WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT"),
+        WorkoutType(workoutType: .running, imageName: "custom.run"),
         WorkoutType(workoutType: .cycling, imageName: "custom.bike"),
+        WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
+        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
+
 
     ]
 
@@ -45,9 +45,7 @@ struct StartView: View {
                         Text(workoutType.workoutType.name)
                     }
                     .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                }
-                
-                
+                }                
             }
         }
         .listStyle(.carousel)
@@ -74,9 +72,9 @@ extension HKWorkoutActivityType: Identifiable {
     var name: String {
         switch self {
         case .other:
-            return "Stamina Bar"
+            return "Any"
         case .running:
-            return "Run"
+            return "Jog"
         case .cycling:
             return "Bike"
         case .walking:
@@ -84,11 +82,9 @@ extension HKWorkoutActivityType: Identifiable {
         case .yoga:
             return "Yoga"
         case .traditionalStrengthTraining:
-            return "Strength Training"
+            return "Weights"
         case .hiking:
-            return "Hiking"
-        case .highIntensityIntervalTraining:
-            return "High Intensity Interval Training HIIT"
+            return "Hike"
         default:
             return ""
         }

@@ -22,57 +22,41 @@ struct HealthKitDataView: View {
     @State private var vo2Max: Double = 0.0
     @State private var userAge: Int = 0
     @State private var timer: Timer?
-
     
     var body: some View {
         VStack (alignment: .leading) {
-            // HRV
             HStack {
-                Image(systemName: "waveform.path.ecg")
-                    .foregroundColor(.blue)
-                Text("HRV: ")
-                Text("\(Int(heartRateVariability ?? 143))")
+                Image(systemName: "flame.fill")
+                    .foregroundColor(.red)
+                Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+                    .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+                            .number.precision(.fractionLength(0)))))
             } ; Divider()
-            
+        
             HStack {
                 Image(systemName: "flame.fill")
                     .foregroundColor(.orange)
-                Text("Total Cals: ")
+                Text("Daily Cals: ")
                 Text("\(getTotalEnergy)")
             } ; Divider()
         
-            if workoutManager.selectedWorkout == .other {
-                HStack {
-                    Image(systemName: "flame.fill")
-                        .foregroundColor(.red)
-                    Text("Cals: 99")
-//                    Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-//                        .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-//                                .number.precision(.fractionLength(0)))))
-
-                } ; Divider()
-            }
+            
+            // HRV
+           
         
-          
-            
-            
             HStack {
                 Image(systemName: "lungs.fill")
                     .foregroundColor(.green)
                 Text("VO2 MAX: ")
-                Text(vo2Max == 0 ? "49" : String(format: "%.0f", vo2Max))
+                Text(vo2Max == 0 ? "0" : String(format: "%.1f", vo2Max))
             }
-                        
-//            Text("User age: \(userAge)")
-//                .onAppear {
-//                    UserAgeReader.getUserAge { (age, error) in
-//                        if let age = age {
-//                            self.userAge = age
-//                        } else {
-//                            // Handle error here
-//                        }
-//                    }
-//                }
+            Divider()
+            HStack {
+                Image(systemName: "waveform.path.ecg")
+                    .foregroundColor(.blue)
+                Text("HRV: ")
+                Text("\(Int(heartRateVariability ?? 0))")
+            }
         }
         .onAppear {
             // get HRV
@@ -157,32 +141,32 @@ struct HealthKitDataView: View {
     }
     
     func loadVO2Max() {
-            let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max)!
-            let sampleQuery = HKSampleQuery(sampleType: vo2MaxType, predicate: nil, limit: 1, sortDescriptors: nil) { (query, results, error) in
-                if let vo2Max = results?.first as? HKQuantitySample {
-                    self.previousVO2Max = self.vo2Max
-                    self.vo2Max = vo2Max.quantity.doubleValue(for: HKUnit(from: "ml/kg*min"))
-                    self.isLoaded = true
-                }
+        let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max)!
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        let query = HKSampleQuery(sampleType: vo2MaxType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { (query, results, error) in
+            if let vo2Max = results?.first as? HKQuantitySample {
+                self.previousVO2Max = self.vo2Max
+                self.vo2Max = vo2Max.quantity.doubleValue(for: HKUnit(from: "ml/kg*min"))
+                self.isLoaded = true
+            } else {
+                print("Failed to retrieve VO2 Max data: \(error?.localizedDescription ?? "Unknown error")")
             }
-            legacyHealthStore.execute(sampleQuery)
         }
+        legacyHealthStore.execute(query)
+    }
+
     
-    // Get's HRV every 10 min
+    // Get's HRV every 1 min
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
             fetchHeartRateVariability()
-            HapticManager.successHaptic()
+            //HapticManager.successHaptic()
             timer?.invalidate()
             timer = nil
             startTimer() // Start a new timer after each trigger
             
         }
     }
-
-    
-    
-    
 }
 
 

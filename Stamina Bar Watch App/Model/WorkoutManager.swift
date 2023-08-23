@@ -75,6 +75,7 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
             HKObjectType.activitySummaryType(),
             HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
+            HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
             HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
         ]
 
