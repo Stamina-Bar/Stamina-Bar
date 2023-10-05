@@ -40,10 +40,6 @@ struct HealthKitDataView: View {
                 Text("\(getTotalEnergy)")
             } ; Divider()
         
-            
-            // HRV
-           
-        
             HStack {
                 Image(systemName: "lungs.fill")
                     .foregroundColor(.green)
@@ -156,9 +152,9 @@ struct HealthKitDataView: View {
     }
 
     
-    // Get's HRV every 1 min
+    // Get's HRV every 50 min
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 3000, repeats: true) { _ in
             fetchHeartRateVariability()
             //HapticManager.successHaptic()
             timer?.invalidate()

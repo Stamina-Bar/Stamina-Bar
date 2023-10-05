@@ -50,7 +50,7 @@ struct SummaryView: View {
                         .foregroundStyle(.red)
                     Text("Avg. Stamina")
                     //StaminaBarView(data: workoutManager.averageHeartRate)
-                    (staminaBarView.visualizeHeartRate(data: workoutManager.averageHeartRate) as AnyView)
+                    (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
                     Divider()
                     
                     Button("Done") {
@@ -80,7 +80,7 @@ struct SummaryView: View {
                         .foregroundStyle(.pink)
                     
                     Text("Avg. Stamina")
-                    (staminaBarView.visualizeHeartRate(data: workoutManager.heartRate) as AnyView)
+                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     Divider()
                    
                     SummaryMetricView(title: "Total Distance",
