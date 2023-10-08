@@ -4,7 +4,7 @@
 //
 //  Created by Bryce Ellis on 3/17/23.
 
-// MARK: - Helper View to allow swipe gestures between the three main Tabs
+// MARK: - Horizontal swipe gestures between the three main Tabs
 
 import SwiftUI
 import WatchKit

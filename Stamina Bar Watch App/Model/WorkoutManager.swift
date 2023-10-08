@@ -68,15 +68,16 @@ class WorkoutManager: NSObject, ObservableObject {
 
         // The quantity types to read from the health store.
         let typesToRead: Set = [
-            HKQuantityType.quantityType(forIdentifier: .heartRate)!,
-            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
-            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
-            HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
-            HKObjectType.activitySummaryType(),
             HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
+            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
+            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!,
+            HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
+            HKQuantityType.quantityType(forIdentifier: .heartRate)!,
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
             HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
-            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
+            HKObjectType.activitySummaryType()
         ]
 
         // Request authorization for those quantity types.
