@@ -1,24 +1,25 @@
 //
-//  MetricsView.swift
+//  StepCountView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 3/17/23.
+//  Created by Bryce Ellis on 10/8/23.
 //
 
+import Foundation
 import SwiftUI
 import HealthKit
     // CHANGE
-struct MetricsView: View {
+struct StepCountView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
-
+    @Environment(\.scenePhase) private var scenePhase
+    let legacyHealthStore = HKHealthStore()
     @State private var legacyRestingEnergy: Double = 0.0
     @State private var legacyActiveEnergy: Double = 0.0
-    @Environment(\.scenePhase) private var scenePhase
     @State private var previousVO2Max: Double? = nil
+    @State private var getStepCount: Int = 0
     @State var heartRateVariability: Double? = nil
     @State private var isLoaded: Bool = false
-    let legacyHealthStore = HKHealthStore()
     @State private var vo2Max: Double = 0.0
     @State private var userAge: Int = 0
     @State private var timer: Timer?
@@ -32,7 +33,7 @@ struct MetricsView: View {
                         // Stamina Bar and Heart Rate
                         VStack (alignment: .trailing) {
                             // Timer
-                            ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
+                            ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
                                 .foregroundStyle(.white)
                                 .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,12 +45,15 @@ struct MetricsView: View {
                             
                             // TODO: Modify these for your vertical scrolls
                             HStack {
-                                Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                                    .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                    .fontWeight(.bold)
+                                Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+                                    .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+                                            .number.precision(.fractionLength(0)))))
+                                .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .fontWeight(.bold)
 
-                                Image(systemName: "heart.fill")
-                                    .foregroundColor(.red)
+
+                                Image(systemName: "flame.fill")
+                                    .foregroundColor(.orange)
                             }
                         } .onAppear {
                             endProlongedWorkout()
@@ -57,7 +61,6 @@ struct MetricsView: View {
                     
                 }
             } // end stamina bar selected
-        
         
         
         else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
@@ -75,32 +78,33 @@ struct MetricsView: View {
                         
                         // CHANGE HERE
                         HStack {
-                            Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                                .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                .fontWeight(.bold)
+                            Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+                                .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+                                        .number.precision(.fractionLength(0)))))
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .fontWeight(.bold)
 
-                            // Change Here
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(.red)
+
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(.orange)
                         }
                     }
             }
-        }
+        } // end
         
         
-            
-            else {
-                TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
-                                                     isPaused: workoutManager.session?.state == .paused)) { context in
-                    VStack(alignment: .leading) {
-                        // Timer
-                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
-                            .foregroundStyle(.white)
-                            .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                        // Active Energy
+        else {
+            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
+                                                 isPaused: workoutManager.session?.state == .paused)) { context in
+                VStack(alignment: .leading) {
+                    // Timer
+                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                        .foregroundStyle(.white)
+                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .ignoresSafeArea(edges: .bottom)
+                        .scenePadding()
+                    // Active Energy
 //                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
 //                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
 //                                    .number.precision(.fractionLength(0)))))
@@ -108,43 +112,47 @@ struct MetricsView: View {
 //                        .frame(maxWidth: .infinity, alignment: .leading)
 //                        .ignoresSafeArea(edges: .bottom)
 //                        .scenePadding()
-                        // Stamina Bar
-                        (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                        HStack {
-                            Spacer()
-                            // CHANGE HERE
-                            Text(
-workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    // Stamina Bar
+                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
+                    HStack {
+                        Spacer()
+                        // CHANGE HERE
+                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+                                    .number.precision(.fractionLength(0)))))
+                        .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                        .fontWeight(.bold)
+
+
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.orange)
+                    }
+                    
+                    
+                    // AXE
+                    // Distance and Proper formatting of it.
+                    if workoutManager.distance < 0.5 {
+                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
+                            .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.bold)
-
-                            // CHANGE HERE
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(.red)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .ignoresSafeArea(edges: .bottom)
+                            .scenePadding()
+                    } else {
+                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
+                            .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .ignoresSafeArea(edges: .bottom)
+                            .scenePadding()
                         }
-                        
-                        
-                        // AXE
-                        // Distance and Proper formatting of it.
-                        if workoutManager.distance < 0.5 {
-                            Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .ignoresSafeArea(edges: .bottom)
-                                .scenePadding()
-                        } else {
-                            Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                                .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .ignoresSafeArea(edges: .bottom)
-                                .scenePadding()
-                            }
-                    }
-
-                    }
                 }
+
+                }
+            }
+        
+        
+                
     }
     
     func endProlongedWorkout() {
@@ -254,13 +262,53 @@ workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BP
         }
     }
 
+    // Get's current step count
+    func fetchStepCount() {
+           // Check if HealthKit is available on the device
+           guard HKHealthStore.isHealthDataAvailable() else {
+               print("HealthKit is not available on this device.")
+               return
+           }
+
+           // Define the HealthKit type you want to read (step count)
+           let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+
+           // Set the time range for which you want to fetch step count (today)
+           let calendar = Calendar.current
+           let now = Date()
+           let startOfDay = calendar.startOfDay(for: now)
+           let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+
+           // Build the query
+           let query = HKStatisticsQuery(quantityType: stepCountType,
+                                         quantitySamplePredicate: predicate,
+                                         options: .cumulativeSum) { query, result, error in
+               guard let result = result, let sum = result.sumQuantity() else {
+                   print("Error fetching step count. Error: \(error?.localizedDescription ?? "Unknown error")")
+                   return
+               }
+
+               // Update UI on the main thread
+               DispatchQueue.main.async {
+                   self.getStepCount = Int(sum.doubleValue(for: .count()))
+               }
+           }
+
+           // Execute the query
+           HKHealthStore().execute(query)
+       }
+
+
+
+    
 } // End SwiftUI View
     
     // Default code
-    struct MetricsView_Previews: PreviewProvider {
+    // Change
+    struct StepCountView_Previews: PreviewProvider {
         static var previews: some View {
             // CHANGE
-            MetricsView().environmentObject(WorkoutManager())
+            StepCountView().environmentObject(WorkoutManager())
         }
     }
     

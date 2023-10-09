@@ -17,6 +17,7 @@ struct DistanceView: View {
     @State private var legacyRestingEnergy: Double = 0.0
     @State private var legacyActiveEnergy: Double = 0.0
     @State private var previousVO2Max: Double? = nil
+    @State private var getStepCount: Int = 0
     @State var heartRateVariability: Double? = nil
     @State private var isLoaded: Bool = false
     @State private var vo2Max: Double = 0.0
