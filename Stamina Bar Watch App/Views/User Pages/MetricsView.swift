@@ -60,12 +60,12 @@ struct MetricsView: View {
         
         
         
-        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
+        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining || workoutManager.selectedWorkout == .highIntensityIntervalTraining {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
                     // Stamina Bar and Heart Rate
                     VStack (alignment: .trailing) {
                         // Timer
-                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                             .foregroundStyle(.white)
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -94,7 +94,7 @@ struct MetricsView: View {
                                                      isPaused: workoutManager.session?.state == .paused)) { context in
                     VStack(alignment: .leading) {
                         // Timer
-                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                             .foregroundStyle(.white)
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .frame(maxWidth: .infinity, alignment: .leading)

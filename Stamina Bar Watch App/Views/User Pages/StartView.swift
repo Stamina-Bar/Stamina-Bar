@@ -32,7 +32,7 @@ struct StartView: View {
         WorkoutType(workoutType: .cycling, imageName: "custom.bike"),
         WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
         WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT"),
-        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining"),
+        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining")
     ]
 
     var body: some View {

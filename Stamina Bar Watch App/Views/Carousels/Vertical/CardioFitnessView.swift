@@ -1,15 +1,15 @@
 //
-//  StepCountView.swift
+//  CardioFitnessView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 10/8/23.
-//  refractor unused data
+//  Created by Bryce Ellis on 10/10/23.
+//
 
-import Foundation
+
 import SwiftUI
 import HealthKit
     // CHANGE
-struct StepCountView: View {
+struct CardioFitnessView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
@@ -45,16 +45,18 @@ struct StepCountView: View {
                             
                             // TODO: Modify these for your vertical scrolls
                             HStack {
-                                Text("\(getStepCount) Steps")
+
+                                Text("\(vo2Max == 0 ? "0" : String(format: "%.1f", vo2Max)) V02 max")
                                 .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                                 .fontWeight(.bold)
+                                
+                                Image(systemName: "lungs.fill")
+                                    .foregroundColor(.green)
 
-
-                                Image(systemName: "figure.walk")
-                                    .foregroundColor(.blue)
                             }
                         } .onAppear {
-                            fetchStepCount()
+                            loadVO2Max()
+
                             endProlongedWorkout()
                         }
                     
@@ -77,18 +79,18 @@ struct StepCountView: View {
                         
                         // CHANGE HERE
                         HStack {
-                            Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                                .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                        .number.precision(.fractionLength(0)))))
+                            
+                            Text("\(vo2Max == 0 ? "0" : String(format: "%.1f", vo2Max)) V02 max")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.bold)
-
-
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
+                            Image(systemName: "lungs.fill")
+                                .foregroundColor(.green)
+                           
+                            
                         }
                     } .onAppear {
-                        fetchStepCount()
+                        loadVO2Max()
+
                         endProlongedWorkout()
                     }
             }
@@ -106,28 +108,17 @@ struct StepCountView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .ignoresSafeArea(edges: .bottom)
                         .scenePadding()
-                    // Active Energy
-//                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-//                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-//                                    .number.precision(.fractionLength(0)))))
-//                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .ignoresSafeArea(edges: .bottom)
-//                        .scenePadding()
-                    // Stamina Bar
+
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
-                        Spacer()
-                        // CHANGE HERE
-                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                    .number.precision(.fractionLength(0)))))
+                        
+                        Text("\(vo2Max == 0 ? "0" : String(format: "%.1f", vo2Max)) V02 max")
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .fontWeight(.bold)
-
-
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.orange)
+                        Image(systemName: "lungs.fill")
+                            .foregroundColor(.green)
+                     
+                        
                     }
                     
                     
@@ -149,7 +140,7 @@ struct StepCountView: View {
                             .scenePadding()
                         }
                 } .onAppear {
-                    fetchStepCount()
+                    loadVO2Max()
                     endProlongedWorkout()
                 }
 
@@ -310,10 +301,10 @@ struct StepCountView: View {
     
     // Default code
     // Change
-    struct StepCountView_Previews: PreviewProvider {
+    struct CardioFitnessView_Previews: PreviewProvider {
         static var previews: some View {
             // CHANGE
-            StepCountView().environmentObject(WorkoutManager())
+            CardioFitnessView().environmentObject(WorkoutManager())
         }
     }
     

@@ -1,15 +1,14 @@
 //
-//  DistanceView.swift
+//  HeartRateVariabilityView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 10/7/23.
+//  Created by Bryce Ellis on 10/10/23.
 //
-
 
 import SwiftUI
 import HealthKit
     // CHANGE
-struct DistanceView: View {
+struct HeartRateVariabilityView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
@@ -33,7 +32,7 @@ struct DistanceView: View {
                         // Stamina Bar and Heart Rate
                         VStack (alignment: .trailing) {
                             // Timer
-                            ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                            ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                                 .foregroundStyle(.white)
                                 .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -45,17 +44,15 @@ struct DistanceView: View {
                             
                             // TODO: Modify these for your vertical scrolls
                             HStack {
-                                Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                                    .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                            .number.precision(.fractionLength(0)))))
-                                .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                                .fontWeight(.bold)
+                                Text("\(Int(heartRateVariability ?? 0)) HRV")
+                                    .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                    .fontWeight(.bold)
+                                Image(systemName: "waveform.path.ecg")
+                                    .foregroundColor(.blue)
 
-
-                                Image(systemName: "flame.fill")
-                                    .foregroundColor(.orange)
                             }
                         } .onAppear {
+                            fetchHeartRateVariability()
                             endProlongedWorkout()
                         }
                     
@@ -63,12 +60,12 @@ struct DistanceView: View {
             } // end stamina bar selected
         
         
-        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
+        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining || workoutManager.selectedWorkout == .highIntensityIntervalTraining {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
                     // Stamina Bar and Heart Rate
                     VStack (alignment: .trailing) {
                         // Timer
-                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                        ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                             .foregroundStyle(.white)
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,16 +75,16 @@ struct DistanceView: View {
                         
                         // CHANGE HERE
                         HStack {
-                            Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                                .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                        .number.precision(.fractionLength(0)))))
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+                            Text("\(Int(heartRateVariability ?? 0)) HRV")
+                                .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .fontWeight(.bold)
+                            Image(systemName: "waveform.path.ecg")
+                                .foregroundColor(.blue)
 
-
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
                         }
+                    } .onAppear {
+                        fetchHeartRateVariability()
+                        endProlongedWorkout()
                     }
             }
         } // end
@@ -98,34 +95,21 @@ struct DistanceView: View {
                                                  isPaused: workoutManager.session?.state == .paused)) { context in
                 VStack(alignment: .leading) {
                     // Timer
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: context.cadence == .live)
+                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .ignoresSafeArea(edges: .bottom)
                         .scenePadding()
-                    // Active Energy
-//                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-//                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-//                                    .number.precision(.fractionLength(0)))))
-//                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .ignoresSafeArea(edges: .bottom)
-//                        .scenePadding()
-                    // Stamina Bar
+
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
-                        Spacer()
-                        // CHANGE HERE
-                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                    .number.precision(.fractionLength(0)))))
-                        .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .fontWeight(.bold)
+                        Text("\(Int(heartRateVariability ?? 0)) HRV")
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .fontWeight(.bold)
+                        Image(systemName: "waveform.path.ecg")
+                            .foregroundColor(.blue)
 
-
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.orange)
                     }
                     
                     
@@ -146,6 +130,9 @@ struct DistanceView: View {
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
                         }
+                } .onAppear {
+                    fetchHeartRateVariability()
+                    endProlongedWorkout()
                 }
 
                 }
@@ -262,6 +249,41 @@ struct DistanceView: View {
         }
     }
 
+    // Get's current step count
+    func fetchStepCount() {
+           // Check if HealthKit is available on the device
+           guard HKHealthStore.isHealthDataAvailable() else {
+               print("HealthKit is not available on this device.")
+               return
+           }
+
+           // Define the HealthKit type you want to read (step count)
+           let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+
+           // Set the time range for which you want to fetch step count (today)
+           let calendar = Calendar.current
+           let now = Date()
+           let startOfDay = calendar.startOfDay(for: now)
+           let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+
+           // Build the query
+           let query = HKStatisticsQuery(quantityType: stepCountType,
+                                         quantitySamplePredicate: predicate,
+                                         options: .cumulativeSum) { query, result, error in
+               guard let result = result, let sum = result.sumQuantity() else {
+                   print("Error fetching step count. Error: \(error?.localizedDescription ?? "Unknown error")")
+                   return
+               }
+
+               // Update UI on the main thread
+               DispatchQueue.main.async {
+                   self.getStepCount = Int(sum.doubleValue(for: .count()))
+               }
+           }
+
+           // Execute the query
+           HKHealthStore().execute(query)
+       }
 
 
 
@@ -270,10 +292,10 @@ struct DistanceView: View {
     
     // Default code
     // Change
-    struct DistanceView_Previews: PreviewProvider {
+    struct HeartRateVariabilityView_Previews: PreviewProvider {
         static var previews: some View {
             // CHANGE
-            DistanceView().environmentObject(WorkoutManager())
+            HeartRateVariabilityView().environmentObject(WorkoutManager())
         }
     }
     

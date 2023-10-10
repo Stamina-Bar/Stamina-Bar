@@ -25,20 +25,30 @@ struct SummaryView: View {
     }()
     
     var body: some View {
-        // Display relative message once the workout is complete (nil)
+        // MAYBE WHEN WORKOUT IS TOO SHORT?
         if workoutManager.workout == nil {
             if workoutManager.selectedWorkout == .other {
                 ProgressView("Closing Stamina Bar")
                     .navigationBarHidden(true)
             }
-            ProgressView("Saving Workout")
+            ProgressView("Closing Stamina Bar")
                 .navigationBarHidden(true)
         }
         
         // MARK: - Summary if user chooses stamina bar (hides distance)
-        else if workoutManager.selectedWorkout == .other {
+        else if workoutManager.selectedWorkout == .other || workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining || workoutManager.selectedWorkout == .highIntensityIntervalTraining {
             ScrollView {
                 VStack(alignment: .leading) {
+                    // Add time
+                    SummaryMetricView(title: "Total Time",
+                                      value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
+                        .foregroundStyle(.white)
+                    
+                    // AVG Stamina
+                    Text("Avg. Stamina")
+                    //StaminaBarView(data: workoutManager.averageHeartRate)
+                    (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
+                    Divider()
                     SummaryMetricView(title: "Total Energy",
                                       value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,unit: UnitEnergy.kilocalories)
                         .formatted(.measurement(width: .abbreviated,
@@ -48,11 +58,7 @@ struct SummaryView: View {
                     SummaryMetricView(title: "Avg. Heart Rate",
                                       value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                         .foregroundStyle(.red)
-                    Text("Avg. Stamina")
-                    //StaminaBarView(data: workoutManager.averageHeartRate)
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
-                    Divider()
-                    
+                                     
                     Button("Done") {
                         dismiss()
                     }
@@ -69,7 +75,13 @@ struct SummaryView: View {
                 VStack(alignment: .leading) {
                     SummaryMetricView(title: "Total Time",
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
-                        .foregroundStyle(.yellow)
+                        .foregroundStyle(.white)
+                    // AVG Stamina
+                    
+                    Text("Avg. Stamina")
+                    //StaminaBarView(data: workoutManager.averageHeartRate)
+                    (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
+                    Divider()
                     
                     SummaryMetricView(title: "Total Energy",
                                       value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,
@@ -79,9 +91,7 @@ struct SummaryView: View {
                                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
                         .foregroundStyle(.pink)
                     
-                    Text("Avg. Stamina")
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    Divider()
+            
                    
                     SummaryMetricView(title: "Total Distance",
                                       value: Measurement(value: workoutManager.workout?.totalDistance?.doubleValue(for: .mile()) ?? 0,

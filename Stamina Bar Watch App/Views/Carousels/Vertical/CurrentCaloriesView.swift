@@ -1,15 +1,15 @@
 //
-//  StepCountView.swift
+//  DistanceView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 10/8/23.
-//  refractor unused data
+//  Created by Bryce Ellis on 10/7/23.
+//  can be heavily refractored
 
-import Foundation
+
 import SwiftUI
 import HealthKit
     // CHANGE
-struct StepCountView: View {
+struct CurrentCaloriesView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
@@ -45,23 +45,24 @@ struct StepCountView: View {
                             
                             // TODO: Modify these for your vertical scrolls
                             HStack {
-                                Text("\(getStepCount) Steps")
+                                Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
+                                    .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
+                                            .number.precision(.fractionLength(0)))))
                                 .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                                 .fontWeight(.bold)
 
 
-                                Image(systemName: "figure.walk")
-                                    .foregroundColor(.blue)
+                                Image(systemName: "flame.fill")
+                                    .foregroundColor(.orange)
                             }
                         } .onAppear {
-                            fetchStepCount()
                             endProlongedWorkout()
                         }
                     
                 }
             } // end stamina bar selected
         
-        
+        // appened non-distance tracking workouts
         else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining || workoutManager.selectedWorkout == .highIntensityIntervalTraining {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
                     // Stamina Bar and Heart Rate
@@ -87,9 +88,6 @@ struct StepCountView: View {
                             Image(systemName: "flame.fill")
                                 .foregroundColor(.orange)
                         }
-                    } .onAppear {
-                        fetchStepCount()
-                        endProlongedWorkout()
                     }
             }
         } // end
@@ -148,9 +146,6 @@ struct StepCountView: View {
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
                         }
-                } .onAppear {
-                    fetchStepCount()
-                    endProlongedWorkout()
                 }
 
                 }
@@ -267,41 +262,6 @@ struct StepCountView: View {
         }
     }
 
-    // Get's current step count
-    func fetchStepCount() {
-           // Check if HealthKit is available on the device
-           guard HKHealthStore.isHealthDataAvailable() else {
-               print("HealthKit is not available on this device.")
-               return
-           }
-
-           // Define the HealthKit type you want to read (step count)
-           let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
-
-           // Set the time range for which you want to fetch step count (today)
-           let calendar = Calendar.current
-           let now = Date()
-           let startOfDay = calendar.startOfDay(for: now)
-           let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-
-           // Build the query
-           let query = HKStatisticsQuery(quantityType: stepCountType,
-                                         quantitySamplePredicate: predicate,
-                                         options: .cumulativeSum) { query, result, error in
-               guard let result = result, let sum = result.sumQuantity() else {
-                   print("Error fetching step count. Error: \(error?.localizedDescription ?? "Unknown error")")
-                   return
-               }
-
-               // Update UI on the main thread
-               DispatchQueue.main.async {
-                   self.getStepCount = Int(sum.doubleValue(for: .count()))
-               }
-           }
-
-           // Execute the query
-           HKHealthStore().execute(query)
-       }
 
 
 
@@ -310,10 +270,10 @@ struct StepCountView: View {
     
     // Default code
     // Change
-    struct StepCountView_Previews: PreviewProvider {
+    struct CurrentCaloriesView_Previews: PreviewProvider {
         static var previews: some View {
             // CHANGE
-            StepCountView().environmentObject(WorkoutManager())
+            CurrentCaloriesView().environmentObject(WorkoutManager())
         }
     }
     
