@@ -86,8 +86,6 @@ struct TotalCaloriesView: View {
                                 .foregroundColor(.orange)
                         }
                     } .onAppear {
-                        // endProlonguedWorkout, getTotalEnergy()
-                        endProlongedWorkout()
                         startLegacyRestingEnergyQuery()
                         startLegacyActiveEnergyQuery()
                     }
@@ -138,8 +136,6 @@ struct TotalCaloriesView: View {
                             .scenePadding()
                         }
                 } .onAppear {
-                    // endProlonguedWorkout, getTotalEnergy()
-                    endProlongedWorkout()
                     startLegacyRestingEnergyQuery()
                     startLegacyActiveEnergyQuery()
                 }
@@ -155,7 +151,7 @@ struct TotalCaloriesView: View {
         Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
             // Workout has ended, perform the end workout logic here
             workoutManager.endWorkout()
-        }.tolerance = 1.0
+        }.tolerance = 0.5
     }
     
     // MARK: Functions

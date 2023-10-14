@@ -100,14 +100,7 @@ struct MetricsView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
-                        // Active Energy
-//                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-//                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-//                                    .number.precision(.fractionLength(0)))))
-//                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .ignoresSafeArea(edges: .bottom)
-//                        .scenePadding()
+
                         // Stamina Bar
                         (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                         HStack {
@@ -151,10 +144,10 @@ workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BP
         Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
             // Workout has ended, perform the end workout logic here
             workoutManager.endWorkout()
-        }.tolerance = 1.0
+        }.tolerance = 0.5
     }
     
-    // MARK: Functions
+    // Maybe axe all functions below.
     var getTotalEnergy: String {
         let total = legacyActiveEnergy + legacyRestingEnergy
         // Formats 999 to 1.0K, 2.7K, 12.2K etc

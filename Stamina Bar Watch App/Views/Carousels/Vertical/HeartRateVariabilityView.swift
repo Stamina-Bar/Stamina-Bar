@@ -52,8 +52,8 @@ struct HeartRateVariabilityView: View {
 
                             }
                         } .onAppear {
-                            fetchHeartRateVariability()
                             endProlongedWorkout()
+                            fetchHeartRateVariability()
                         }
                     
                 }
@@ -84,7 +84,6 @@ struct HeartRateVariabilityView: View {
                         }
                     } .onAppear {
                         fetchHeartRateVariability()
-                        endProlongedWorkout()
                     }
             }
         } // end
@@ -104,6 +103,7 @@ struct HeartRateVariabilityView: View {
 
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
+                        Spacer()
                         Text("\(Int(heartRateVariability ?? 0)) HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.bold)
@@ -132,7 +132,6 @@ struct HeartRateVariabilityView: View {
                         }
                 } .onAppear {
                     fetchHeartRateVariability()
-                    endProlongedWorkout()
                 }
 
                 }
@@ -146,7 +145,7 @@ struct HeartRateVariabilityView: View {
         Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
             // Workout has ended, perform the end workout logic here
             workoutManager.endWorkout()
-        }.tolerance = 1.0
+        }.tolerance = 0.5
     }
     
     // MARK: Functions

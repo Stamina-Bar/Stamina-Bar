@@ -196,9 +196,9 @@
 				DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */,
 				DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */,
 				DACEAD472AD3549700DCC032 /* StepCountView.swift */,
-				DAEB44232A34E1D10059081C /* HealthKitDataView.swift */,
 				DACEAD4B2AD57FDD00DCC032 /* CardioFitnessView.swift */,
 				DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */,
+				DAEB44232A34E1D10059081C /* HealthKitDataView.swift */,
 			);
 			path = Vertical;
 			sourceTree = "<group>";

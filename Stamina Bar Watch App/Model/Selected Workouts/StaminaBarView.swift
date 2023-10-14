@@ -2,11 +2,10 @@
 //  StaminaBarView.swift
 //  Stamina Bar
 //
-//  Created by Bryce Ellis on 4/18/23.
-//
+//  Created by Bryce Ellis on  4/18/23.
+//  Updated by Bryce Ellis on 10/13/23.
 
 // MARK: Algorithm for Displaying general Stamina Bar:
-// i = (m - n) / 100 where m = 168, n = 65 (bpm)
 
 
 import Foundation

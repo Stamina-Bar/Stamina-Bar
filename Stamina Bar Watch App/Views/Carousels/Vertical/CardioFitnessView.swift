@@ -45,7 +45,7 @@ struct CardioFitnessView: View {
                             
                             // TODO: Modify these for your vertical scrolls
                             HStack {
-
+                                
                                 Text("\(vo2Max == 0 ? "0" : String(format: "%.1f", vo2Max)) V02 max")
                                 .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                                 .fontWeight(.bold)
@@ -90,8 +90,6 @@ struct CardioFitnessView: View {
                         }
                     } .onAppear {
                         loadVO2Max()
-
-                        endProlongedWorkout()
                     }
             }
         } // end
@@ -111,7 +109,7 @@ struct CardioFitnessView: View {
 
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
-                        
+                        Spacer()
                         Text("\(vo2Max == 0 ? "0" : String(format: "%.1f", vo2Max)) V02 max")
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .fontWeight(.bold)
@@ -141,7 +139,6 @@ struct CardioFitnessView: View {
                         }
                 } .onAppear {
                     loadVO2Max()
-                    endProlongedWorkout()
                 }
 
                 }
@@ -155,7 +152,7 @@ struct CardioFitnessView: View {
         Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
             // Workout has ended, perform the end workout logic here
             workoutManager.endWorkout()
-        }.tolerance = 1.0
+        }.tolerance = 0.5
     }
     
     // MARK: Functions

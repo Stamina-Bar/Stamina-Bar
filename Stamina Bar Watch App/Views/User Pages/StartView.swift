@@ -15,24 +15,24 @@ struct WorkoutType: Identifiable {
         return workoutType
     }
     let workoutType: HKWorkoutActivityType
-    let imageName: String
+    let workoutSupportingImage: String
 }
 
 struct StartView: View {
-    let legacyHealthStore = HKHealthStore()
     @State var heartRateVariability: Double? = nil
+    let legacyHealthStore = HKHealthStore()
     @State private var timer: Timer?
 
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
-        WorkoutType(workoutType: .other, imageName: "custom.StaminaBar"),
-        WorkoutType(workoutType: .yoga, imageName: "custom.yoga"),
-        WorkoutType(workoutType: .walking, imageName: "custom.walk"),
-        WorkoutType(workoutType: .running, imageName: "custom.run"),
-        WorkoutType(workoutType: .cycling, imageName: "custom.bike"),
-        WorkoutType(workoutType: .hiking, imageName: "custom.hike"),
-        WorkoutType(workoutType: .highIntensityIntervalTraining, imageName: "custom.HIIT"),
-        WorkoutType(workoutType: .traditionalStrengthTraining, imageName: "custom.strengthTraining")
+        WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar"),
+        WorkoutType(workoutType: .yoga, workoutSupportingImage: "custom.yoga"),
+        WorkoutType(workoutType: .walking, workoutSupportingImage: "custom.walk"),
+        WorkoutType(workoutType: .running, workoutSupportingImage: "custom.run"),
+        WorkoutType(workoutType: .cycling, workoutSupportingImage: "custom.bike"),
+        WorkoutType(workoutType: .hiking, workoutSupportingImage: "custom.hike"),
+        WorkoutType(workoutType: .highIntensityIntervalTraining, workoutSupportingImage: "custom.HIIT"),
+        WorkoutType(workoutType: .traditionalStrengthTraining, workoutSupportingImage: "custom.strengthTraining")
     ]
 
     var body: some View {
@@ -42,7 +42,7 @@ struct StartView: View {
                                tag: workoutType.workoutType,
                                selection: $workoutManager.selectedWorkout) {
                     HStack {
-                        Image(workoutType.imageName)
+                        Image(workoutType.workoutSupportingImage)
 //                        Image(systemName: workoutType.imageName)
                             .foregroundColor(.red)
                         Text(workoutType.workoutType.name)
@@ -84,7 +84,7 @@ struct StartView: View {
                     legacyHealthStore.execute(query)
         }
     
-    // Get's HRV every 50 min
+    // TODO: Update Health with HRV readings at least once an hour while user is wearing watch.
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 3000, repeats: true) { _ in
             fetchHeartRateVariability()

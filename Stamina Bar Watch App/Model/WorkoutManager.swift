@@ -9,6 +9,8 @@ import Foundation
 import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
+    
+    // Good for dynamically checking the type of workout a user is doing
     var selectedWorkout: HKWorkoutActivityType? {
         didSet {
             guard let selectedWorkout = selectedWorkout else { return }
@@ -23,10 +25,10 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
     }
-
+    
+    var builder: HKLiveWorkoutBuilder?
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
-    var builder: HKLiveWorkoutBuilder?
 
     // Start the workout.
     func startWorkout(workoutType: HKWorkoutActivityType) {
@@ -113,10 +115,10 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     // MARK: - Workout Metrics
-    @Published var heartRate: Double = 0
     @Published var averageHeartRate: Double = 0
     @Published var activeEnergy: Double = 0
     @Published var basalEnergy: Double = 0
+    @Published var heartRate: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
 
@@ -146,14 +148,13 @@ class WorkoutManager: NSObject, ObservableObject {
 
     func resetWorkout() {
         selectedWorkout = nil
-        builder = nil
-        workout = nil
-        session = nil
         activeEnergy = 0
         basalEnergy = 0
         heartRate = 0
-        heartRate = 0
         distance = 0
+        builder = nil
+        workout = nil
+        session = nil
     }
 }
 

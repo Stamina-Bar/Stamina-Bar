@@ -77,19 +77,16 @@ struct StepCountView: View {
                         
                         // CHANGE HERE
                         HStack {
-                            Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                                .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                        .number.precision(.fractionLength(0)))))
+                            Text("\(getStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.bold)
 
 
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
+                            Image(systemName: "figure.walk")
+                                .foregroundColor(.blue)
                         }
                     } .onAppear {
                         fetchStepCount()
-                        endProlongedWorkout()
                     }
             }
         } // end
@@ -106,28 +103,19 @@ struct StepCountView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .ignoresSafeArea(edges: .bottom)
                         .scenePadding()
-                    // Active Energy
-//                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-//                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-//                                    .number.precision(.fractionLength(0)))))
-//                        .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .ignoresSafeArea(edges: .bottom)
-//                        .scenePadding()
+
                     // Stamina Bar
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
                         Spacer()
                         // CHANGE HERE
-                        Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-                            .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
-                                    .number.precision(.fractionLength(0)))))
+                        Text("\(getStepCount) Steps")
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .fontWeight(.bold)
 
 
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.orange)
+                        Image(systemName: "figure.walk")
+                            .foregroundColor(.blue)
                     }
                     
                     
@@ -150,7 +138,6 @@ struct StepCountView: View {
                         }
                 } .onAppear {
                     fetchStepCount()
-                    endProlongedWorkout()
                 }
 
                 }
@@ -164,7 +151,7 @@ struct StepCountView: View {
         Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
             // Workout has ended, perform the end workout logic here
             workoutManager.endWorkout()
-        }.tolerance = 1.0
+        }.tolerance = 0.5
     }
     
     // MARK: Functions
