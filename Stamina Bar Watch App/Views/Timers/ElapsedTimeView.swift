@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct ElapsedTimeView: View {
-    @Binding var elapsedTime: TimeInterval
+    var elapsedTime: TimeInterval = 0
     var showSubseconds: Bool = false
-    var resetTimerAction: () -> Void // Callback for resetting the timer
     @State private var timeFormatter = ElapsedTimeFormatter()
 
     var body: some View {
@@ -20,13 +19,8 @@ struct ElapsedTimeView: View {
             .onChange(of: showSubseconds) {
                 timeFormatter.showSubseconds = $0
             }
-            .onLongPressGesture {
-                // Perform the reset action on long press
-                resetTimerAction()
-            }
     }
 }
-
 
 class ElapsedTimeFormatter: Formatter {
     let componentsFormatter: DateComponentsFormatter = {
