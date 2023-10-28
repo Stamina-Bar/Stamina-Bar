@@ -56,9 +56,13 @@ struct CardioFitnessView: View {
                             }
                         } .onAppear {
                             loadVO2Max()
-
-                            endProlongedWorkout()
+                            //endProlongedWorkout()
                         }
+                    
+                        .onLongPressGesture(minimumDuration: 1.0) {
+
+                        }
+
                     
                 }
             } // end stamina bar selected
@@ -148,12 +152,7 @@ struct CardioFitnessView: View {
                 
     }
     
-    func endProlongedWorkout() {
-        Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
-            // Workout has ended, perform the end workout logic here
-            workoutManager.endWorkout()
-        }.tolerance = 0.5
-    }
+    
     
     // MARK: Functions
     var getTotalEnergy: String {

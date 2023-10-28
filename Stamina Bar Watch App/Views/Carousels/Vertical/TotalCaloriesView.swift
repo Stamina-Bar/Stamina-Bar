@@ -54,7 +54,6 @@ struct TotalCaloriesView: View {
                             }
                         } .onAppear {
                             // totalEnergy ()
-                            endProlongedWorkout()
                             startLegacyRestingEnergyQuery()
                             startLegacyActiveEnergyQuery()
                         }
@@ -146,13 +145,7 @@ struct TotalCaloriesView: View {
         
                 
     }
-    
-    func endProlongedWorkout() {
-        Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
-            // Workout has ended, perform the end workout logic here
-            workoutManager.endWorkout()
-        }.tolerance = 0.5
-    }
+   
     
     // MARK: Functions
     var getTotalEnergy: String {

@@ -11,6 +11,7 @@ import HealthKit
 struct MetricsView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
+    @State private var timerValue: TimeInterval = 0
 
     @State private var legacyRestingEnergy: Double = 0.0
     @State private var legacyActiveEnergy: Double = 0.0
@@ -51,8 +52,8 @@ struct MetricsView: View {
                                 Image(systemName: "heart.fill")
                                     .foregroundColor(.red)
                             }
-                        } .onAppear {
-                            endProlongedWorkout()
+                        } .onLongPressGesture(minimumDuration: 1.0) {
+                            //elapsedTimeView.resetTimer()
                         }
                     
                 }
@@ -140,13 +141,7 @@ workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BP
                 }
     }
     
-    func endProlongedWorkout() {
-        Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
-            // Workout has ended, perform the end workout logic here
-            workoutManager.endWorkout()
-        }.tolerance = 0.5
-    }
-    
+   
     // Maybe axe all functions below.
     var getTotalEnergy: String {
         let total = legacyActiveEnergy + legacyRestingEnergy
