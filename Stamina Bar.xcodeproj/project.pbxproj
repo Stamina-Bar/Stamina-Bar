@@ -609,7 +609,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.14;
+				CURRENT_PROJECT_VERSION = 1.7.15;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -624,7 +624,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.14;
+				MARKETING_VERSION = 1.7.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -645,7 +645,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.14;
+				CURRENT_PROJECT_VERSION = 1.7.15;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -660,7 +660,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.14;
+				MARKETING_VERSION = 1.7.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -680,7 +680,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.14;
+				CURRENT_PROJECT_VERSION = 1.7.15;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -689,7 +689,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.14;
+				MARKETING_VERSION = 1.7.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -705,7 +705,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.14;
+				CURRENT_PROJECT_VERSION = 1.7.15;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -714,7 +714,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.14;
+				MARKETING_VERSION = 1.7.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
