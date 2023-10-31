@@ -27,10 +27,6 @@ struct SummaryView: View {
     var body: some View {
         // MAYBE WHEN WORKOUT IS TOO SHORT?
         if workoutManager.workout == nil {
-            if workoutManager.selectedWorkout == .other {
-                ProgressView("Closing Stamina Bar")
-                    .navigationBarHidden(true)
-            }
             ProgressView("Closing Stamina Bar")
                 .navigationBarHidden(true)
         }
