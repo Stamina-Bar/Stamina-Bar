@@ -52,8 +52,8 @@ struct MetricsView: View {
                                 Image(systemName: "heart.fill")
                                     .foregroundColor(.red)
                             }
-                        } .onLongPressGesture(minimumDuration: 1.0) {
-                            //elapsedTimeView.resetTimer()
+                        } .onAppear {
+                            endProlongedWorkout()
                         }
                     
                 }
@@ -229,6 +229,12 @@ workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BP
         legacyHealthStore.execute(query)
     }
 
+    func endProlongedWorkout() {
+        Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
+            // Workout has ended, perform the end workout logic here
+            workoutManager.endWorkout()
+        }.tolerance = 1.0
+    }
     
     // Get's HRV every 50 min
     func startTimer() {
