@@ -230,10 +230,11 @@ workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BP
     }
 
     func endProlongedWorkout() {
-        Timer.scheduledTimer(withTimeInterval: 30 * 61, repeats: false) { timer in
+        Timer.scheduledTimer(withTimeInterval: 60 * 20, repeats: false) { timer in
             // Workout has ended, perform the end workout logic here
-            workoutManager.endWorkout()
-        }.tolerance = 1.0
+            HapticManager.stopHaptic()
+            workoutManager.pause()
+        }
     }
     
     // Get's HRV every 50 min
