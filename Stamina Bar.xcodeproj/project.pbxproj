@@ -160,18 +160,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA35BC502AC4A51E00195853 /* Selected Workouts */ = {
-			isa = PBXGroup;
-			children = (
-				DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */,
-			);
-			path = "Selected Workouts";
-			sourceTree = "<group>";
-		};
 		DA48B42C2A380B6F00E9269B /* Carousels */ = {
 			isa = PBXGroup;
 			children = (
-				DACEAD422AD1C6B700DCC032 /* Horizontal */,
 				DACEAD412AD1C6B100DCC032 /* Vertical */,
 			);
 			path = Carousels;
@@ -231,6 +222,8 @@
 		DAB8D28A2A2111BF00333D83 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DAFEE83929C550380027A3D8 /* SessionPagingView.swift */,
+				DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */,
 				DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */,
 				DAB8D28B2A21136200333D83 /* HapticManager.swift */,
 			);
@@ -247,33 +240,6 @@
 				DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */,
 			);
 			path = Vertical;
-			sourceTree = "<group>";
-		};
-		DACEAD422AD1C6B700DCC032 /* Horizontal */ = {
-			isa = PBXGroup;
-			children = (
-				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
-				DAFEE83929C550380027A3D8 /* SessionPagingView.swift */,
-			);
-			path = Horizontal;
-			sourceTree = "<group>";
-		};
-		DACEAD432AD1C6EC00DCC032 /* Timers */ = {
-			isa = PBXGroup;
-			children = (
-				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
-			);
-			path = Timers;
-			sourceTree = "<group>";
-		};
-		DACEAD442AD1C70800DCC032 /* User Pages */ = {
-			isa = PBXGroup;
-			children = (
-				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
-				DAFEE84129C551610027A3D8 /* MetricsView.swift */,
-				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
-			);
-			path = "User Pages";
 			sourceTree = "<group>";
 		};
 		DAF3ED662AFD16F900ABCC8A /* Frameworks */ = {
@@ -299,9 +265,8 @@
 		DAFEE7F629BA45170027A3D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DA35BC502AC4A51E00195853 /* Selected Workouts */,
-				DA5CDB052A36C1990089757D /* UserAgeReader.swift */,
 				DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */,
+				DA5CDB052A36C1990089757D /* UserAgeReader.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -309,9 +274,12 @@
 		DAFEE7F929BA455B0027A3D8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DACEAD442AD1C70800DCC032 /* User Pages */,
+				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
+				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
+				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
+				DAFEE84129C551610027A3D8 /* MetricsView.swift */,
+				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
 				DA48B42C2A380B6F00E9269B /* Carousels */,
-				DACEAD432AD1C6EC00DCC032 /* Timers */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -15,9 +15,7 @@ import SwiftUI
 class StaminaBarView {
 
     func stressFunction(heart_rate: CGFloat) -> AnyView {
-            let staminaPercentage: String
-            
-        
+        let staminaPercentage: String
         switch heart_rate {
                 // MARK: Zone 1, Blue
                 case ..<60:

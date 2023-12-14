@@ -152,7 +152,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     func resetWorkout() {
-        heartRateVariability = 0 // Reset HRV
+        heartRateVariability = 0 
         selectedWorkout = nil
         activeEnergy = 0
         basalEnergy = 0
@@ -240,8 +240,4 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         // Execute the query on the health store.
         self.healthStore.execute(query)
     }
-    
-    
-
-
 }
