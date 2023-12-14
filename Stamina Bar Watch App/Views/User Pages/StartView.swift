@@ -19,10 +19,7 @@ struct WorkoutType: Identifiable {
 }
 
 struct StartView: View {
-    @State var heartRateVariability: Double? = nil
-    let legacyHealthStore = HKHealthStore()
-    @State private var timer: Timer?
-
+    
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar"),
@@ -55,49 +52,8 @@ struct StartView: View {
         .navigationBarTitle("Stamina Bar")
         .onAppear {
             workoutManager.requestAuthorization()
-            startTimer()
-            fetchHeartRateVariability()
         }
     }
-    
-    
-    // Execute query to read HRV
-    func fetchHeartRateVariability() {
-            // check if HealthKit is available on this device
-            guard HKHealthStore.isHealthDataAvailable() else {
-                print("HealthKit is not available on this device")
-                return
-            }
-                    // read the user's latest heart rate variability data
-                    let heartRateVariabilityType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-                    let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-                    let query = HKSampleQuery(sampleType: heartRateVariabilityType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-                        guard let samples = samples as? [HKQuantitySample], let firstSample = samples.first else {
-                            print("No heart rate variability samples available")
-                            return
-                        }
-                        let heartRateVariability = firstSample.quantity.doubleValue(for: .init(from: "ms"))
-                        DispatchQueue.main.async {
-                            self.heartRateVariability = heartRateVariability
-                        }
-                    }
-                    legacyHealthStore.execute(query)
-        }
-    
-    // TODO: Update Health with HRV readings at least once an hour while user is wearing watch.
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 3000, repeats: true) { _ in
-            fetchHeartRateVariability()
-            //HapticManager.successHaptic()
-            timer?.invalidate()
-            timer = nil
-            startTimer() // Start a new timer after each trigger
-            
-        }
-    }
-    
-   
-
 }
 
 struct StartView_Previews: PreviewProvider {

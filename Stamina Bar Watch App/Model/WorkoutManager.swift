@@ -83,8 +83,13 @@ class WorkoutManager: NSObject, ObservableObject {
         ]
 
         // Request authorization for those quantity types.
-        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
-            // Handle error.
+        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { [weak self] (success, error) in
+            if success {
+                // Perform additional tasks or fetches here if necessary
+                self?.fetchMostRecentHRV()
+            } else {
+                // Handle the error if permissions are not granted
+            }
         }
     }
 
@@ -115,6 +120,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     // MARK: - Workout Metrics
+    @Published var heartRateVariability: Double = 0
     @Published var averageHeartRate: Double = 0
     @Published var activeEnergy: Double = 0
     @Published var basalEnergy: Double = 0
@@ -124,7 +130,6 @@ class WorkoutManager: NSObject, ObservableObject {
 
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
-
         DispatchQueue.main.async {
             switch statistics.quantityType {
             case HKQuantityType.quantityType(forIdentifier: .heartRate):
@@ -147,6 +152,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     func resetWorkout() {
+        heartRateVariability = 0 // Reset HRV
         selectedWorkout = nil
         activeEnergy = 0
         basalEnergy = 0
@@ -204,4 +210,38 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             updateForStatistics(statistics)
         }
     }
+    
+    func fetchMostRecentHRV() {
+        // Define the Heart Rate Variability type using HealthKit's standard nomenclature.
+        let hrvType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+
+        // Create a predicate to fetch samples from the distant past to the current date.
+        // This ensures we get the most recent sample.
+        let mostRecentPredicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
+
+        // Define a sort descriptor to sort the samples by start date in descending order.
+        // This ensures the most recent sample is first.
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        
+        // Create a query to fetch Heart Rate Variability samples.
+        // Limit the query to return only the most recent sample (limit: 1).
+        let query = HKSampleQuery(sampleType: hrvType, predicate: mostRecentPredicate, limit: 1, sortDescriptors: [sortDescriptor]) { [weak self] (_, samples, _) in
+            // Process the query results on the main thread to update the UI.
+            DispatchQueue.main.async {
+                // Ensure the samples are of the correct type (HKQuantitySample) and get the first one.
+                guard let samples = samples as? [HKQuantitySample], let mostRecentSample = samples.first else {
+                    return
+                }
+                // Update the heartRateVariability property with the latest HRV value.
+                // Convert the HRV value to a double value in milliseconds (ms).
+                self?.heartRateVariability = mostRecentSample.quantity.doubleValue(for: HKUnit(from: "ms"))
+            }
+        }
+        // Execute the query on the health store.
+        self.healthStore.execute(query)
+    }
+    
+    
+
+
 }

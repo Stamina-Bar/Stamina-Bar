@@ -18,7 +18,6 @@ struct CardioFitnessView: View {
     @State private var legacyActiveEnergy: Double = 0.0
     @State private var previousVO2Max: Double? = nil
     @State private var getStepCount: Int = 0
-    @State var heartRateVariability: Double? = nil
     @State private var isLoaded: Bool = false
     @State private var vo2Max: Double = 0.0
     @State private var userAge: Int = 0
@@ -170,29 +169,6 @@ struct CardioFitnessView: View {
             return String(format: "%.0f", total)
         }
     }
-
-    // Execute query to read HRV
-    func fetchHeartRateVariability() {
-            // check if HealthKit is available on this device
-            guard HKHealthStore.isHealthDataAvailable() else {
-                print("HealthKit is not available on this device")
-                return
-            }
-                    // read the user's latest heart rate variability data
-                    let heartRateVariabilityType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-                    let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-                    let query = HKSampleQuery(sampleType: heartRateVariabilityType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
-                        guard let samples = samples as? [HKQuantitySample], let firstSample = samples.first else {
-                            print("No heart rate variability samples available")
-                            return
-                        }
-                        let heartRateVariability = firstSample.quantity.doubleValue(for: .init(from: "ms"))
-                        DispatchQueue.main.async {
-                            self.heartRateVariability = heartRateVariability
-                        }
-                    }
-                    legacyHealthStore.execute(query)
-        }
     
     // Execute query to retrieve basal energy
     func startLegacyRestingEnergyQuery() {
@@ -239,19 +215,6 @@ struct CardioFitnessView: View {
             }
         }
         legacyHealthStore.execute(query)
-    }
-
-    
-    // Get's HRV every 50 min
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 3000, repeats: true) { _ in
-            fetchHeartRateVariability()
-            //HapticManager.successHaptic()
-            timer?.invalidate()
-            timer = nil
-            startTimer() // Start a new timer after each trigger
-            
-        }
     }
 
     // Get's current step count

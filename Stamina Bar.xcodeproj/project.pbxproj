@@ -28,7 +28,6 @@
 		DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */; };
 		DAD35EC229F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
 		DAD35EC329F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
-		DAEB44242A34E1D10059081C /* HealthKitDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB44232A34E1D10059081C /* HealthKitDataView.swift */; };
 		DAF3ED682AFD16F900ABCC8A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */; };
 		DAF3ED6A2AFD16F900ABCC8A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */; };
 		DAF3ED6D2AFD16F900ABCC8A /* StaminaBarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */; };
@@ -118,7 +117,6 @@
 		DAD35EBC29F1D24E00E2E782 /* Stamina Bar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stamina Bar-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		DAD35EC129F2364700E2E782 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		DAEB44232A34E1D10059081C /* HealthKitDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitDataView.swift; sourceTree = "<group>"; };
 		DAF3ED652AFD16F900ABCC8A /* StaminaBarWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StaminaBarWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -247,7 +245,6 @@
 				DACEAD472AD3549700DCC032 /* StepCountView.swift */,
 				DACEAD4B2AD57FDD00DCC032 /* CardioFitnessView.swift */,
 				DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */,
-				DAEB44232A34E1D10059081C /* HealthKitDataView.swift */,
 			);
 			path = Vertical;
 			sourceTree = "<group>";
@@ -511,7 +508,6 @@
 				DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */,
 				DACEAD482AD3549700DCC032 /* StepCountView.swift in Sources */,
 				DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */,
-				DAEB44242A34E1D10059081C /* HealthKitDataView.swift in Sources */,
 				DACEAD4C2AD57FDD00DCC032 /* CardioFitnessView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
