@@ -10,14 +10,14 @@ import SwiftUI
 
 struct ControlsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-
+    
     var body: some View {
         HStack {
             VStack {
                 Button {
                     workoutManager.endWorkout()
                     HapticManager.stopHaptic()
-
+                    
                 } label: {
                     Image(systemName: "xmark")
                 }

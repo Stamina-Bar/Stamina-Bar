@@ -13,7 +13,7 @@ struct CurrentCaloriesView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
-
+    
     let staminaBarView = StaminaBarView()
     
     var body: some View {
@@ -25,7 +25,7 @@ struct CurrentCaloriesView: View {
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .scenePadding()
-
+                    
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
                         Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
@@ -88,7 +88,7 @@ struct CurrentCaloriesView: View {
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
-
+                    
                     // Distance and Proper formatting of it.
                     if workoutManager.distance < 0.5 {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))

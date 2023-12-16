@@ -10,14 +10,14 @@ import HealthKit
 class UserAgeReader {
     
     static let healthStore = HKHealthStore()
-
+    
     static func getUserAge(completion: @escaping (Int?, Error?) -> Swift.Void) {
         // Check if the health data is available
         guard HKHealthStore.isHealthDataAvailable() else {
             completion(nil, NSError(domain: "", code: 100, userInfo: [NSLocalizedDescriptionKey: "Health data is not available"]))
             return
         }
-
+        
         // Get user's birthday
         do {
             let birthdayComponents = try healthStore.dateOfBirthComponents()

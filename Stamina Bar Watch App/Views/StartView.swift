@@ -30,7 +30,7 @@ struct StartView: View {
         WorkoutType(workoutType: .highIntensityIntervalTraining, workoutSupportingImage: "custom.HIIT"),
         WorkoutType(workoutType: .traditionalStrengthTraining, workoutSupportingImage: "custom.strengthTraining")
     ]
-
+    
     var body: some View {
         List {
             ForEach(Array(workoutTypes.enumerated()), id: \.1.id) { (index, workoutType) in
@@ -39,7 +39,7 @@ struct StartView: View {
                                selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Image(workoutType.workoutSupportingImage)
-//                        Image(systemName: workoutType.imageName)
+                        //                        Image(systemName: workoutType.imageName)
                             .foregroundColor(.red)
                         Text(workoutType.workoutType.name)
                     }
@@ -66,7 +66,7 @@ extension HKWorkoutActivityType: Identifiable {
     public var id: UInt {
         rawValue
     }
-
+    
     var name: String {
         switch self {
         case .other:

@@ -11,7 +11,7 @@ struct TotalCaloriesView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
     let staminaBarView = StaminaBarView()
-
+    
     var body: some View {
         if workoutManager.selectedWorkout == .other {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in

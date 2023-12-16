@@ -20,7 +20,7 @@ struct StepCountView: View {
         // MARK: Stamina Bar selected
         if workoutManager.selectedWorkout == .other {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
-
+                
                 VStack (alignment: .trailing) {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                         .foregroundStyle(.white)
@@ -70,7 +70,7 @@ struct StepCountView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .ignoresSafeArea(edges: .bottom)
                         .scenePadding()
-
+                    
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
                         Spacer()
@@ -80,7 +80,7 @@ struct StepCountView: View {
                         Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
                     }
-
+                    
                     if workoutManager.distance < 0.5 {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
