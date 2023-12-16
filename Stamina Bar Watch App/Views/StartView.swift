@@ -6,7 +6,6 @@
 
 // MARK: - Displays workout types and their respective images
 
-
 import SwiftUI
 import HealthKit
 

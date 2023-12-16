@@ -89,6 +89,7 @@ class WorkoutManager: NSObject, ObservableObject {
                 self?.fetchMostRecentHRV()
                 self?.fetchDailyBasalEnergyBurn()
                 self?.fetchDailyActiveEnergyBurned()
+                self?.fetchDailyStepCount()
             } else {
                 // Handle the error if permissions are not granted
             }
