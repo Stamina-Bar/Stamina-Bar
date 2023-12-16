@@ -127,6 +127,7 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var activeEnergy: Double = 0
     @Published var basalEnergy: Double = 0
     @Published var totalDailyEnergy: Double = 0
+    @Published var dailyStepCount: Int = 0
     @Published var heartRate: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
@@ -157,6 +158,7 @@ class WorkoutManager: NSObject, ObservableObject {
         activeEnergy = 0
         basalEnergy = 0
         totalDailyEnergy = 0
+        dailyStepCount = 0
         heartRate = 0
         distance = 0
         builder = nil
@@ -211,10 +213,12 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         }
     }
     
-    func fetchMostRecentHRV() {
+    private func fetchMostRecentHRV() {
         // Define the Heart Rate Variability type using HealthKit's standard nomenclature.
-        let hrvType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
-
+        guard let hrvType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN) else {
+            print("HRV type is not available.")
+            return
+        }
         // Create a predicate to fetch samples from the distant past to the current date.
         // This ensures we get the most recent sample.
         let mostRecentPredicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
@@ -242,7 +246,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     }
     
     // Execute query to retrieve basal (resting) energy
-    func fetchDailyBasalEnergyBurn() {
+    private func fetchDailyBasalEnergyBurn() {
         // Safely unwrap the restingEnergyType to avoid runtime crashes
         guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
             print("Basal energy burn type is not available")
@@ -275,7 +279,10 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     // Execute query to retrieve active energy
     private func fetchDailyActiveEnergyBurned() {
         // Define the quantity type for active energy burned
-        let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            print("Daily active energy burn type is not available")
+            return
+        }
         
         // Get the current date and time
         let now = Date()
@@ -303,6 +310,37 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         // Execute the query on the HealthKit store
         healthStore.execute(query)
     }
-
+    
+    // Fetch the current day's step count
+    private func fetchDailyStepCount() {
+        // Define the step count data type
+        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            print("Step Count type is not available.")
+            return
+        }
+        
+        // Set the time range for today
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfDay = calendar.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        
+        // Create a query to fetch the cumulative step count
+        let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
+            guard let result = result, let sum = result.sumQuantity() else {
+                print("Error fetching step count. Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            // Update the step count
+            DispatchQueue.main.async {
+                self.dailyStepCount = Int(sum.doubleValue(for: HKUnit.count()))
+            }
+        }
+        
+        // Execute the query
+        healthStore.execute(query)
+    }
+    
     
 }
