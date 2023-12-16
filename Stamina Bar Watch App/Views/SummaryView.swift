@@ -35,25 +35,44 @@ struct SummaryView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     // Add time
-                    SummaryMetricView(title: "Total Time",
+                    SummaryMetricView(title: "Elapsed Time",
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
                     .foregroundStyle(.white)
                     
-                    // AVG Stamina
-                    Text("Avg. Stamina")
+                    Text("Avgerage")
                     //StaminaBarView(data: workoutManager.averageHeartRate)
                     (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
                     Divider()
-                    SummaryMetricView(title: "Total Energy",
+                    
+                    SummaryMetricView(title: "Avg. Heart Rate",
+                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
+                    .foregroundStyle(.red)
+                    
+                    SummaryMetricView(title: "Cals Burned",
                                       value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,unit: UnitEnergy.kilocalories)
                         .formatted(.measurement(width: .abbreviated,
                                                 usage: .workout,
                                                 numberFormatStyle: .number.precision(.fractionLength(0)))))
                     .foregroundStyle(.pink)
-                    SummaryMetricView(title: "Avg. Heart Rate",
-                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
-                    .foregroundStyle(.red)
                     
+                    
+                    SummaryMetricView(title: "Total Daily Calories",
+                                      value: formattedCalories(workoutManager.basalEnergy + workoutManager.totalDailyEnergy) + " Cals")
+                                      .foregroundStyle(Color.orange) // Choose a color that fits your app's design
+                    
+                    SummaryMetricView(title: "Daily Step Count",
+                                      value: workoutManager.dailyStepCount.formatted(.number.precision(.fractionLength(0))))
+                    .foregroundStyle(.blue)
+                    
+                    SummaryMetricView(title: "Heart Rate Variability",
+                                      value: workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))))
+                    .foregroundStyle(.blue)
+                    
+                    SummaryMetricView(title: "V02 Max",
+                                      value: workoutManager.currentVO2Max.formatted(.number.precision(.fractionLength(1))))
+                    .foregroundStyle(.green)
+
+
                     Button("Done") {
                         dismiss()
                     }
@@ -68,25 +87,9 @@ struct SummaryView: View {
         else {
             ScrollView {
                 VStack(alignment: .leading) {
-                    SummaryMetricView(title: "Total Time",
+                    SummaryMetricView(title: "Elapsed Time",
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
                     .foregroundStyle(.white)
-                    // AVG Stamina
-                    
-                    Text("Avg. Stamina")
-                    //StaminaBarView(data: workoutManager.averageHeartRate)
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
-                    Divider()
-                    
-                    SummaryMetricView(title: "Total Energy",
-                                      value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,
-                                                         unit: UnitEnergy.kilocalories)
-                                        .formatted(.measurement(width: .abbreviated,
-                                                                usage: .workout,
-                                                                numberFormatStyle: .number.precision(.fractionLength(0)))))
-                    .foregroundStyle(.pink)
-                    
-                    
                     
                     SummaryMetricView(title: "Total Distance",
                                       value: Measurement(value: workoutManager.workout?.totalDistance?.doubleValue(for: .mile()) ?? 0,
@@ -94,10 +97,41 @@ struct SummaryView: View {
                                         .formatted(.measurement(width: .abbreviated,
                                                                 usage: .road,
                                                                 numberFormatStyle: .number.precision(.fractionLength(2)))))
-                    .foregroundStyle(.pink)
+
+                    Text("Avgerage")
+                    //StaminaBarView(data: workoutManager.averageHeartRate)
+                    (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
+                    Divider()
+                    
                     SummaryMetricView(title: "Avg. Heart Rate",
                                       value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                     .foregroundStyle(.red)
+                    
+                    SummaryMetricView(title: "Cals Burned",
+                                      value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,unit: UnitEnergy.kilocalories)
+                        .formatted(.measurement(width: .abbreviated,
+                                                usage: .workout,
+                                                numberFormatStyle: .number.precision(.fractionLength(0)))))
+                    .foregroundStyle(.pink)
+                    
+                    
+                    SummaryMetricView(title: "Total Daily Calories",
+                                      value: formattedCalories(workoutManager.basalEnergy + workoutManager.totalDailyEnergy) + " Cals")
+                    
+                                      .foregroundStyle(Color.orange) // Choose a color that fits your app's design
+                    
+                    SummaryMetricView(title: "Daily Step Count",
+                                      value: workoutManager.dailyStepCount.formatted(.number.precision(.fractionLength(0))))
+                    .foregroundStyle(.blue)
+                    
+                    SummaryMetricView(title: "Heart Rate Variability",
+                                      value: workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))))
+                    .foregroundStyle(.blue)
+                    
+                    SummaryMetricView(title: "V02 Max",
+                                      value: workoutManager.currentVO2Max.formatted(.number.precision(.fractionLength(1))))
+                    .foregroundStyle(.green)
+
                     Button("Done") {
                         dismiss()
                     }
@@ -108,6 +142,16 @@ struct SummaryView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+    
+    // Helper function to format calories with commas as a whole number
+    private func formattedCalories(_ value: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 0 // Ensures no decimal places
+        return numberFormatter.string(from: NSNumber(value: value)) ?? "\(Int(value))"
+    }
+
+
 }
 
 struct SummaryView_Previews: PreviewProvider {

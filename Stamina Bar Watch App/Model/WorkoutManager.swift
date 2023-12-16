@@ -209,15 +209,18 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {
         for type in collectedTypes {
             guard let quantityType = type as? HKQuantityType else {
-                return // Nothing to do.
+                return
             }
             
             let statistics = workoutBuilder.statistics(for: quantityType)
             
-            // Update the published values.
-            updateForStatistics(statistics)
+            // Update the published values on the main thread.
+            DispatchQueue.main.async {
+                self.updateForStatistics(statistics)
+            }
         }
     }
+
     
     private func fetchMostRecentHRV() {
         // Define the Heart Rate Variability type using HealthKit's standard nomenclature.
