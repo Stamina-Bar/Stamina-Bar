@@ -25,7 +25,8 @@ struct TotalCaloriesView: View {
                     
                     HStack {
                         Text("\(Measurement(value: workoutManager.basalEnergy + workoutManager.totalDailyEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Daily Cals")
-
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .fontWeight(.bold)
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -45,6 +46,8 @@ struct TotalCaloriesView: View {
                     
                     HStack {
                         Text("\(Measurement(value: workoutManager.basalEnergy + workoutManager.totalDailyEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Daily Cals")
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .fontWeight(.bold)
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -68,6 +71,8 @@ struct TotalCaloriesView: View {
                     HStack {
                         Spacer()
                         Text("\(Measurement(value: workoutManager.basalEnergy + workoutManager.totalDailyEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Daily Cals")
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .fontWeight(.bold)
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
