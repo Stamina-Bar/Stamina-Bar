@@ -9,6 +9,15 @@
 import SwiftUI
 import HealthKit
 
+// TODO:
+// Redsign HKWorkoutActivityType to be blue icons instead of red
+
+// Add a border around the list
+
+// Add an editing option to the list
+
+// Load an activity starter 
+
 struct WorkoutType: Identifiable {
     var id: HKWorkoutActivityType {
         return workoutType
@@ -39,7 +48,6 @@ struct StartView: View {
                                selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Image(workoutType.workoutSupportingImage)
-                        //                        Image(systemName: workoutType.imageName)
                             .foregroundColor(.red)
                         Text(workoutType.workoutType.name)
                     }
