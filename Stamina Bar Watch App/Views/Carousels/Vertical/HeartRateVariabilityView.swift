@@ -31,7 +31,7 @@ struct HeartRateVariabilityView: View {
                     HStack {
                         Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
                         
@@ -54,7 +54,7 @@ struct HeartRateVariabilityView: View {
                     HStack {
                         Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
                     }
@@ -79,7 +79,7 @@ struct HeartRateVariabilityView: View {
                         Spacer()
                         Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
                         

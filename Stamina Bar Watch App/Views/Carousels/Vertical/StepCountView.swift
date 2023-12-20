@@ -32,7 +32,7 @@ struct StepCountView: View {
                     HStack {
                         Text("\(workoutManager.dailyStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
                     }
@@ -52,7 +52,7 @@ struct StepCountView: View {
                     HStack {
                         Text("\(workoutManager.dailyStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
                     }
@@ -76,7 +76,7 @@ struct StepCountView: View {
                         Spacer()
                         Text("\(workoutManager.dailyStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
                     }

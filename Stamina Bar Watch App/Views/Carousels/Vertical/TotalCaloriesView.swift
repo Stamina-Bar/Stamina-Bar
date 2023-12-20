@@ -26,7 +26,7 @@ struct TotalCaloriesView: View {
                     HStack {
                         Text("\(Measurement(value: workoutManager.basalEnergy + workoutManager.totalDailyEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Daily Cals")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -47,7 +47,7 @@ struct TotalCaloriesView: View {
                     HStack {
                         Text("\(Measurement(value: workoutManager.basalEnergy + workoutManager.totalDailyEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Daily Cals")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -72,7 +72,7 @@ struct TotalCaloriesView: View {
                         Spacer()
                         Text("\(Measurement(value: workoutManager.basalEnergy + workoutManager.totalDailyEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Daily Cals")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -88,6 +88,7 @@ struct TotalCaloriesView: View {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .fontWeight(.bold)
+
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()

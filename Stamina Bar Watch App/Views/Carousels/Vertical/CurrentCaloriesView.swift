@@ -32,9 +32,6 @@ struct CurrentCaloriesView: View {
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
                                     .number.precision(.fractionLength(0)))))
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .fontWeight(.bold)
-                        
-                        
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -57,7 +54,6 @@ struct CurrentCaloriesView: View {
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
                                     .number.precision(.fractionLength(0)))))
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .fontWeight(.bold)
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
@@ -84,7 +80,6 @@ struct CurrentCaloriesView: View {
                             .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle:
                                     .number.precision(.fractionLength(0)))))
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .fontWeight(.bold)
                         Image(systemName: "flame.fill")
                             .foregroundColor(.orange)
                     }
