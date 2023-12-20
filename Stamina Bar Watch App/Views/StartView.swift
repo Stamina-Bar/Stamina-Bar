@@ -28,6 +28,8 @@ struct WorkoutType: Identifiable {
 
 struct StartView: View {
     
+    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
+    
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar"),
@@ -48,7 +50,6 @@ struct StartView: View {
                                selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Image(workoutType.workoutSupportingImage)
-                            .foregroundColor(.red)
                         Text(workoutType.workoutType.name)
                     }
                     .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
@@ -60,6 +61,9 @@ struct StartView: View {
         .onAppear {
             workoutManager.requestAuthorization()
         }
+        .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
+            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
+        })
     }
 }
 
