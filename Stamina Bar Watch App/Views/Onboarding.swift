@@ -23,7 +23,7 @@ struct OnboardingView: View {
             PageView(pageNumber: 3, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
-        .tabViewStyle(PageTabViewStyle())
+        .tabViewStyle(.carousel)
     }
 }
 
