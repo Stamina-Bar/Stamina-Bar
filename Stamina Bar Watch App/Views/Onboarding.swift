@@ -14,13 +14,13 @@ struct OnboardingView: View {
 
     var body: some View {
         TabView {
-            PageView(pageNumber: 0, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "Welcome", subTitle: "Stamina Bar on Apple Watch", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "page1", subTitle: "interesting stuff", imageName: "Frame", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 2, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 2, title: "page1", subTitle: "interesting stuff", imageName: "Frame", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 3, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 3, title: "page1", subTitle: "interesting stuff", imageName: "Frame", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(.carousel)
@@ -38,7 +38,7 @@ struct PageView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: imageName)
+            Image(imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50, height: 50)
@@ -52,20 +52,20 @@ struct PageView: View {
                 .font(.system(size: 24))
                 .foregroundStyle(Color.secondary)
                 .multilineTextAlignment(.center)
-                .padding()
-            
             // Law to dissmiss onboarding
             if showsDismissButton {
+                
                 Button(action: {
                     shouldShowOnboarding.toggle()
-                }, label: {
-                    Text("get started")
+                }) {
+                    Text("Get Started")
                         .bold()
-                        .foregroundStyle(Color.white)
-                        .frame(width: 100, height: 50)
-                        .background(Color.green)
-                        .cornerRadius(60)
-                })
+                        .foregroundColor(.white)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
+                .background(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
+                .cornerRadius(25) // Apply to Button
+                //.shadow(color: .gray, radius: 5, x: 0, y: 5) // Apply to Button
             }
             
         }
