@@ -37,7 +37,7 @@ struct CardioFitnessView: View {
                         Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
                             .font(.system(.body, design:
                                     .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "lungs.fill")
                             .foregroundColor(.green)
                         
@@ -61,7 +61,7 @@ struct CardioFitnessView: View {
                         Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
                             .font(.system(.body, design:
                                     .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "lungs.fill")
                             .foregroundColor(.green)
                     }
@@ -86,7 +86,7 @@ struct CardioFitnessView: View {
                         Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
                             .font(.system(.body, design:
                                     .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
+
                         Image(systemName: "lungs.fill")
                             .foregroundColor(.green)
                         

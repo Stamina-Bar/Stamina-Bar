@@ -12,7 +12,6 @@ struct MetricsView: View {
     // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
-    @Binding var carouselSelection: Int
 
     let staminaBarView = StaminaBarView()
     

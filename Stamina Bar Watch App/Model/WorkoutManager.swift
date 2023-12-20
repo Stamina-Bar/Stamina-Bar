@@ -163,8 +163,6 @@ class WorkoutManager: NSObject, ObservableObject {
         basalEnergy = 0
         totalDailyEnergy = 0
         dailyStepCount = 0
-        currentVO2Max = 0
-        previousVO2Max = 0
         heartRate = 0
         distance = 0
         builder = nil
