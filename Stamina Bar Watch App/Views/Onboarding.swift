@@ -10,17 +10,17 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Binding var shouldShowOnboarding: Bool
-    @State private var currentPageIndex = 0  // State to track the current page
 
     var body: some View {
         TabView {
-            PageView(pageNumber: 0, title: "Welcome", subTitle: "Stamina Bar on Apple Watch", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+
+            PageView(pageNumber: 0, title: "Welcome!", subTitle: "Scroll Up to Continue", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "page1", subTitle: "interesting stuff", imageName: "Frame", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "Authorize", subTitle: "Set Up Health Access", imageName: "HealthAppIcon", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 2, title: "page1", subTitle: "interesting stuff", imageName: "Frame", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 2, title: "Scan", subTitle: "Learn about the app", imageName: "Frame", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 3, title: "page1", subTitle: "interesting stuff", imageName: "Frame", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 3, title: "Ready", subTitle: "Complete onboarding", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(.carousel)
@@ -40,16 +40,14 @@ struct PageView: View {
         VStack {
             Image(imageName)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 50, height: 50)
-                .padding()
             
             Text(title)
-                .font(.system(size: 32))
-                .padding()
+                .font(.system(size: 24))
             
             Text(subTitle)
-                .font(.system(size: 24))
+                .font(.system(size: 18))
                 .foregroundStyle(Color.secondary)
                 .multilineTextAlignment(.center)
             // Law to dissmiss onboarding
@@ -63,7 +61,7 @@ struct PageView: View {
                         .foregroundColor(.white)
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
-                .background(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
+                .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
                 .cornerRadius(25) // Apply to Button
                 //.shadow(color: .gray, radius: 5, x: 0, y: 5) // Apply to Button
             }
@@ -74,6 +72,7 @@ struct PageView: View {
                 workoutManager.requestAuthorization()
             }
         }
+
     }
 }
 
