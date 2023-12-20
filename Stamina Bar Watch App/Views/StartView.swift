@@ -58,9 +58,9 @@ struct StartView: View {
         }
         .listStyle(.carousel)
         .navigationBarTitle("Stamina Bar")
-        .onAppear {
-            workoutManager.requestAuthorization()
-        }
+        
+        .modifier(ConditionalScrollIndicatorModifier(shouldHide: shouldShowOnboarding))
+
         .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
             OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
         })
@@ -72,6 +72,20 @@ struct StartView_Previews: PreviewProvider {
         StartView().environmentObject(WorkoutManager())
     }
 }
+
+// Custom modifier to conditionally hide scroll indicators
+struct ConditionalScrollIndicatorModifier: ViewModifier {
+    var shouldHide: Bool
+
+    func body(content: Content) -> some View {
+        if #available(watchOS 9.0, *) {
+            return AnyView(content.scrollIndicators(shouldHide ? .hidden : .visible))
+        } else {
+            return AnyView(content)
+        }
+    }
+}
+
 
 
 extension HKWorkoutActivityType: Identifiable {

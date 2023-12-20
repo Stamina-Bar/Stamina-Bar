@@ -10,16 +10,17 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Binding var shouldShowOnboarding: Bool
-    
+    @State private var currentPageIndex = 0  // State to track the current page
+
     var body: some View {
         TabView {
-            PageView(title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
-
-            PageView(title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
-
-            PageView(title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            
+            PageView(pageNumber: 2, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            
+            PageView(pageNumber: 3, title: "page1", subTitle: "interesting stuff", imageName: "bell", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(PageTabViewStyle())
@@ -27,12 +28,14 @@ struct OnboardingView: View {
 }
 
 struct PageView: View {
+    let pageNumber: Int  // Page number
     let title: String
     let subTitle: String
     let imageName: String
     let showsDismissButton: Bool
     @Binding var shouldShowOnboarding: Bool
-
+    @EnvironmentObject var workoutManager: WorkoutManager
+    
     var body: some View {
         VStack {
             Image(systemName: imageName)
@@ -51,6 +54,7 @@ struct PageView: View {
                 .multilineTextAlignment(.center)
                 .padding()
             
+            // Law to dissmiss onboarding
             if showsDismissButton {
                 Button(action: {
                     shouldShowOnboarding.toggle()
@@ -63,7 +67,13 @@ struct PageView: View {
                         .cornerRadius(60)
                 })
             }
+            
+        }
+        .onAppear {
+            if pageNumber == 2 { // Request authorization on the second page
+                workoutManager.requestAuthorization()
+            }
         }
     }
 }
- 
+
