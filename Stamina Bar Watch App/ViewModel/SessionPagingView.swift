@@ -24,7 +24,7 @@ struct SessionPagingView: View {
                        VerticalCarouselView().tag(Tab.verticalCarousel)
                        NowPlayingView().tag(Tab.nowPlaying)
                 }
-        .navigationTitle("Stamina Bar")
+        //.navigationTitle("Stamina Bar")
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(selection == .nowPlaying)
         .onChange(of: workoutManager.running) { _ in
