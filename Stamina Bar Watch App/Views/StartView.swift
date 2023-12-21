@@ -58,6 +58,7 @@ struct StartView: View {
         }
         .listStyle(.carousel)
         .navigationBarTitle("Stamina Bar")
+        .navigationBarTitleDisplayMode(.inline)
         
         .modifier(ConditionalScrollIndicatorModifier(shouldHide: shouldShowOnboarding))
 
