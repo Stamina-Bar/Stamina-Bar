@@ -63,7 +63,7 @@ struct StartView: View {
 
         .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
             OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
-        })
+        })        
     }
 }
 
