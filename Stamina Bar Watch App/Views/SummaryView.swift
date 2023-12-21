@@ -31,7 +31,7 @@ struct SummaryView: View {
         }
         
         // MARK: - Summary if user chooses stamina bar (hides distance)
-        else if workoutManager.selectedWorkout == .other || workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining || workoutManager.selectedWorkout == .highIntensityIntervalTraining {
+        else if workoutManager.selectedWorkout == .other || workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
             ScrollView {
                 VStack(alignment: .leading) {
                     // Add time
