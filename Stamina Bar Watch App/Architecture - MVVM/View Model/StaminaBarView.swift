@@ -143,9 +143,9 @@ class StaminaBarView {
                     staminaPercentage = "41"
                 case (170.4)..<(171.1):
                     staminaPercentage = "40"
-                case (171.1)..<(171.8):
+                case (171.1)..<(17):
                     staminaPercentage = "39"
-                case (171.8)..<(172.5):
+                case (17)..<(172.5):
                     staminaPercentage = "38"
                 case (172.5)..<(173.2):
                     staminaPercentage = "37"

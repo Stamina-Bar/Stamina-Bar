@@ -162,12 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA48B42C2A380B6F00E9269B /* Carousels */ = {
+		DA62973B2B364E440068A3E8 /* Architecture - MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				DACEAD412AD1C6B100DCC032 /* Vertical */,
+				DAFEE7F629BA45170027A3D8 /* Model */,
+				DAFEE7F929BA455B0027A3D8 /* View */,
+				DAB8D28A2A2111BF00333D83 /* View Model */,
 			);
-			path = Carousels;
+			path = "Architecture - MVVM";
 			sourceTree = "<group>";
 		};
 		DA8E526D29EE2C1400DD26AF /* Tests */ = {
@@ -209,19 +211,16 @@
 		DAA3BCCC29288C8700146F96 /* Stamina Bar Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */,
 				DAA3BCD129288C8A00146F96 /* Assets.xcassets */,
 				DAA3BCDF29288CA500146F96 /* Stamina Bar Watch App.entitlements */,
-				DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */,
-				DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */,
-				DAFEE7F629BA45170027A3D8 /* Model */,
-				DAFEE7F929BA455B0027A3D8 /* Views */,
-				DAB8D28A2A2111BF00333D83 /* ViewModel */,
+				DA62973B2B364E440068A3E8 /* Architecture - MVVM */,
 				DA8E526D29EE2C1400DD26AF /* Tests */,
 			);
 			path = "Stamina Bar Watch App";
 			sourceTree = "<group>";
 		};
-		DAB8D28A2A2111BF00333D83 /* ViewModel */ = {
+		DAB8D28A2A2111BF00333D83 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
 				DAFEE83929C550380027A3D8 /* SessionPagingView.swift */,
@@ -229,19 +228,19 @@
 				DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */,
 				DAB8D28B2A21136200333D83 /* HapticManager.swift */,
 			);
-			path = ViewModel;
+			path = "View Model";
 			sourceTree = "<group>";
 		};
-		DACEAD412AD1C6B100DCC032 /* Vertical */ = {
+		DACEAD412AD1C6B100DCC032 /* Vertical Carousels */ = {
 			isa = PBXGroup;
 			children = (
-				DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */,
-				DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */,
-				DACEAD472AD3549700DCC032 /* StepCountView.swift */,
 				DACEAD4B2AD57FDD00DCC032 /* CardioFitnessView.swift */,
+				DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */,
 				DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */,
+				DACEAD472AD3549700DCC032 /* StepCountView.swift */,
+				DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */,
 			);
-			path = Vertical;
+			path = "Vertical Carousels";
 			sourceTree = "<group>";
 		};
 		DAF3ED662AFD16F900ABCC8A /* Frameworks */ = {
@@ -267,24 +266,25 @@
 		DAFEE7F629BA45170027A3D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */,
+				DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */,
 				DA5CDB052A36C1990089757D /* UserAgeReader.swift */,
+				DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		DAFEE7F929BA455B0027A3D8 /* Views */ = {
+		DAFEE7F929BA455B0027A3D8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
 				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
 				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
 				DAFEE84129C551610027A3D8 /* MetricsView.swift */,
-				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
-				DA48B42C2A380B6F00E9269B /* Carousels */,
 				DABECD582B3286AB00FF2B29 /* Onboarding.swift */,
+				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
+				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
+				DACEAD412AD1C6B100DCC032 /* Vertical Carousels */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,7 +520,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -528,7 +528,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -548,7 +548,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -556,7 +556,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -697,7 +697,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -712,7 +712,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -734,7 +734,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -749,7 +749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -769,7 +769,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -778,7 +778,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -794,7 +794,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -803,7 +803,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -820,7 +820,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StaminaBarWidget/Info.plist;
@@ -832,7 +832,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -852,7 +852,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.8.0;
+				CURRENT_PROJECT_VERSION = 1.8.2;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StaminaBarWidget/Info.plist;
@@ -864,7 +864,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

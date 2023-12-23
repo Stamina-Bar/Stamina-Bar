@@ -1,45 +1,47 @@
 //
-//  HeartRateVariabilityView.swift
+//  StepCountView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 10/10/23.
-//
+//  Created by Bryce Ellis on 10/8/23.
 
+import Foundation
 import SwiftUI
 import HealthKit
 
-struct HeartRateVariabilityView: View {
-    
+struct StepCountView: View {
+    // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
-    // An indication of a scene's operational state
     @Environment(\.scenePhase) private var scenePhase
+    
     
     let staminaBarView = StaminaBarView()
     
     var body: some View {
+        // MARK: Stamina Bar selected
         if workoutManager.selectedWorkout == .other {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+                
                 VStack (alignment: .trailing) {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .scenePadding()
-                    
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     
                     HStack {
-                        Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+                        Text("\(workoutManager.dailyStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
 
-                        Image(systemName: "waveform.path.ecg")
+                        Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
-                        
                     }
+                }
+                .onAppear {
+                    workoutManager.fetchDailyStepCount()
                 }
             }
         }
-        
         
         else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
@@ -50,18 +52,21 @@ struct HeartRateVariabilityView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .scenePadding()
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    
                     HStack {
-                        Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+                        Text("\(workoutManager.dailyStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
 
-                        Image(systemName: "waveform.path.ecg")
+                        Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
                     }
                 }
+                
+                .onAppear {
+                    workoutManager.fetchDailyStepCount()
+                }
+                
             }
         }
-        
         
         else {
             TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
@@ -77,41 +82,45 @@ struct HeartRateVariabilityView: View {
                     (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                     HStack {
                         Spacer()
-                        Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+                        Text("\(workoutManager.dailyStepCount) Steps")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
 
-                        Image(systemName: "waveform.path.ecg")
+                        Image(systemName: "figure.walk")
                             .foregroundColor(.blue)
-                        
                     }
                     
                     if workoutManager.distance < 0.5 {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
                     } else {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
                             .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .fontWeight(.bold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
                     }
                 }
+                
+                .onAppear {
+                    workoutManager.fetchDailyStepCount()
+                }
+                
             }
         }
     }
 }
 
-struct HeartRateVariabilityView_Previews: PreviewProvider {
+struct StepCountView_Previews: PreviewProvider {
     static var previews: some View {
-        HeartRateVariabilityView().environmentObject(WorkoutManager())
+        // CHANGE
+        StepCountView().environmentObject(WorkoutManager())
     }
 }
 
+// Workout builder helper
 private struct MetricsTimelineSchedule: TimelineSchedule {
     var startDate: Date
     var isPaused: Bool

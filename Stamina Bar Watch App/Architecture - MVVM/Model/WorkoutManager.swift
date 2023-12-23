@@ -220,7 +220,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     }
 
     
-    private func fetchMostRecentHRV() {
+    func fetchMostRecentHRV() {
         // Define the Heart Rate Variability type using HealthKit's standard nomenclature.
         guard let hrvType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN) else {
             print("HRV type is not available.")
@@ -253,7 +253,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     }
     
     // Execute query to retrieve basal (resting) energy
-    private func fetchDailyBasalEnergyBurn() {
+    func fetchDailyBasalEnergyBurn() {
         // Safely unwrap the restingEnergyType to avoid runtime crashes
         guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
             print("Basal energy burn type is not available")
@@ -284,7 +284,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     }
     
     // Execute query to retrieve active energy
-    private func fetchDailyActiveEnergyBurned() {
+    func fetchDailyActiveEnergyBurned() {
         // Define the quantity type for active energy burned
         guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
             print("Daily active energy burn type is not available")
@@ -319,7 +319,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     }
     
     // Fetch the current day's step count
-    private func fetchDailyStepCount() {
+    func fetchDailyStepCount() {
         // Define the step count data type
         guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             print("Step Count type is not available.")
@@ -350,7 +350,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     }
     
     // Fetch the most recent VO2 Max value from HealthKit
-    private func fetchMostRecentVO2Max() {
+    func fetchMostRecentVO2Max() {
         // Define the VO2 Max data type
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else {
             print("VO2 Max type is not available.")
