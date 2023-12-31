@@ -91,13 +91,13 @@ struct StepCountView: View {
                     
                     if workoutManager.distance < 0.5 {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                            .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
                     } else {
                         Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                            .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .ignoresSafeArea(edges: .bottom)
                             .scenePadding()
