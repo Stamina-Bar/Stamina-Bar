@@ -9,15 +9,6 @@
 import SwiftUI
 import HealthKit
 
-// TODO:
-// Redsign HKWorkoutActivityType to be blue icons instead of red
-
-// Add a border around the list
-
-// Add an editing option to the list
-
-// Load an activity starter 
-
 struct WorkoutType: Identifiable {
     var id: HKWorkoutActivityType {
         return workoutType
@@ -27,9 +18,7 @@ struct WorkoutType: Identifiable {
 }
 
 struct StartView: View {
-    
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
-    
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar"),
@@ -41,7 +30,7 @@ struct StartView: View {
 //        WorkoutType(workoutType: .highIntensityIntervalTraining, workoutSupportingImage: "custom.HIIT"),
         WorkoutType(workoutType: .traditionalStrengthTraining, workoutSupportingImage: "custom.strengthTraining")
     ]
-    
+
     var body: some View {
         List {
             ForEach(Array(workoutTypes.enumerated()), id: \.1.id) { (index, workoutType) in
