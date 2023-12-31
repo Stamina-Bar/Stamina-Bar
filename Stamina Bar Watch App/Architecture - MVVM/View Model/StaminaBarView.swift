@@ -18,7 +18,9 @@ class StaminaBarView {
         let staminaPercentage: String
         switch heart_rate {
                 // MARK: Zone 1, Blue
-                case ..<60:
+                case -1..<1:
+                    staminaPercentage = "Loading"
+                case 1..<60:
                     staminaPercentage = "100"
                 case 60..<64:
                     staminaPercentage = "99"

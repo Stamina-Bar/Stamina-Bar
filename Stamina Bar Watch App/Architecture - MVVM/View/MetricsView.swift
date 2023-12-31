@@ -7,9 +7,9 @@
 
 import SwiftUI
 import HealthKit
-// CHANGE
+
 struct MetricsView: View {
-    // MARK: Data Fields
+
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
 
@@ -33,7 +33,7 @@ struct MetricsView: View {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
                     }
-                } 
+                }
             }
         }
         
@@ -109,6 +109,7 @@ struct MetricsView: View {
             }
         }
     }
+        
 }
 
 // Default code

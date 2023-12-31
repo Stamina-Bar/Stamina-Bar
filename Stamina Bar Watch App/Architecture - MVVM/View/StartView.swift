@@ -26,8 +26,6 @@ struct StartView: View {
         WorkoutType(workoutType: .walking, workoutSupportingImage: "custom.walk"),
         WorkoutType(workoutType: .running, workoutSupportingImage: "custom.run"),
         WorkoutType(workoutType: .cycling, workoutSupportingImage: "custom.bike"),
-//        WorkoutType(workoutType: .hiking, workoutSupportingImage: "custom.hike"),
-//        WorkoutType(workoutType: .highIntensityIntervalTraining, workoutSupportingImage: "custom.HIIT"),
         WorkoutType(workoutType: .traditionalStrengthTraining, workoutSupportingImage: "custom.strengthTraining")
     ]
 
@@ -97,10 +95,6 @@ extension HKWorkoutActivityType: Identifiable {
             return "Yoga"
         case .traditionalStrengthTraining:
             return "Weights"
-//        case .hiking:
-//            return "Hike"
-//        case .highIntensityIntervalTraining:
-//            return "H.I.I.T"
         default:
             return ""
         }
