@@ -31,7 +31,7 @@ struct HeartRateVariabilityView: View {
                     HStack {
                         Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-
+                        
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
                         
@@ -39,6 +39,8 @@ struct HeartRateVariabilityView: View {
                 }
                 .onAppear {
                     workoutManager.fetchMostRecentHRV()
+                    workoutManager.startFetchingHRVPeriodically()
+                    
                 }
             }
         }
@@ -57,13 +59,15 @@ struct HeartRateVariabilityView: View {
                     HStack {
                         Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-
+                        
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
                     }
                 }
                 .onAppear {
                     workoutManager.fetchMostRecentHRV()
+                    workoutManager.startFetchingHRVPeriodically()
+                    
                 }
             }
         }
@@ -85,7 +89,7 @@ struct HeartRateVariabilityView: View {
                         Spacer()
                         Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
                             .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-
+                        
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
                         
@@ -108,6 +112,8 @@ struct HeartRateVariabilityView: View {
                 
                 .onAppear {
                     workoutManager.fetchMostRecentHRV()
+                    workoutManager.startFetchingHRVPeriodically()
+                    
                 }
                 
             }

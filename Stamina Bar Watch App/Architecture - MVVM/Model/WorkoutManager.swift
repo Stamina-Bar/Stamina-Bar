@@ -9,7 +9,8 @@ import Foundation
 import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
-    
+    private var timer: Timer?
+
     // Good for dynamically checking the type of workout a user is doing
     var selectedWorkout: HKWorkoutActivityType? {
         didSet {
@@ -91,6 +92,7 @@ class WorkoutManager: NSObject, ObservableObject {
                 self?.fetchDailyActiveEnergyBurned()
                 self?.fetchDailyStepCount()
                 self?.fetchMostRecentVO2Max()
+                self?.startFetchingHRVPeriodically()
             } else {
                 // Handle the error if permissions are not granted
             }
@@ -218,7 +220,13 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             }
         }
     }
-
+    
+    func startFetchingHRVPeriodically() {
+        // Set up a timer to call fetchMostRecentHRV every 30 minutes
+        timer = Timer.scheduledTimer(withTimeInterval: 1800, repeats: true) { [weak self] _ in
+            self?.fetchMostRecentHRV()
+        }
+    }
     
     func fetchMostRecentHRV() {
         // Define the Heart Rate Variability type using HealthKit's standard nomenclature.

@@ -24,6 +24,12 @@ struct SummaryView: View {
         return formatter
     }()
     
+    // Computed property to calculate distance
+    var distanceTraveled: Double {
+        let stepsPerMile = 2000.0
+        return Double(workoutManager.dailyStepCount) / stepsPerMile
+    }
+    
     var body: some View {
         if workoutManager.workout == nil {
             ProgressView("Closing Stamina Bar")
@@ -58,10 +64,14 @@ struct SummaryView: View {
                     
                     SummaryMetricView(title: "Total Daily Calories",
                                       value: formattedCalories(workoutManager.basalEnergy + workoutManager.totalDailyEnergy) + " Cals")
-                                      .foregroundStyle(Color.orange) // Choose a color that fits your app's design
+                    .foregroundStyle(Color.orange) // Choose a color that fits your app's design
                     
                     SummaryMetricView(title: "Daily Step Count",
                                       value: workoutManager.dailyStepCount.formatted(.number.precision(.fractionLength(0))))
+                    .foregroundStyle(.blue)
+                    
+                    SummaryMetricView(title: "Daily Distance",
+                                      value: String(format: "%.2f Miles", distanceTraveled))
                     .foregroundStyle(.blue)
                     
                     SummaryMetricView(title: "Heart Rate Variability",
@@ -71,8 +81,8 @@ struct SummaryView: View {
                     SummaryMetricView(title: "V02 Max",
                                       value: workoutManager.currentVO2Max.formatted(.number.precision(.fractionLength(1))))
                     .foregroundStyle(.green)
-
-
+                    
+                    
                     Button("Done") {
                         dismiss()
                     }
@@ -97,7 +107,7 @@ struct SummaryView: View {
                                         .formatted(.measurement(width: .abbreviated,
                                                                 usage: .road,
                                                                 numberFormatStyle: .number.precision(.fractionLength(2)))))
-
+                    
                     Text("Avgerage")
                     //StaminaBarView(data: workoutManager.averageHeartRate)
                     (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
@@ -118,7 +128,7 @@ struct SummaryView: View {
                     SummaryMetricView(title: "Total Daily Calories",
                                       value: formattedCalories(workoutManager.basalEnergy + workoutManager.totalDailyEnergy) + " Cals")
                     
-                                      .foregroundStyle(Color.orange) // Choose a color that fits your app's design
+                    .foregroundStyle(Color.orange) // Choose a color that fits your app's design
                     
                     SummaryMetricView(title: "Daily Step Count",
                                       value: workoutManager.dailyStepCount.formatted(.number.precision(.fractionLength(0))))
@@ -131,7 +141,7 @@ struct SummaryView: View {
                     SummaryMetricView(title: "V02 Max",
                                       value: workoutManager.currentVO2Max.formatted(.number.precision(.fractionLength(1))))
                     .foregroundStyle(.green)
-
+                    
                     Button("Done") {
                         dismiss()
                     }
@@ -150,8 +160,8 @@ struct SummaryView: View {
         numberFormatter.maximumFractionDigits = 0 // Ensures no decimal places
         return numberFormatter.string(from: NSNumber(value: value)) ?? "\(Int(value))"
     }
-
-
+    
+    
 }
 
 struct SummaryView_Previews: PreviewProvider {
