@@ -37,10 +37,8 @@ struct MetricsView: View {
     }
 }
 
-// Default code
 struct MetricsView_Previews: PreviewProvider {
     static var previews: some View {
-        // CHANGE
         MetricsView().environmentObject(WorkoutManager())
     }
 }
