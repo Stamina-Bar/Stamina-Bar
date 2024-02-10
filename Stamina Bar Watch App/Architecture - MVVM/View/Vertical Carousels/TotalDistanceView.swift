@@ -11,11 +11,9 @@ import SwiftUI
 import HealthKit
 
 struct TotalDistanceView: View {
-    // MARK: Data Fields
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
     
-    // Computed property to calculate distance
     var distanceTraveled: Double {
         let stepsPerMile = 2000.0
         return Double(workoutManager.dailyStepCount) / stepsPerMile
@@ -24,93 +22,23 @@ struct TotalDistanceView: View {
     let staminaBarView = StaminaBarView()
     
     var body: some View {
-        // MARK: Stamina Bar selected
-        if workoutManager.selectedWorkout == .other {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+        TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+            
+            VStack (alignment: .trailing) {
+                ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
+                    .foregroundStyle(.white)
+                    .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .scenePadding()
+                (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                 
-                VStack (alignment: .trailing) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .scenePadding()
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
+                HStack {
+                    Text(String(format: "%.2f Miles", distanceTraveled))
+                        .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                     
-                    HStack {
-                        // Display distance
-                        Text(String(format: "%.2f Miles", distanceTraveled))
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                    }
+                    Image(systemName: "shoeprints.fill")
+                        .foregroundColor(.blue)
                 }
-            }
-        }
-        
-        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack (alignment: .trailing) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .scenePadding()
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    HStack {
-                        // Display distance
-                        Text(String(format: "%.2f Miles", distanceTraveled))
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                        
-                    }
-                }
-            }
-        }
-        
-        else {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
-                                                 isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack(alignment: .leading) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .ignoresSafeArea(edges: .bottom)
-                        .scenePadding()
-                    
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    HStack {
-                        Spacer()
-                        // Display distance
-                        Text(String(format: "%.2f Miles", distanceTraveled))
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                    }
-                    
-                    if workoutManager.distance < 0.5 {
-                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                    } else {
-                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                    }
-                }
-                
-                .onAppear {
-                    workoutManager.fetchDailyStepCount()
-                }
-                
             }
         }
     }
@@ -118,12 +46,10 @@ struct TotalDistanceView: View {
 
 struct TotalDistanceView_Previews: PreviewProvider {
     static var previews: some View {
-        // CHANGE
         TotalDistanceView().environmentObject(WorkoutManager())
     }
 }
 
-// Workout builder helper
 private struct MetricsTimelineSchedule: TimelineSchedule {
     var startDate: Date
     var isPaused: Bool
@@ -143,6 +69,4 @@ private struct MetricsTimelineSchedule: TimelineSchedule {
             return baseSchedule.next()
         }
     }
-    
 }
-

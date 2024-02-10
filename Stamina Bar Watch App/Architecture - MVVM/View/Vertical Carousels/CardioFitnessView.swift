@@ -18,102 +18,28 @@ struct CardioFitnessView: View {
     
     var body: some View {
         
-        if workoutManager.selectedWorkout == .other {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+        TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+            
+            VStack (alignment: .trailing) {
                 
-                VStack (alignment: .trailing) {
+                ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
+                    .foregroundStyle(.white)
+                    .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                    .scenePadding()
+                
+                (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
+                
+                
+                HStack {
+                    Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
+                        .font(.system(.body, design:
+                                .rounded).monospacedDigit().lowercaseSmallCaps())
                     
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Image(systemName: "lungs.fill")
+                        .foregroundColor(.green)
                     
-                        .scenePadding()
-                    
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    
-                    
-                    HStack {
-                        Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
-                            .font(.system(.body, design:
-                                    .rounded).monospacedDigit().lowercaseSmallCaps())
-
-                        Image(systemName: "lungs.fill")
-                            .foregroundColor(.green)
-                        
-                    }
-                }
-                .onAppear {
-                    workoutManager.fetchMostRecentVO2Max()
-                }
-            }
-        }
-        
-        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack (alignment: .trailing) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .scenePadding()
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    
-                    HStack {
-                        Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
-                            .font(.system(.body, design:
-                                    .rounded).monospacedDigit().lowercaseSmallCaps())
-
-                        Image(systemName: "lungs.fill")
-                            .foregroundColor(.green)
-                    }
-                }
-                .onAppear {
-                    workoutManager.fetchMostRecentVO2Max()
-                }
-            }
-        }
-        
-        else {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
-                                                 isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack(alignment: .leading) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .ignoresSafeArea(edges: .bottom)
-                        .scenePadding()
-                    
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    HStack {
-                        Spacer()
-                        Text("\(String(format: "%.1f", workoutManager.currentVO2Max)) VO2 max")
-                            .font(.system(.body, design:
-                                    .rounded).monospacedDigit().lowercaseSmallCaps())
-
-                        Image(systemName: "lungs.fill")
-                            .foregroundColor(.green)
-                        
-                        
-                    }
-                    
-                    if workoutManager.distance < 0.5 {
-                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                    } else {
-                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                    }
-                }
-                .onAppear {
-                    workoutManager.fetchMostRecentVO2Max()
                 }
             }
         }
@@ -146,6 +72,4 @@ private struct MetricsTimelineSchedule: TimelineSchedule {
             return baseSchedule.next()
         }
     }
-    
 }
-

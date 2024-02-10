@@ -14,13 +14,13 @@ struct OnboardingView: View {
     var body: some View {
         TabView {
 
-            PageView(pageNumber: 0, title: "Welcome!", subTitle: "Scroll Up to Continue", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "Welcome!", subTitle: "Scroll 🆙", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "Authorize", subTitle: "Set Up Health Access", imageName: "HealthAppIcon", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "Authorize", subTitle: "Apple Health ⬆️", imageName: "HealthAppIcon", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 2, title: "Scan", subTitle: "Learn about the app", imageName: "Frame", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 2, title: "Get Started", subTitle: " ", imageName: " ", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 3, title: "Ready", subTitle: "Complete onboarding", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+//            PageView(pageNumber: 3, title: "Ready", subTitle: "Complete onboarding", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(.carousel)
@@ -38,37 +38,37 @@ struct PageView: View {
     
     var body: some View {
         VStack {
-            Image(imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 75, height: 75)
-            
-            Text(title)
-                .font(.system(size: 24))
-            
-            Text(subTitle)
-                .font(.system(size: 18))
-                .foregroundStyle(Color.secondary)
-                .multilineTextAlignment(.center)
-            // Law to dissmiss onboarding
-            if showsDismissButton {
+            if !showsDismissButton {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 75, height: 75)
+                
+                Text(title)
+                    .font(.system(size: 24))
+                
+                Text(subTitle)
+                    .font(.system(size: 18))
+                    .foregroundStyle(Color.secondary)
+                    .multilineTextAlignment(.center)
+            } else {
+                Text(title)
+                    .font(.system(size: 24))
                 
                 Button(action: {
                     shouldShowOnboarding.toggle()
                 }) {
-                    Text("Get Started")
+                    Text("Ready")
                         .bold()
                         .foregroundColor(.white)
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
                 .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
-                .cornerRadius(25) // Apply to Button
-                //.shadow(color: .gray, radius: 5, x: 0, y: 5) // Apply to Button
+                .cornerRadius(25)
             }
-            
         }
         .onAppear {
-            if pageNumber == 2 { // Request authorization on the second page
+            if pageNumber == 1 { // Request authorization on the second page
                 workoutManager.requestAuthorization()
             }
         }

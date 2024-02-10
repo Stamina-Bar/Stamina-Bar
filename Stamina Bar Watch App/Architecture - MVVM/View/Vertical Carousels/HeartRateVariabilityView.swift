@@ -11,7 +11,6 @@ import HealthKit
 struct HeartRateVariabilityView: View {
     
     @EnvironmentObject var workoutManager: WorkoutManager
-    // An indication of a scene's operational state
     @Environment(\.scenePhase) private var scenePhase
     
     let staminaBarView = StaminaBarView()
@@ -34,88 +33,8 @@ struct HeartRateVariabilityView: View {
                         
                         Image(systemName: "waveform.path.ecg")
                             .foregroundColor(.blue)
-                        
                     }
                 }
-                .onAppear {
-                    workoutManager.fetchMostRecentHRV()
-                    workoutManager.startFetchingHRVPeriodically()
-                    
-                }
-            }
-        }
-        
-        
-        else if workoutManager.selectedWorkout == .yoga ||  workoutManager.selectedWorkout == .traditionalStrengthTraining {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack (alignment: .trailing) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .scenePadding()
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    
-                    HStack {
-                        Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "waveform.path.ecg")
-                            .foregroundColor(.blue)
-                    }
-                }
-                .onAppear {
-                    workoutManager.fetchMostRecentHRV()
-                    workoutManager.startFetchingHRVPeriodically()
-                    
-                }
-            }
-        }
-        
-        
-        else {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(),
-                                                 isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack(alignment: .leading) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .ignoresSafeArea(edges: .bottom)
-                        .scenePadding()
-                    
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    HStack {
-                        Spacer()
-                        Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "waveform.path.ecg")
-                            .foregroundColor(.blue)
-                        
-                    }
-                    
-                    if workoutManager.distance < 0.5 {
-                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                    } else {
-                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
-                            .font(.system(.title3, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .ignoresSafeArea(edges: .bottom)
-                            .scenePadding()
-                    }
-                }
-                
-                .onAppear {
-                    workoutManager.fetchMostRecentHRV()
-                    workoutManager.startFetchingHRVPeriodically()
-                    
-                }
-                
             }
         }
     }
@@ -148,4 +67,3 @@ private struct MetricsTimelineSchedule: TimelineSchedule {
     }
     
 }
-
