@@ -21,17 +21,13 @@ struct StartView: View {
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [
-        WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar"),
-        WorkoutType(workoutType: .yoga, workoutSupportingImage: "custom.yoga"),
-        WorkoutType(workoutType: .walking, workoutSupportingImage: "custom.walk"),
-        WorkoutType(workoutType: .running, workoutSupportingImage: "custom.run"),
-        WorkoutType(workoutType: .cycling, workoutSupportingImage: "custom.bike"),
-        WorkoutType(workoutType: .traditionalStrengthTraining, workoutSupportingImage: "custom.strengthTraining")
+        WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar")
     ]
-
+    
     var body: some View {
-        List {
-            ForEach(Array(workoutTypes.enumerated()), id: \.1.id) { (index, workoutType) in
+        VStack {
+            Spacer() // Use Spacer() to push the content to the middle
+            if let workoutType = workoutTypes.first { // Since you have only one, you can directly access it
                 NavigationLink(destination: SessionPagingView(),
                                tag: workoutType.workoutType,
                                selection: $workoutManager.selectedWorkout) {
@@ -39,21 +35,23 @@ struct StartView: View {
                         Image(workoutType.workoutSupportingImage)
                         Text(workoutType.workoutType.name)
                     }
-                    .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                }                
-            }
+                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                }
+                               .overlay(
+                                RoundedRectangle(cornerRadius: 25) // Match this cornerRadius with the one applied to the content
+                                    .stroke(Color.blue, lineWidth: 2)
+                               )            }
+            Spacer() // Another Spacer() to ensure the content stays centered
         }
-        .listStyle(.carousel)
         .navigationBarTitle("Stamina Bar")
         .navigationBarTitleDisplayMode(.inline)
-        
         .modifier(ConditionalScrollIndicatorModifier(shouldHide: shouldShowOnboarding))
-
         .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
             OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
-        })        
+        })
     }
 }
+
 
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
@@ -64,7 +62,7 @@ struct StartView_Previews: PreviewProvider {
 // Custom modifier to conditionally hide scroll indicators
 struct ConditionalScrollIndicatorModifier: ViewModifier {
     var shouldHide: Bool
-
+    
     func body(content: Content) -> some View {
         if #available(watchOS 9.0, *) {
             return AnyView(content.scrollIndicators(shouldHide ? .hidden : .visible))
@@ -84,7 +82,7 @@ extension HKWorkoutActivityType: Identifiable {
     var name: String {
         switch self {
         case .other:
-            return "Any"
+            return "Stamina Bar"
         case .running:
             return "Jog"
         case .cycling:
