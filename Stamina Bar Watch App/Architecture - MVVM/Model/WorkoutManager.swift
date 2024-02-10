@@ -10,7 +10,7 @@ import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
     private var healthUpdateTimer: Timer?
-
+    
     var selectedWorkout: HKWorkoutActivityType? {
         didSet {
             guard let selectedWorkout = selectedWorkout else { return }
@@ -51,15 +51,15 @@ class WorkoutManager: NSObject, ObservableObject {
         let startDate = Date()
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
-
+            
         }
         
         healthUpdateTimer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in
-                            self?.fetchMostRecentHRV()
-                            self?.fetchDailyBasalEnergyBurn()
-                            self?.fetchDailyActiveEnergyBurned()
-                            self?.fetchDailyStepCount()
-                            self?.fetchMostRecentVO2Max()
+            self?.fetchMostRecentHRV()
+            self?.fetchDailyBasalEnergyBurn()
+            self?.fetchDailyActiveEnergyBurned()
+            self?.fetchDailyStepCount()
+            self?.fetchMostRecentVO2Max()
         }
     }
     
@@ -82,7 +82,7 @@ class WorkoutManager: NSObject, ObservableObject {
         ]
         
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
-
+            
         }
     }
     
@@ -111,7 +111,7 @@ class WorkoutManager: NSObject, ObservableObject {
         showingSummaryView = true
         healthUpdateTimer?.invalidate()
         healthUpdateTimer = nil
-
+        
     }
     
     @Published var heartRateVariability: Double = 0
@@ -209,7 +209,6 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     
     func fetchMostRecentHRV() {
         guard let hrvType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN) else {
-            print("HRV type is not available.")
             return
         }
         let mostRecentPredicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date(), options: .strictEndDate)
@@ -229,59 +228,52 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     
     func fetchDailyBasalEnergyBurn() {
         guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
-            print("Basal energy burn type is not available")
             return
         }
-
+        
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
-
+        
         let query = HKStatisticsQuery(quantityType: restingEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { [weak self] (_, result, error) in
             guard let result = result, let sum = result.sumQuantity() else {
-                print("Failed to retrieve resting energy data: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
+            
             let basalEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
             DispatchQueue.main.async {
                 self?.basalEnergy = basalEnergy
-                print("Basal Energy Burned: \(basalEnergy) kcal")
             }
         }
-
+        
         healthStore.execute(query)
     }
-
+    
     func fetchDailyActiveEnergyBurned() {
         guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
-            print("Daily active energy burn type is not available")
             return
         }
-
+        
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
-
+        
         let query = HKStatisticsQuery(quantityType: activeEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { [weak self] (_, result, error) in
             guard let result = result, let sum = result.sumQuantity() else {
-                print("Failed to retrieve active energy data: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
+            
             let activeEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
             DispatchQueue.main.async {
                 self?.totalDailyEnergy = activeEnergy
-                print("Active Energy Burned: \(activeEnergy) kcal")
             }
         }
-
+        
         healthStore.execute(query)
     }
-
+    
     func fetchDailyStepCount() {
         guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
-            print("Step Count type is not available.")
             return
         }
         
@@ -294,17 +286,13 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
             // Calculate elapsed time
             let elapsedTime = Date().timeIntervalSince(startTime)
-            print("fetchDailyStepCount elapsed time: \(elapsedTime) seconds")
-
             guard let result = result, let sum = result.sumQuantity() else {
-                print("Error fetching step count. Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
             
             DispatchQueue.main.async {
                 self.dailyStepCount = Int(sum.doubleValue(for: HKUnit.count()))
-                print("Step Count: \(self.dailyStepCount) steps")
-
+                
             }
         }
         
@@ -313,7 +301,6 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     
     func fetchMostRecentVO2Max() {
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else {
-            print("VO2 Max type is not available.")
             return
         }
         
@@ -321,7 +308,6 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         
         let query = HKSampleQuery(sampleType: vo2MaxType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { _, results, error in
             guard let vo2MaxSample = results?.first as? HKQuantitySample else {
-                print("Failed to retrieve VO2 Max data: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
             
@@ -330,7 +316,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
                 self.currentVO2Max = vo2MaxSample.quantity.doubleValue(for: HKUnit(from: "ml/kg*min"))
             }
         }
-
+        
         healthStore.execute(query)
     }
 }
