@@ -64,6 +64,4 @@ private struct MetricsTimelineSchedule: TimelineSchedule {
             return baseSchedule.next()
         }
     }
-    
 }
-

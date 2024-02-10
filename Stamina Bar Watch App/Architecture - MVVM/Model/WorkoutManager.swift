@@ -221,13 +221,6 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         }
     }
     
-    func startFetchingHRVPeriodically() {
-        // Set up a timer to call fetchMostRecentHRV every 30 minutes
-        timer = Timer.scheduledTimer(withTimeInterval: 1800, repeats: true) { [weak self] _ in
-            self?.fetchMostRecentHRV()
-        }
-    }
-    
     func fetchMostRecentHRV() {
         // Define the Heart Rate Variability type using HealthKit's standard nomenclature.
         guard let hrvType = HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN) else {
