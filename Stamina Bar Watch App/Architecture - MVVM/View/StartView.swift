@@ -37,10 +37,8 @@ struct StartView: View {
                     }
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 }
-                               .overlay(
-                                RoundedRectangle(cornerRadius: 25) // Match this cornerRadius with the one applied to the content
-                                    .stroke(Color.blue, lineWidth: 2)
-                               )            }
+                .overlay(RoundedRectangle(cornerRadius: 25) .stroke(Color.blue, lineWidth: 2))
+            }
             Spacer() // Another Spacer() to ensure the content stays centered
         }
         .navigationBarTitle("Stamina Bar")
