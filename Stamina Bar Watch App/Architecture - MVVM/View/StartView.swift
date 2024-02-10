@@ -26,8 +26,8 @@ struct StartView: View {
     
     var body: some View {
         VStack {
-            Spacer() // Use Spacer() to push the content to the middle
-            if let workoutType = workoutTypes.first { // Since you have only one, you can directly access it
+            Spacer()
+            if let workoutType = workoutTypes.first {
                 NavigationLink(destination: SessionPagingView(),
                                tag: workoutType.workoutType,
                                selection: $workoutManager.selectedWorkout) {
@@ -37,9 +37,9 @@ struct StartView: View {
                     }
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 }
-                .overlay(RoundedRectangle(cornerRadius: 25) .stroke(Color.blue, lineWidth: 2))
+                .overlay(RoundedRectangle(cornerRadius: 30) .stroke(Color.blue, lineWidth: 2))
             }
-            Spacer() // Another Spacer() to ensure the content stays centered
+            Spacer()
         }
         .navigationBarTitle("Stamina Bar")
         .navigationBarTitleDisplayMode(.inline)
@@ -50,14 +50,12 @@ struct StartView: View {
     }
 }
 
-
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         StartView().environmentObject(WorkoutManager())
     }
 }
 
-// Custom modifier to conditionally hide scroll indicators
 struct ConditionalScrollIndicatorModifier: ViewModifier {
     var shouldHide: Bool
     
@@ -70,8 +68,6 @@ struct ConditionalScrollIndicatorModifier: ViewModifier {
     }
 }
 
-
-
 extension HKWorkoutActivityType: Identifiable {
     public var id: UInt {
         rawValue
@@ -81,16 +77,6 @@ extension HKWorkoutActivityType: Identifiable {
         switch self {
         case .other:
             return "Stamina Bar"
-        case .running:
-            return "Jog"
-        case .cycling:
-            return "Bike"
-        case .walking:
-            return "Walk"
-        case .yoga:
-            return "Yoga"
-        case .traditionalStrengthTraining:
-            return "Weights"
         default:
             return ""
         }
