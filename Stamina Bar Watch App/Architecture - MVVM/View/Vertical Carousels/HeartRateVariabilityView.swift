@@ -35,13 +35,6 @@ struct HeartRateVariabilityView: View {
                             .foregroundColor(.blue)
                     }
                 }
-                .onAppear {
-                    workoutManager.fetchMostRecentHRV()
-                }
-                
-                .onTapGesture {
-                    workoutManager.fetchMostRecentHRV()
-                }
             }
         }
     }

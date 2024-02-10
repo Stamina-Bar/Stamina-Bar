@@ -68,7 +68,7 @@ struct PageView: View {
             }
         }
         .onAppear {
-            if pageNumber == 2 { // Request authorization on the second page
+            if pageNumber == 1 { // Request authorization on the second page
                 workoutManager.requestAuthorization()
             }
         }

@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
-    private var timer: Timer?
+    private var healthUpdateTimer: Timer?
 
     // Good for dynamically checking the type of workout a user is doing
     var selectedWorkout: HKWorkoutActivityType? {
@@ -60,6 +60,14 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.beginCollection(withStart: startDate) { (success, error) in
             // The workout has started.
         }
+        
+        healthUpdateTimer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in
+                            self?.fetchMostRecentHRV()
+                            self?.fetchDailyBasalEnergyBurn()
+                            self?.fetchDailyActiveEnergyBurned()
+                            self?.fetchDailyStepCount()
+                            self?.fetchMostRecentVO2Max()
+        }
     }
     
     // Request authorization to access HealthKit.
@@ -84,18 +92,8 @@ class WorkoutManager: NSObject, ObservableObject {
         ]
         
         // Request authorization for those quantity types.
-        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { [weak self] (success, error) in
-            if success {
-                // Perform additional tasks or fetches here if necessary
-                self?.fetchMostRecentHRV()
-                self?.fetchDailyBasalEnergyBurn()
-                self?.fetchDailyActiveEnergyBurned()
-                self?.fetchDailyStepCount()
-                self?.fetchMostRecentVO2Max()
-                self?.startFetchingHRVPeriodically()
-            } else {
-                // Handle the error if permissions are not granted
-            }
+        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
+            // Handle error.
         }
     }
     
@@ -123,6 +121,9 @@ class WorkoutManager: NSObject, ObservableObject {
     func endWorkout() {
         session?.end()
         showingSummaryView = true
+        healthUpdateTimer?.invalidate()
+        healthUpdateTimer = nil
+
     }
     
     // MARK: - Workout Metrics
@@ -255,86 +256,80 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
     
     // Execute query to retrieve basal (resting) energy
     func fetchDailyBasalEnergyBurn() {
-        // Safely unwrap the restingEnergyType to avoid runtime crashes
         guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
             print("Basal energy burn type is not available")
             return
         }
-        
+
         let now = Date()
-        // Using Calendar.current to get the start of the day is a good practice
         let startOfDay = Calendar.current.startOfDay(for: now)
-        
-        // Creating a predicate for the time range from the start of the day to now
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
-        
-        // Initializing a HKStatisticsQuery to fetch cumulative basal energy data
-        let query = HKStatisticsQuery(quantityType: restingEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in
-            // Robust error handling for nil results or errors
+
+        let query = HKStatisticsQuery(quantityType: restingEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { [weak self] (_, result, error) in
             guard let result = result, let sum = result.sumQuantity() else {
                 print("Failed to retrieve resting energy data: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            
-            // Converting the sum of basal energy burned to kilocalories
-            self.basalEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
+
+            let basalEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
+            DispatchQueue.main.async {
+                self?.basalEnergy = basalEnergy
+                print("Basal Energy Burned: \(basalEnergy) kcal")
+            }
         }
-        
-        // Executing the query on the HealthKit store
+
         healthStore.execute(query)
     }
+
     
     // Execute query to retrieve active energy
     func fetchDailyActiveEnergyBurned() {
-        // Define the quantity type for active energy burned
         guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
             print("Daily active energy burn type is not available")
             return
         }
-        
-        // Get the current date and time
+
         let now = Date()
-        
-        // Determine the start of the current day
         let startOfDay = Calendar.current.startOfDay(for: now)
-        
-        // Create a predicate to filter the HealthKit data between the start of the day and now
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
-        
-        // Initialize a statistics query for the active energy type with the specified predicate
-        // Configure it to calculate a cumulative sum of the active energy burned
-        let query = HKStatisticsQuery(quantityType: activeEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in
-            // Check if the query result is available and successfully retrieve the sum quantity
+
+        let query = HKStatisticsQuery(quantityType: activeEnergyType, quantitySamplePredicate: predicate, options: .cumulativeSum) { [weak self] (_, result, error) in
             guard let result = result, let sum = result.sumQuantity() else {
-                // Print an error message if the data retrieval fails
                 print("Failed to retrieve active energy data: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            
-            // Convert the sum quantity to kilocalories and store it in the legacyActiveEnergy property
-            self.totalDailyEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
+
+            let activeEnergy = sum.doubleValue(for: HKUnit.kilocalorie())
+            DispatchQueue.main.async {
+                self?.totalDailyEnergy = activeEnergy
+                print("Active Energy Burned: \(activeEnergy) kcal")
+            }
         }
-        
-        // Execute the query on the HealthKit store
+
         healthStore.execute(query)
     }
+
     
     // Fetch the current day's step count
     func fetchDailyStepCount() {
-        // Define the step count data type
         guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             print("Step Count type is not available.")
             return
         }
         
-        // Set the time range for today
-        let calendar = Calendar.current
+        let startOfDay = Calendar.current.startOfDay(for: Date())
         let now = Date()
-        let startOfDay = calendar.startOfDay(for: now)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
         
-        // Create a query to fetch the cumulative step count
+        // Start timing
+        let startTime = Date()
+        
+        
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
+            // Calculate elapsed time
+            let elapsedTime = Date().timeIntervalSince(startTime)
+            print("fetchDailyStepCount elapsed time: \(elapsedTime) seconds")
+
             guard let result = result, let sum = result.sumQuantity() else {
                 print("Error fetching step count. Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -343,12 +338,15 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             // Update the step count
             DispatchQueue.main.async {
                 self.dailyStepCount = Int(sum.doubleValue(for: HKUnit.count()))
+                print("Step Count: \(self.dailyStepCount) steps")
+
             }
         }
         
         // Execute the query
         healthStore.execute(query)
     }
+
     
     // Fetch the most recent VO2 Max value from HealthKit
     func fetchMostRecentVO2Max() {

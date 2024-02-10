@@ -42,13 +42,6 @@ struct CardioFitnessView: View {
                     
                 }
             }
-            .onAppear {
-                workoutManager.fetchMostRecentVO2Max()
-            }
-            
-            .onTapGesture {
-                workoutManager.fetchMostRecentVO2Max()
-            }
         }
     }
 }
