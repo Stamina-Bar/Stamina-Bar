@@ -45,7 +45,7 @@ struct SummaryView: View {
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
                     .foregroundStyle(.white)
                     
-                    Text("Avgerage")
+                    Text("Avg. Stamina %")
                     //StaminaBarView(data: workoutManager.averageHeartRate)
                     (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
                     Divider()

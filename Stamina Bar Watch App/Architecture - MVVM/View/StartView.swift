@@ -33,9 +33,10 @@ struct StartView: View {
                                selection: $workoutManager.selectedWorkout) {
                     HStack {
                         Image(workoutType.workoutSupportingImage)
-                        Text(workoutType.workoutType.name)
+                        Text("Start Stamina Bar")
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
                     }
-                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 }
                 .overlay(RoundedRectangle(cornerRadius: 30) .stroke(Color.blue, lineWidth: 2))
             }
@@ -76,7 +77,7 @@ extension HKWorkoutActivityType: Identifiable {
     var name: String {
         switch self {
         case .other:
-            return "Stamina Bar"
+            return "Start Stamina Bar"
         default:
             return ""
         }
