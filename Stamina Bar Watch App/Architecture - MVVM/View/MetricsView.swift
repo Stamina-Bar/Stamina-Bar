@@ -11,6 +11,7 @@ import HealthKit
 struct MetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var showElapsedTime = true // Initially show the timer
+    @State private var hasPausedWorkoutOnAppear = false // Tracks if the workout was paused on appear
 
     let staminaBarView = StaminaBarView()
     
@@ -37,12 +38,17 @@ struct MetricsView: View {
                 }
             }
             .onAppear {
-                // Hide the timer when the view appears
+                // Hide the timer and pause the workout when the view appears for the first time
                 self.showElapsedTime = false
+                if !self.hasPausedWorkoutOnAppear {
+                    self.workoutManager.pause()
+                    self.hasPausedWorkoutOnAppear = true // Ensure it's a one-time action
+                }
             }
         }
     }
 }
+
 
 
 struct MetricsView_Previews: PreviewProvider {
