@@ -10,16 +10,35 @@ import HealthKit
 
 struct MetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @State private var showElapsedTime = true // Initially show the timer
-    @State private var hasPausedWorkoutOnAppear = false // Tracks if the workout was paused on appear
+    @State private var showElapsedTime = false
+    @State private var hasPausedWorkoutOnAppear = false
+    @State private var showSwipeInstruction = true
 
     let staminaBarView = StaminaBarView()
     
     var body: some View {
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
             VStack (alignment: .trailing) {
-                // The timer is conditionally shown based on `showElapsedTime`
-                if showElapsedTime {
+
+                if showSwipeInstruction {
+                                Text("Swipe left to start workout")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding()
+//                                    .background(Capsule().fill(Color.green))
+                                    .transition(.move(edge: .trailing))
+                                    .animation(.easeInOut, value: showSwipeInstruction)
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation {
+                                                self.showSwipeInstruction = false
+                                            }
+                                        }
+                                    }
+                            }
+                
+                
+                if workoutManager.running == true {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: true)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
@@ -38,8 +57,6 @@ struct MetricsView: View {
                 }
             }
             .onAppear {
-                // Hide the timer and pause the workout when the view appears for the first time
-                self.showElapsedTime = false
                 if !self.hasPausedWorkoutOnAppear {
                     self.workoutManager.pause()
                     self.hasPausedWorkoutOnAppear = true // Ensure it's a one-time action
