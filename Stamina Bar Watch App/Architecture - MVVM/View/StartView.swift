@@ -20,6 +20,8 @@ struct WorkoutType: Identifiable {
 struct StartView: View {
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
     @EnvironmentObject var workoutManager: WorkoutManager
+    @State private var showingSettings = false // State to control settings view presentation
+    
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar")
     ]
@@ -38,9 +40,27 @@ struct StartView: View {
                             .minimumScaleFactor(0.5)
                     }
                 }
-                .overlay(RoundedRectangle(cornerRadius: 30) .stroke(Color.blue, lineWidth: 2))
+                .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.blue, lineWidth: 2))
             }
+            
             Spacer()
+            
+            
+            
+            Image(systemName: "gearshape")
+                .foregroundColor(.gray) // Adjust the color as needed
+                .imageScale(.large) // Adjust the size of the icon if needed
+                .padding(10) // Provide some padding around the icon
+                .background(Circle() // Optionally, add a background shape
+                                .fill(Color.white.opacity(0.1))) // Use a very subtle background color
+                .onTapGesture {
+                    self.showingSettings = true
+                }
+                .sheet(isPresented: $showingSettings) {
+                    SettingsView() // Replace with your actual settings view
+                }
+
+            
         }
         .navigationBarTitle("Stamina Bar")
         .navigationBarTitleDisplayMode(.inline)
@@ -50,6 +70,7 @@ struct StartView: View {
         })
     }
 }
+
 
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {

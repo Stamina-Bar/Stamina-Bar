@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA16DF512B1FA7B8005A1D1C /* StaminaScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */; };
 		DA16DF532B1FA7E6005A1D1C /* StaminaUIScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */; };
+		DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD64F2BB50A1500D90874 /* SettingsView.swift */; };
 		DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */; };
 		DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */; };
 		DA5531012B3F0257004AF31F /* CountdownProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5531002B3F0257004AF31F /* CountdownProgressView.swift */; };
@@ -36,7 +37,6 @@
 		DAF3ED6D2AFD16F900ABCC8A /* StaminaBarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */; };
 		DAF3ED702AFD16FA00ABCC8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF3ED6F2AFD16FA00ABCC8A /* Assets.xcassets */; };
 		DAF3ED722AFD16FA00ABCC8A /* StaminaBarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DAF3ED6E2AFD16F900ABCC8A /* StaminaBarWidget.intentdefinition */; };
-		DAF3ED762AFD16FA00ABCC8A /* StaminaBarWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DAF3ED652AFD16F900ABCC8A /* StaminaBarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */; };
 		DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83529C54E9D0027A3D8 /* StartView.swift */; };
 		DAFEE83829C54EEA0027A3D8 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */; };
@@ -61,13 +61,6 @@
 			remoteGlobalIDString = DAA3BCC729288C8700146F96;
 			remoteInfo = "Stamina Bar Watch App";
 		};
-		DAF3ED742AFD16FA00ABCC8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAA3BCBC29288C8700146F96 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DAF3ED642AFD16F900ABCC8A;
-			remoteInfo = StaminaBarWidgetExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,23 +75,13 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DAF3ED772AFD16FA00ABCC8A /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				DAF3ED762AFD16FA00ABCC8A /* StaminaBarWidgetExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaScoreTest.swift; sourceTree = "<group>"; };
 		DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaUIScoreTest.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DA3BD64F2BB50A1500D90874 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DA3D0E0B29E7329F00195530 /* Stamina Bar Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stamina Bar Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCarouselView.swift; sourceTree = "<group>"; };
 		DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateVariabilityView.swift; sourceTree = "<group>"; };
@@ -287,6 +270,7 @@
 				DAFEE84129C551610027A3D8 /* MetricsView.swift */,
 				DABECD582B3286AB00FF2B29 /* Onboarding.swift */,
 				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
+				DA3BD64F2BB50A1500D90874 /* SettingsView.swift */,
 				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
 				DACEAD412AD1C6B100DCC032 /* Vertical Carousels */,
 			);
@@ -338,12 +322,10 @@
 				DAA3BCC429288C8700146F96 /* Sources */,
 				DAA3BCC529288C8700146F96 /* Frameworks */,
 				DAA3BCC629288C8700146F96 /* Resources */,
-				DAF3ED772AFD16FA00ABCC8A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DAF3ED752AFD16FA00ABCC8A /* PBXTargetDependency */,
 			);
 			name = "Stamina Bar Watch App";
 			productName = "Stamina Bar Watch App";
@@ -489,6 +471,7 @@
 				DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */,
 				DACEAD4C2AD57FDD00DCC032 /* CardioFitnessView.swift in Sources */,
 				DA5531012B3F0257004AF31F /* CountdownProgressView.swift in Sources */,
+				DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,11 +497,6 @@
 			target = DAA3BCC729288C8700146F96 /* Stamina Bar Watch App */;
 			targetProxy = DAA3BCCA29288C8700146F96 /* PBXContainerItemProxy */;
 		};
-		DAF3ED752AFD16FA00ABCC8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DAF3ED642AFD16F900ABCC8A /* StaminaBarWidgetExtension */;
-			targetProxy = DAF3ED742AFD16FA00ABCC8A /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -528,7 +506,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -536,7 +514,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -556,7 +534,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -564,7 +542,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -699,13 +677,12 @@
 		DAA3BCD929288C8A00146F96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -720,12 +697,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -736,13 +714,12 @@
 		DAA3BCDA29288C8A00146F96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -757,12 +734,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -776,8 +754,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -786,9 +765,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -801,8 +781,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -811,9 +792,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -828,7 +810,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StaminaBarWidget/Info.plist;
@@ -840,7 +822,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -859,8 +841,8 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.8.7;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StaminaBarWidget/Info.plist;
@@ -872,7 +854,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.7;
+				MARKETING_VERSION = 1.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

@@ -15,6 +15,9 @@ struct MetricsView: View {
     @State private var showSwipeInstruction = true
     @State private var blinkOpacity: Double = 1 // Add this line for blinking effect
 
+    @State private var showingSettings = false // State to control settings view presentation
+
+    
     let staminaBarView = StaminaBarView()
     
     var body: some View {
@@ -23,7 +26,7 @@ struct MetricsView: View {
 
                 // Modified section for the blinking effect
                 if showSwipeInstruction {
-                    Text("Swipe left to start workout")
+                    Text("Swipe right to start workout")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
@@ -31,7 +34,7 @@ struct MetricsView: View {
                         .transition(.move(edge: .trailing))
 
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 7) { // Wait for 7 seconds before starting blinking
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Wait for 7 seconds before starting blinking
                                 // Speeding up the blinking by reducing the duration to 0.3 seconds
                                 withAnimation(Animation.easeInOut(duration: 0.3).repeatCount(3, autoreverses: true)) {
                                     self.blinkOpacity = 0.5
@@ -75,6 +78,8 @@ struct MetricsView: View {
                     self.hasPausedWorkoutOnAppear = true // Ensure it's a one-time action
                 }
             }
+            
+            
         }
     }
 }

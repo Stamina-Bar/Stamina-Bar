@@ -13,7 +13,8 @@ struct ControlsView: View {
     
     var body: some View {
         VStack {
-            Text("On the Move?")
+            workoutManager.running ? Text("Pause Workout") : Text("Start Workout")
+            
             Spacer()
             HStack {
                 VStack {
@@ -32,7 +33,7 @@ struct ControlsView: View {
                     Button {
                         workoutManager.togglePause()
                         
-                        workoutManager.running ? HapticManager.stopHaptic() : HapticManager.startHaptic()
+                        workoutManager.running ? HapticManager.startHaptic() : HapticManager.stopHaptic()
                         
                     } label: {
                         Image(systemName: workoutManager.running ? "pause" : "play")
