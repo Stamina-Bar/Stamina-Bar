@@ -16,6 +16,7 @@ struct SummaryView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.dismiss) var dismiss
     let staminaBarView = StaminaBarView()
+    @State private var showError = false
     
     @State private var durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -31,9 +32,30 @@ struct SummaryView: View {
     }
     
     var body: some View {
+        
         if workoutManager.workout == nil {
-            ProgressView("Closing Stamina Bar")
-                .navigationBarHidden(true)
+            
+            if showError {
+                // Using ScrollView for long error message
+                ScrollView {
+                    Text("It's taking longer than expected. Please tap the Digital Crown to close the app, then swipe it away to force quit. Try reopening the app afterwards.")
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .navigationBarHidden(true)
+                }
+            } else {
+                ProgressView("Closing Stamina Bar")
+                    .navigationBarHidden(true)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                            if workoutManager.workout == nil {
+                                // Update the state to show error after 30 seconds
+                                self.showError = true
+                            }
+                        }
+                    }
+            }
+            
         }
         
         // MARK: - Summary if user chooses stamina bar (hides distance)

@@ -21,6 +21,8 @@ struct StartView: View {
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var showingSettings = false // State to control settings view presentation
+    @State private var rotateGear = false
+    
     
     var workoutTypes: [WorkoutType] = [
         WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar")
@@ -40,7 +42,7 @@ struct StartView: View {
                             .minimumScaleFactor(0.5)
                     }
                 }
-                .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.blue, lineWidth: 2))
+                               .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.blue, lineWidth: 2))
             }
             
             Spacer()
@@ -48,18 +50,24 @@ struct StartView: View {
             
             
             Image(systemName: "gearshape")
-                .foregroundColor(.gray) // Adjust the color as needed
-                .imageScale(.large) // Adjust the size of the icon if needed
-                .padding(10) // Provide some padding around the icon
-                .background(Circle() // Optionally, add a background shape
-                                .fill(Color.white.opacity(0.1))) // Use a very subtle background color
+                .foregroundColor(.gray)
+                .imageScale(.large)
+                .padding(10)
+                .background(Circle().fill(Color.white.opacity(0.1)))
+                .rotationEffect(.degrees(rotateGear ? 360 : 0)) // Apply rotation
+                .animation(.easeInOut(duration: 0.75), value: rotateGear) // Animation configuration
                 .onTapGesture {
-                    self.showingSettings = true
+                    rotateGear = true // Trigger rotation
+                    
+                    // Delay to allow animation to complete before showing settings
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        showingSettings = true
+                        rotateGear = false // Reset rotation
+                    }
                 }
                 .sheet(isPresented: $showingSettings) {
-                    SettingsView() // Replace with your actual settings view
+                    SettingsView() // Settings view to show
                 }
-
             
         }
         .navigationBarTitle("Stamina Bar")

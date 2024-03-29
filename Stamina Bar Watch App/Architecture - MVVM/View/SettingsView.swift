@@ -5,9 +5,8 @@
 //  Created by Bryce Ellis on 3/27/24.
 //
 
-import Foundation
-
 import SwiftUI
+import Foundation
 
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -16,29 +15,36 @@ struct SettingsView: View {
     @AppStorage("notificationsEnabled") var notificationsEnabled: Bool = false
     @AppStorage("theme") var theme: String = "System"
     
+    // Accessing app version and build number
+    let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
+    let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "Unknown"
+    
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("General")) {
-                    Toggle(isOn: $notificationsEnabled) {
-                        Text("Enable Notifications")
+            ScrollView {
+                Section {
+                    VStack(alignment: .center, spacing: 10) {
+                        Text("Scan here for FAQ's")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .multilineTextAlignment(.center)
+                        
+                        Image("Frame") // Make sure this is the name of your QR code image asset
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
                     }
-                    
-                    Picker("Theme", selection: $theme) {
-                        Text("System").tag("System")
-                        Text("Light").tag("Light")
-                        Text("Dark").tag("Dark")
-                    }
+                    .frame(maxWidth: .infinity)
                 }
                 
+                Spacer()
                 Section {
-                    Button("Save Settings") {
-                        // Here you can add code to perform when saving settings
-                        self.presentationMode.wrappedValue.dismiss()
+                    HStack {
+                        Text("v\(appVersion)")
+                            .foregroundColor(.gray)
                     }
                 }
             }
-            
         }
     }
 }
