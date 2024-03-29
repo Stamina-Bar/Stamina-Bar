@@ -26,7 +26,7 @@ struct MetricsView: View {
 
                 // Modified section for the blinking effect
                 if showSwipeInstruction {
-                    Text("Swipe right to start workout")
+                    Text("Swipe right to workout")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()

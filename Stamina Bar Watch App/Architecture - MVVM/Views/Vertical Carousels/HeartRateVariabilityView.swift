@@ -16,24 +16,23 @@ struct HeartRateVariabilityView: View {
     let staminaBarView = StaminaBarView()
     
     var body: some View {
-        if workoutManager.selectedWorkout == .other {
-            TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
-                VStack (alignment: .trailing) {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                        .foregroundStyle(.white)
-                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .scenePadding()
+        
+        TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+            VStack (alignment: .trailing) {
+                ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
+                    .foregroundStyle(.white)
+                    .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .scenePadding()
+                
+                (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
+                
+                HStack {
+                    Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+                        .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                     
-                    (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                    
-                    HStack {
-                        Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "waveform.path.ecg")
-                            .foregroundColor(.blue)
-                    }
+                    Image(systemName: "waveform.path.ecg")
+                        .foregroundColor(.blue)
                 }
             }
         }

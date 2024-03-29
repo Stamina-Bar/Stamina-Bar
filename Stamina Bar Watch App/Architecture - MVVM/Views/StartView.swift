@@ -25,7 +25,7 @@ struct StartView: View {
     
     
     var workoutTypes: [WorkoutType] = [
-        WorkoutType(workoutType: .other, workoutSupportingImage: "custom.StaminaBar")
+        WorkoutType(workoutType: .walking, workoutSupportingImage: "custom.StaminaBar")
     ]
     
     var body: some View {
@@ -105,7 +105,7 @@ extension HKWorkoutActivityType: Identifiable {
     
     var name: String {
         switch self {
-        case .other:
+        case .walking:
             return "Start Stamina Bar"
         default:
             return ""

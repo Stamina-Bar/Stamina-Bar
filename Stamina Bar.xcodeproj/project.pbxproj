@@ -10,6 +10,7 @@
 		DA16DF512B1FA7B8005A1D1C /* StaminaScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */; };
 		DA16DF532B1FA7E6005A1D1C /* StaminaUIScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */; };
 		DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD64F2BB50A1500D90874 /* SettingsView.swift */; };
+		DA3BD6522BB668AE00D90874 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD6512BB668AE00D90874 /* TestingView.swift */; };
 		DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */; };
 		DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */; };
 		DA5531012B3F0257004AF31F /* CountdownProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5531002B3F0257004AF31F /* CountdownProgressView.swift */; };
@@ -82,6 +83,7 @@
 		DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaUIScoreTest.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA3BD64F2BB50A1500D90874 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		DA3BD6512BB668AE00D90874 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		DA3D0E0B29E7329F00195530 /* Stamina Bar Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stamina Bar Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCarouselView.swift; sourceTree = "<group>"; };
 		DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateVariabilityView.swift; sourceTree = "<group>"; };
@@ -153,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				DAFEE7F629BA45170027A3D8 /* Model */,
-				DAFEE7F929BA455B0027A3D8 /* View */,
+				DAFEE7F929BA455B0027A3D8 /* Views */,
 				DAB8D28A2A2111BF00333D83 /* View Model */,
 			);
 			path = "Architecture - MVVM";
@@ -262,7 +264,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		DAFEE7F929BA455B0027A3D8 /* View */ = {
+		DAFEE7F929BA455B0027A3D8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
@@ -273,8 +275,9 @@
 				DA3BD64F2BB50A1500D90874 /* SettingsView.swift */,
 				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
 				DACEAD412AD1C6B100DCC032 /* Vertical Carousels */,
+				DA3BD6512BB668AE00D90874 /* TestingView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,7 +360,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					DA3D0E0A29E7329F00195530 = {
 						CreatedOnToolsVersion = 14.1;
@@ -454,6 +457,7 @@
 				DACEAD462AD1CD1300DCC032 /* CurrentCaloriesView.swift in Sources */,
 				DACEAD4A2AD57E6A00DCC032 /* TotalCaloriesView.swift in Sources */,
 				DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */,
+				DA3BD6522BB668AE00D90874 /* TestingView.swift in Sources */,
 				DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */,
 				DA8E526F29EEF71700DD26AF /* StaminaBarView.swift in Sources */,
 				DABECD592B3286AB00FF2B29 /* Onboarding.swift in Sources */,
@@ -703,7 +707,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -740,7 +743,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
