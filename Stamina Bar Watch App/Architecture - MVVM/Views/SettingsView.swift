@@ -29,7 +29,7 @@ struct SettingsView: View {
                             .foregroundColor(.primary)
                             .multilineTextAlignment(.center)
                         
-                        Image("Frame") // Make sure this is the name of your QR code image asset
+                        Image("QR-Code") // Make sure this is the name of your QR code image asset
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
