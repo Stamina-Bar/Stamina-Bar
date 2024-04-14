@@ -20,7 +20,7 @@ struct WorkoutType: Identifiable {
 struct StartView: View {
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
     @EnvironmentObject var workoutManager: WorkoutManager
-    @State private var showingSettings = false // State to control settings view presentation
+    @State private var showingSettings = false
     @State private var rotateGear = false
     
     

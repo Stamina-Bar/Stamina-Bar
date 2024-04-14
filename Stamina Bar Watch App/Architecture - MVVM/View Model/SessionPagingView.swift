@@ -11,20 +11,26 @@ import WatchKit
 
 struct SessionPagingView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
+    var kre = "hello"
     @Environment(\.isLuminanceReduced) var isLuminanceReduced
-    @State private var selection: Tab = .verticalCarousel
+    // starts page on main view
+    @State private var selection: Tab = .metrics
 
     enum Tab {
-        case controls, verticalCarousel, nowPlaying
+        case controls, metrics, nowPlaying
     }
     
     var body: some View {
         TabView(selection: $selection) {
                        ControlsView().tag(Tab.controls)
-                       VerticalCarouselView().tag(Tab.verticalCarousel)
+                       VerticalCarouselView().tag(Tab.metrics)
                        NowPlayingView().tag(Tab.nowPlaying)
                 }
-        //.navigationTitle("Stamina Bar")
+        
+        .navigationTitle(workoutManager.running ? " " : "Stamina Bar")
+
+       
+
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(selection == .nowPlaying)
         .onChange(of: workoutManager.running) { _ in
@@ -38,7 +44,7 @@ struct SessionPagingView: View {
 
     private func displayMetricsView() {
         withAnimation {
-            selection = .verticalCarousel
+            selection = .metrics
         }
     }
 }

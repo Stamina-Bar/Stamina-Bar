@@ -52,7 +52,6 @@ struct MetricsView: View {
 
                 }
                 
-                // TODO: Monitor if this fixes timer being shown in bug fix
                 if workoutManager.running == true && showSwipeInstruction == false {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: true)
                         .foregroundStyle(.white)
