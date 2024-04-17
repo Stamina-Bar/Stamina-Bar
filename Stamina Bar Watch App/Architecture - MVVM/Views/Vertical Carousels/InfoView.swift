@@ -1,14 +1,15 @@
 //
-//  MetricsView.swift
+//  InfoView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 3/17/23.
+//  Created by Bryce Ellis on 4/16/24.
 //
 
+import Foundation
 import SwiftUI
 import HealthKit
 
-struct MetricsView: View {
+struct InfoView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var showElapsedTime = false
     @State private var hasPausedWorkoutOnAppear = false
@@ -21,7 +22,7 @@ struct MetricsView: View {
     let staminaBarView = StaminaBarView()
     
     var body: some View {
-        TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+        TimelineView(InfoViewTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
             VStack (alignment: .trailing) {
 
                 // Modified section for the blinking effect
@@ -63,15 +64,9 @@ struct MetricsView: View {
                 
                 // Use your existing staminaBarView logic here
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                
-                HStack {
-                    Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                        .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                    
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                }
+
             }
+            
             .onAppear {
                 if !self.hasPausedWorkoutOnAppear {
                     self.workoutManager.pause()
@@ -87,14 +82,14 @@ struct MetricsView: View {
 
 
 
-struct MetricsView_Previews: PreviewProvider {
+struct InfoViewView_Previews: PreviewProvider {
     static var previews: some View {
-        MetricsView().environmentObject(WorkoutManager())
+        InfoView().environmentObject(WorkoutManager())
     }
 }
 
 // Workout builder helper
-private struct MetricsTimelineSchedule: TimelineSchedule {
+private struct InfoViewTimelineSchedule: TimelineSchedule {
     var startDate: Date
     var isPaused: Bool
     

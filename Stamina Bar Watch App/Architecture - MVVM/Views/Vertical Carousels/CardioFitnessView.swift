@@ -21,14 +21,14 @@ struct CardioFitnessView: View {
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
             
             VStack (alignment: .trailing) {
-                
-                ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
-                    .foregroundStyle(.white)
-                    .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                    .scenePadding()
-                
+                if workoutManager.running == true {
+                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
+                        .foregroundStyle(.white)
+                        .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                        .scenePadding()
+                }
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                 
                 

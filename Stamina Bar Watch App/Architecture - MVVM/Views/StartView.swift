@@ -29,53 +29,65 @@ struct StartView: View {
     ]
     
     var body: some View {
-        VStack {
-            Spacer()
-            if let workoutType = workoutTypes.first {
-                NavigationLink(destination: SessionPagingView(),
-                               tag: workoutType.workoutType,
-                               selection: $workoutManager.selectedWorkout) {
-                    HStack {
-                        Image(workoutType.workoutSupportingImage)
-                        Text("Start Stamina Bar")
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
-                    }
+        
+        if #available(watchOS 9.0, *) {
+            VStack {
+                Spacer()
+                if let workoutType = workoutTypes.first {
+                    NavigationLink(destination: SessionPagingView(),
+                                   tag: workoutType.workoutType,
+                                   selection: $workoutManager.selectedWorkout) {
+                        HStack {
+                            Image(workoutType.workoutSupportingImage)
+                            Text("Start Stamina Bar")
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
+                        }
+                    } 
+                                   .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.blue, lineWidth: 2))
                 }
-                               .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.blue, lineWidth: 2))
+                
+                Spacer()
+                                
+                Image(systemName: "gearshape")
+                    .foregroundColor(.white)
+                    .imageScale(.large)
+                    .padding(10)
+                    .background(Circle().fill(Color.white.opacity(0.1)))
+                    .rotationEffect(.degrees(rotateGear ? 360 : 0)) // Apply rotation
+                    .animation(.easeInOut(duration: 0.75), value: rotateGear) // Animation configuration
+                    .onTapGesture {
+                        rotateGear = true // Trigger rotation
+                        
+                        // Delay to allow animation to complete before showing settings
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            showingSettings = true
+                            rotateGear = false // Reset rotation
+                        }
+                    }
+                    .sheet(isPresented: $showingSettings) {
+                        SettingsView() // Settings view to show
+                    }
+                
             }
-            
-            Spacer()
-            
-            
-            
-            Image(systemName: "gearshape")
-                .foregroundColor(.gray)
-                .imageScale(.large)
-                .padding(10)
-                .background(Circle().fill(Color.white.opacity(0.1)))
-                .rotationEffect(.degrees(rotateGear ? 360 : 0)) // Apply rotation
-                .animation(.easeInOut(duration: 0.75), value: rotateGear) // Animation configuration
-                .onTapGesture {
-                    rotateGear = true // Trigger rotation
-                    
-                    // Delay to allow animation to complete before showing settings
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        showingSettings = true
-                        rotateGear = false // Reset rotation
-                    }
-                }
-                .sheet(isPresented: $showingSettings) {
-                    SettingsView() // Settings view to show
-                }
-            
+                .background(
+                    RadialGradient(
+                        gradient: Gradient(colors: [.black, .blue]), // Inner color to outer color
+                        center: .center, // The center of the gradient
+                        startRadius: 0, // Starting radius of the gradient
+                        endRadius: 400 // Ending radius where the gradient stops
+                    )
+            )
+            .navigationBarTitle("Stamina Bar")
+            .navigationBarTitleDisplayMode(.inline)
+            .modifier(ConditionalScrollIndicatorModifier(shouldHide: shouldShowOnboarding))
+            .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
+                OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
+            })
+        } else {
+            Text("Hello")
         }
-        .navigationBarTitle("Stamina Bar")
-        .navigationBarTitleDisplayMode(.inline)
-        .modifier(ConditionalScrollIndicatorModifier(shouldHide: shouldShowOnboarding))
-        .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
-            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
-        })
+        
     }
 }
 

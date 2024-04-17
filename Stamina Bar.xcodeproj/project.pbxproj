@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA06645A2BCF630D00071B43 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0664592BCF630D00071B43 /* HeartRateView.swift */; };
+		DA06645C2BCF642800071B43 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA06645B2BCF642800071B43 /* InfoView.swift */; };
 		DA16DF512B1FA7B8005A1D1C /* StaminaScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */; };
 		DA16DF532B1FA7E6005A1D1C /* StaminaUIScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */; };
 		DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD64F2BB50A1500D90874 /* SettingsView.swift */; };
@@ -44,7 +46,6 @@
 		DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83929C550380027A3D8 /* SessionPagingView.swift */; };
 		DAFEE83E29C5507A0027A3D8 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */; };
 		DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */; };
-		DAFEE84229C551610027A3D8 /* MetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE84129C551610027A3D8 /* MetricsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA0664592BCF630D00071B43 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		DA06645B2BCF642800071B43 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaScoreTest.swift; sourceTree = "<group>"; };
 		DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaUIScoreTest.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -121,7 +124,6 @@
 		DAFEE83929C550380027A3D8 /* SessionPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPagingView.swift; sourceTree = "<group>"; };
 		DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
-		DAFEE84129C551610027A3D8 /* MetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,8 @@
 				DACEAD472AD3549700DCC032 /* StepCountView.swift */,
 				DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */,
 				DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */,
+				DA0664592BCF630D00071B43 /* HeartRateView.swift */,
+				DA06645B2BCF642800071B43 /* InfoView.swift */,
 			);
 			path = "Vertical Carousels";
 			sourceTree = "<group>";
@@ -269,7 +273,6 @@
 			children = (
 				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
 				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
-				DAFEE84129C551610027A3D8 /* MetricsView.swift */,
 				DABECD582B3286AB00FF2B29 /* Onboarding.swift */,
 				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
 				DA3BD64F2BB50A1500D90874 /* SettingsView.swift */,
@@ -469,7 +472,8 @@
 				DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */,
 				DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */,
 				DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */,
-				DAFEE84229C551610027A3D8 /* MetricsView.swift in Sources */,
+				DA06645C2BCF642800071B43 /* InfoView.swift in Sources */,
+				DA06645A2BCF630D00071B43 /* HeartRateView.swift in Sources */,
 				DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */,
 				DACEAD482AD3549700DCC032 /* StepCountView.swift in Sources */,
 				DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */,

@@ -53,14 +53,12 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.beginCollection(withStart: startDate) { (success, error) in
             
         }
+        self.fetchMostRecentHRV()
+        self.fetchDailyBasalEnergyBurn()
+        self.fetchDailyActiveEnergyBurned()
+        self.fetchDailyStepCount()
+        self.fetchMostRecentVO2Max()
         
-        healthUpdateTimer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in
-            self?.fetchMostRecentHRV()
-            self?.fetchDailyBasalEnergyBurn()
-            self?.fetchDailyActiveEnergyBurned()
-            self?.fetchDailyStepCount()
-            self?.fetchMostRecentVO2Max()
-        }
     }
     
     func requestAuthorization() {

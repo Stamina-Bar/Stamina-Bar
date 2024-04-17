@@ -1,52 +1,60 @@
 //
-//  HeartRateVariabilityView.swift
+//  HeartRateView.swift
 //  Stamina Bar Watch App
 //
-//  Created by Bryce Ellis on 10/10/23.
+//  Created by Bryce Ellis on 4/16/24.
 //
 
 import SwiftUI
 import HealthKit
 
-struct HeartRateVariabilityView: View {
-    
+struct HeartRateView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @Environment(\.scenePhase) private var scenePhase
+
+
     
     let staminaBarView = StaminaBarView()
     
     var body: some View {
-        
-        TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
+        TimelineView(HeartRateViewTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
             VStack (alignment: .trailing) {
+                
+                // TODO: Monitor if this fixes timer being shown in bug fix
+                
                 if workoutManager.running == true {
-                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
+                    ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: true)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .scenePadding()
                 }
+                
+                // Use your existing staminaBarView logic here
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                 
                 HStack {
-                    Text(workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+                    Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                     
-                    Image(systemName: "waveform.path.ecg")
-                        .foregroundColor(.blue)
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.red)
                 }
             }
         }
     }
 }
 
-struct HeartRateVariabilityView_Previews: PreviewProvider {
+
+
+
+struct HeartRateViewView_Previews: PreviewProvider {
     static var previews: some View {
-        HeartRateVariabilityView().environmentObject(WorkoutManager())
+        HeartRateView().environmentObject(WorkoutManager())
     }
 }
 
-private struct MetricsTimelineSchedule: TimelineSchedule {
+// Workout builder helper
+private struct HeartRateViewTimelineSchedule: TimelineSchedule {
     var startDate: Date
     var isPaused: Bool
     
@@ -67,3 +75,4 @@ private struct MetricsTimelineSchedule: TimelineSchedule {
     }
     
 }
+

@@ -9,8 +9,36 @@
 import SwiftUI
 
 struct ControlsView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
     
+    var body: some View {
+        if #available(watchOS 9.0, *) {
+            HelperControlsView()
+                .background(
+                    RadialGradient(
+                        gradient: Gradient(colors: [.black, .gray]), // Inner color to outer color
+                        center: .center, // The center of the gradient
+                        startRadius: 0, // Starting radius of the gradient
+                        endRadius: 400 // Ending radius where the gradient stops
+                    )
+            )
+        } else {
+            HelperControlsView()
+        }
+        
+        
+    }
+}
+
+struct ControlsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ControlsView().environmentObject(WorkoutManager())
+    }
+}
+
+
+struct HelperControlsView: View {
+    @EnvironmentObject var workoutManager: WorkoutManager
+
     var body: some View {
         VStack {
             workoutManager.running ? Text("Pause Workout") : Text("Start Workout")
@@ -44,11 +72,5 @@ struct ControlsView: View {
                 }
             }
         }
-    }
-}
-
-struct ControlsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ControlsView().environmentObject(WorkoutManager())
     }
 }
