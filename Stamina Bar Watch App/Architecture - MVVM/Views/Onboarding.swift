@@ -14,11 +14,9 @@ struct OnboardingView: View {
     var body: some View {
         TabView {
 
-            PageView(pageNumber: 0, title: "Welcome!", subTitle: "Scroll 🆙", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "Scroll 🆙", subTitle: "Authorize Health", imageName: "HealthAppIcon", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "Authorize", subTitle: "Apple Health ⬆️", imageName: "HealthAppIcon", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
-            
-            PageView(pageNumber: 2, title: "Get Started", subTitle: " ", imageName: " ", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "Welcome", subTitle: "Stamina Bar App", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
 //            PageView(pageNumber: 3, title: "Ready", subTitle: "Complete onboarding", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
@@ -52,9 +50,16 @@ struct PageView: View {
                     .foregroundStyle(Color.secondary)
                     .multilineTextAlignment(.center)
             } else {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 75, height: 75)
                 Text(title)
                     .font(.system(size: 24))
-                
+                Text(subTitle)
+                    .font(.system(size: 18))
+                    .foregroundStyle(Color.secondary)
+                    .multilineTextAlignment(.center)
                 Button(action: {
                     shouldShowOnboarding.toggle()
                 }) {

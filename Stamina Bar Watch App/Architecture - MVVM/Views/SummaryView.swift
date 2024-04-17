@@ -38,7 +38,7 @@ struct SummaryView: View {
             if showError {
                 // Using ScrollView for long error message
                 ScrollView {
-                    Text("It's taking longer than expected. Please tap the Digital Crown to close the app, then swipe it away to force quit. Try reopening the app afterwards.")
+                    Text("It's taking longer than expected. Please double tap the Digital Crown to close the app, then swipe it away to force quit. Try reopening the app afterwards.")
                         .multilineTextAlignment(.center)
                         .padding()
                         .navigationBarHidden(true)

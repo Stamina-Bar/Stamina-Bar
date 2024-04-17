@@ -15,18 +15,16 @@ struct SessionPagingView: View {
     @State private var selection: Tab = .verticalCarousel
 
     enum Tab {
-        case controls, verticalCarousel, nowPlaying
+        case controls, verticalCarousel
     }
     
     var body: some View {
         TabView(selection: $selection) {
                        ControlsView().tag(Tab.controls)
                        VerticalCarouselView().tag(Tab.verticalCarousel)
-                       NowPlayingView().tag(Tab.nowPlaying)
                 }
         //.navigationTitle("Stamina Bar")
         .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(selection == .nowPlaying)
         .onChange(of: workoutManager.running) { _ in
             displayMetricsView()
         }
