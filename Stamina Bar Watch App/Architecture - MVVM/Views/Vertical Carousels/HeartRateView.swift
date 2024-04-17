@@ -73,6 +73,5 @@ private struct HeartRateViewTimelineSchedule: TimelineSchedule {
             return baseSchedule.next()
         }
     }
-    
 }
 
