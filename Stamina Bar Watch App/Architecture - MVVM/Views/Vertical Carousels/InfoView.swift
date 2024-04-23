@@ -67,6 +67,10 @@ struct InfoView: View {
 
             }
             
+            .onTapGesture {
+                workoutManager.endWorkout()
+            }
+            
             .onAppear {
                 if !self.hasPausedWorkoutOnAppear {
                     self.workoutManager.pause()

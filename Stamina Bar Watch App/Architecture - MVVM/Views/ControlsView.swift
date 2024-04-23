@@ -1,4 +1,4 @@
-//
+// DEPRECATE
 //  ControlsView.swift
 //  Stamina Bar Watch App
 //

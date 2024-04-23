@@ -15,23 +15,17 @@ struct SessionPagingView: View {
     @State private var selection: Tab = .verticalCarousel
 
     enum Tab {
-        case controls, verticalCarousel
+        case verticalCarousel
     }
     
     var body: some View {
         TabView(selection: $selection) {
-                       ControlsView().tag(Tab.controls)
-                       VerticalCarouselView().tag(Tab.verticalCarousel)
-                }
+            VerticalCarouselView().tag(Tab.verticalCarousel)
+        }
         //.navigationTitle("Stamina Bar")
         .navigationBarBackButtonHidden(true)
-        .onChange(of: workoutManager.running) { _ in
-            displayMetricsView()
-        }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: isLuminanceReduced ? .never : .automatic))
-        .onChange(of: isLuminanceReduced) { _ in
-            displayMetricsView()
-        }
+        
+        
     }
 
     private func displayMetricsView() {

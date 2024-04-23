@@ -20,40 +20,15 @@ struct SettingsView: View {
     let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "Unknown"
     
     var body: some View {
-        TabView {
-            ScrollView {
-                Section {
-                    if #available(watchOS 10.0, *) {
-                        ScanQRView()
-                            .containerBackground(.blue.gradient, for: .tabView)
-                    }
-                    else {
-                        ScanQRView()
-                    }
-                    
-                    Divider()
-                    if #available(watchOS 10.0, *) {
-                        AppVersionView()
-                            .containerBackground(.blue.gradient, for: .tabView)
-                    } else {
-                        AppVersionView()
-                    }
-                    
-                }
-                
-                Button("Cancel") {
-                    dismiss()
-                }
-                
+        ScrollView {
+            Section {
+                ScanQRView()
+                Divider()
+                AppVersionView()
             }
-            
-            
-            
         }
-        
     }
 }
-
 
 
 struct AppVersionView: View {
@@ -65,21 +40,18 @@ struct AppVersionView: View {
     
     
     var body: some View {
-            Section {
-                VStack(alignment: .center, spacing: 10) {
-                    Text("App Version")
-                        .font(.headline)
-                    Text("v\(appVersion)")
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
-                }
+        Section {
+            VStack(alignment: .center, spacing: 10) {
+                Text("App Version")
+                    .font(.headline)
+                Text("v\(appVersion)")
+                    .foregroundColor(.gray)
+                    .font(.subheadline)
+            }
             
         }
     }
     
-    func dismiss2() {
-        presentationMode.wrappedValue.dismiss()
-    }
 }
 
 struct ScanQRView: View {
