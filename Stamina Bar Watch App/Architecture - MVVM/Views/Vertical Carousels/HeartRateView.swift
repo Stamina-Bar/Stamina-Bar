@@ -40,6 +40,19 @@ struct HeartRateView: View {
                         .foregroundColor(.red)
                 }
             }
+            
+            .onTapGesture(count: 2, perform: {
+                workoutManager.togglePause()
+                workoutManager.running ? HapticManager.directionDownHaptic() : HapticManager.successHaptic()
+
+            })
+            
+            .onLongPressGesture(minimumDuration: 3) {
+                workoutManager.endWorkout()
+                HapticManager.stopHaptic()
+                
+            }
+            
         }
     }
 }

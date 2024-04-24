@@ -75,6 +75,7 @@ struct InfoView: View {
             
             .onLongPressGesture(minimumDuration: 3) {
                 workoutManager.endWorkout()
+                HapticManager.stopHaptic()
                 
             }
                 
