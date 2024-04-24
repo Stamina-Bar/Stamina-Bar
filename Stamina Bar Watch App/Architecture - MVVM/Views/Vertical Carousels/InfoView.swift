@@ -67,9 +67,18 @@ struct InfoView: View {
 
             }
             
-            .onTapGesture {
+            .onTapGesture(count: 2, perform: {
+                workoutManager.togglePause()
+                workoutManager.running ? HapticManager.directionDownHaptic() : HapticManager.successHaptic()
+
+            })
+            
+            .onLongPressGesture(minimumDuration: 3) {
                 workoutManager.endWorkout()
+                
             }
+                
+            
             
             .onAppear {
                 if !self.hasPausedWorkoutOnAppear {

@@ -44,7 +44,7 @@ struct SummaryView: View {
                         .navigationBarHidden(true)
                 }
             } else {
-                ProgressView("Closing Stamina Bar")
+                ProgressView("Progressing Summary..")
                     .navigationBarHidden(true)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
