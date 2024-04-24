@@ -27,7 +27,7 @@ struct InfoView: View {
 
                 // Modified section for the blinking effect
                 if showSwipeInstruction {
-                    Text("Swipe right to workout")
+                    Text("Doulbe tap to workout")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()

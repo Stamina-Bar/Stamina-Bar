@@ -44,7 +44,6 @@
 		DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83529C54E9D0027A3D8 /* StartView.swift */; };
 		DAFEE83829C54EEA0027A3D8 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */; };
 		DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83929C550380027A3D8 /* SessionPagingView.swift */; };
-		DAFEE83E29C5507A0027A3D8 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */; };
 		DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,7 +121,6 @@
 		DAFEE83529C54E9D0027A3D8 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		DAFEE83929C550380027A3D8 /* SessionPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPagingView.swift; sourceTree = "<group>"; };
-		DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -271,7 +269,6 @@
 		DAFEE7F929BA455B0027A3D8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DAFEE83D29C5507A0027A3D8 /* ControlsView.swift */,
 				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
 				DABECD582B3286AB00FF2B29 /* Onboarding.swift */,
 				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
@@ -468,7 +465,6 @@
 				DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */,
 				DA5CDB062A36C1990089757D /* UserAgeReader.swift in Sources */,
 				DAA3BCCE29288C8700146F96 /* Stamina_BarApp.swift in Sources */,
-				DAFEE83E29C5507A0027A3D8 /* ControlsView.swift in Sources */,
 				DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */,
 				DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */,
 				DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */,
