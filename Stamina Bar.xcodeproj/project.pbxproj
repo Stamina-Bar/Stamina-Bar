@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		DA06645A2BCF630D00071B43 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0664592BCF630D00071B43 /* HeartRateView.swift */; };
 		DA06645C2BCF642800071B43 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA06645B2BCF642800071B43 /* InfoView.swift */; };
-		DA16DF512B1FA7B8005A1D1C /* StaminaScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */; };
-		DA16DF532B1FA7E6005A1D1C /* StaminaUIScoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */; };
 		DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD64F2BB50A1500D90874 /* SettingsView.swift */; };
 		DA3BD6522BB668AE00D90874 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD6512BB668AE00D90874 /* TestingView.swift */; };
 		DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */; };
@@ -35,11 +33,7 @@
 		DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */; };
 		DAD35EC229F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
 		DAD35EC329F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
-		DAF3ED682AFD16F900ABCC8A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */; };
-		DAF3ED6A2AFD16F900ABCC8A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */; };
-		DAF3ED6D2AFD16F900ABCC8A /* StaminaBarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */; };
-		DAF3ED702AFD16FA00ABCC8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF3ED6F2AFD16FA00ABCC8A /* Assets.xcassets */; };
-		DAF3ED722AFD16FA00ABCC8A /* StaminaBarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DAF3ED6E2AFD16F900ABCC8A /* StaminaBarWidget.intentdefinition */; };
+		DADAA7562BD893B700219A89 /* StaminaAlgorithmTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADAA7552BD893B700219A89 /* StaminaAlgorithmTest.swift */; };
 		DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */; };
 		DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83529C54E9D0027A3D8 /* StartView.swift */; };
 		DAFEE83829C54EEA0027A3D8 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */; };
@@ -81,8 +75,6 @@
 /* Begin PBXFileReference section */
 		DA0664592BCF630D00071B43 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		DA06645B2BCF642800071B43 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaScoreTest.swift; sourceTree = "<group>"; };
-		DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaUIScoreTest.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA3BD64F2BB50A1500D90874 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DA3BD6512BB668AE00D90874 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
@@ -91,7 +83,6 @@
 		DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateVariabilityView.swift; sourceTree = "<group>"; };
 		DA5531002B3F0257004AF31F /* CountdownProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownProgressView.swift; sourceTree = "<group>"; };
 		DA5CDB052A36C1990089757D /* UserAgeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgeReader.swift; sourceTree = "<group>"; };
-		DA8E526929EE2BFF00DD26AF /* Stamina Bar Watch AppTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stamina Bar Watch AppTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarView.swift; sourceTree = "<group>"; };
 		DAA3BCC229288C8700146F96 /* Stamina Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,7 +101,8 @@
 		DAD35EBC29F1D24E00E2E782 /* Stamina Bar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stamina Bar-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		DAD35EC129F2364700E2E782 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		DAF3ED652AFD16F900ABCC8A /* StaminaBarWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StaminaBarWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DADAA7552BD893B700219A89 /* StaminaAlgorithmTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaAlgorithmTest.swift; sourceTree = "<group>"; };
+		DADAA7572BD8941900219A89 /* Stamina Bar Watch AppTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stamina Bar Watch AppTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarWidget.swift; sourceTree = "<group>"; };
@@ -139,15 +131,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DAF3ED622AFD16F900ABCC8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAF3ED6A2AFD16F900ABCC8A /* SwiftUI.framework in Frameworks */,
-				DAF3ED682AFD16F900ABCC8A /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -159,16 +142,6 @@
 				DAB8D28A2A2111BF00333D83 /* View Model */,
 			);
 			path = "Architecture - MVVM";
-			sourceTree = "<group>";
-		};
-		DA8E526D29EE2C1400DD26AF /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				DA8E526929EE2BFF00DD26AF /* Stamina Bar Watch AppTests-Bridging-Header.h */,
-				DA16DF502B1FA7B8005A1D1C /* StaminaScoreTest.swift */,
-				DA16DF522B1FA7E6005A1D1C /* StaminaUIScoreTest.swift */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		DAA3BCBB29288C8700146F96 = {
@@ -192,7 +165,6 @@
 				DAA3BCC229288C8700146F96 /* Stamina Bar.app */,
 				DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */,
 				DA3D0E0B29E7329F00195530 /* Stamina Bar Watch AppTests.xctest */,
-				DAF3ED652AFD16F900ABCC8A /* StaminaBarWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,11 +172,11 @@
 		DAA3BCCC29288C8700146F96 /* Stamina Bar Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				DADAA7572BD8941900219A89 /* Stamina Bar Watch AppTests-Bridging-Header.h */,
 				DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */,
 				DAA3BCD129288C8A00146F96 /* Assets.xcassets */,
 				DAA3BCDF29288CA500146F96 /* Stamina Bar Watch App.entitlements */,
 				DA62973B2B364E440068A3E8 /* Architecture - MVVM */,
-				DA8E526D29EE2C1400DD26AF /* Tests */,
 			);
 			path = "Stamina Bar Watch App";
 			sourceTree = "<group>";
@@ -232,6 +204,7 @@
 				DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */,
 				DA0664592BCF630D00071B43 /* HeartRateView.swift */,
 				DA06645B2BCF642800071B43 /* InfoView.swift */,
+				DADAA7552BD893B700219A89 /* StaminaAlgorithmTest.swift */,
 			);
 			path = "Vertical Carousels";
 			sourceTree = "<group>";
@@ -335,23 +308,6 @@
 			productReference = DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DAF3ED642AFD16F900ABCC8A /* StaminaBarWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DAF3ED7A2AFD16FA00ABCC8A /* Build configuration list for PBXNativeTarget "StaminaBarWidgetExtension" */;
-			buildPhases = (
-				DAF3ED612AFD16F900ABCC8A /* Sources */,
-				DAF3ED622AFD16F900ABCC8A /* Frameworks */,
-				DAF3ED632AFD16F900ABCC8A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = StaminaBarWidgetExtension;
-			productName = StaminaBarWidgetExtension;
-			productReference = DAF3ED652AFD16F900ABCC8A /* StaminaBarWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -374,9 +330,6 @@
 					DAA3BCC729288C8700146F96 = {
 						CreatedOnToolsVersion = 14.1;
 					};
-					DAF3ED642AFD16F900ABCC8A = {
-						CreatedOnToolsVersion = 14.3.1;
-					};
 				};
 			};
 			buildConfigurationList = DAA3BCBF29288C8700146F96 /* Build configuration list for PBXProject "Stamina Bar" */;
@@ -395,7 +348,6 @@
 				DAA3BCC129288C8700146F96 /* Stamina Bar */,
 				DAA3BCC729288C8700146F96 /* Stamina Bar Watch App */,
 				DA3D0E0A29E7329F00195530 /* Stamina Bar Watch AppTests */,
-				DAF3ED642AFD16F900ABCC8A /* StaminaBarWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -429,14 +381,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DAF3ED632AFD16F900ABCC8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAF3ED702AFD16FA00ABCC8A /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -444,8 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA16DF532B1FA7E6005A1D1C /* StaminaUIScoreTest.swift in Sources */,
-				DA16DF512B1FA7B8005A1D1C /* StaminaScoreTest.swift in Sources */,
+				DADAA7562BD893B700219A89 /* StaminaAlgorithmTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,15 +419,6 @@
 				DACEAD4C2AD57FDD00DCC032 /* CardioFitnessView.swift in Sources */,
 				DA5531012B3F0257004AF31F /* CountdownProgressView.swift in Sources */,
 				DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DAF3ED612AFD16F900ABCC8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAF3ED722AFD16FA00ABCC8A /* StaminaBarWidget.intentdefinition in Sources */,
-				DAF3ED6D2AFD16F900ABCC8A /* StaminaBarWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,7 +457,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar Watch App/Views/Stamina Bar Watch AppTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar Watch App/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -551,7 +485,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar Watch App/Views/Stamina Bar Watch AppTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar Watch App/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stamina Bar Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Stamina Bar Watch App";
@@ -805,70 +739,6 @@
 			};
 			name = Release;
 		};
-		DAF3ED782AFD16FA00ABCC8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.9;
-				DEVELOPMENT_TEAM = 339H39SFM9;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StaminaBarWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = StaminaBarWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MARKETING_VERSION = 1.8.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.4;
-			};
-			name = Debug;
-		};
-		DAF3ED792AFD16FA00ABCC8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 1.8.9;
-				DEVELOPMENT_TEAM = 339H39SFM9;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StaminaBarWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = StaminaBarWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MARKETING_VERSION = 1.8.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 9.4;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -904,15 +774,6 @@
 			buildConfigurations = (
 				DAA3BCDD29288C8A00146F96 /* Debug */,
 				DAA3BCDE29288C8A00146F96 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DAF3ED7A2AFD16FA00ABCC8A /* Build configuration list for PBXNativeTarget "StaminaBarWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DAF3ED782AFD16FA00ABCC8A /* Debug */,
-				DAF3ED792AFD16FA00ABCC8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
