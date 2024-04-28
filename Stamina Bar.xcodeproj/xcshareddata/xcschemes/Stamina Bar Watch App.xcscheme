@@ -65,6 +65,17 @@
                ReferencedContainer = "container:Stamina Bar.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DA64F64F2BDD5F7100B8E9D6"
+               BuildableName = "Stamina Bar Watch AppTestsMain.xctest"
+               BlueprintName = "Stamina Bar Watch AppTestsMain"
+               ReferencedContainer = "container:Stamina Bar.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

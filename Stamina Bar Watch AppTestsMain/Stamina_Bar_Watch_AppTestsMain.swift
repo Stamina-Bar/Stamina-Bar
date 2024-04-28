@@ -1,13 +1,13 @@
 //
-//  Stamina_Bar_Watch_AppTests2.swift
-//  Stamina Bar Watch AppTests2
+//  Stamina_Bar_Watch_AppTestsMain.swift
+//  Stamina Bar Watch AppTestsMain
 //
-//  Created by Bryce Ellis on 4/23/24.
+//  Created by Bryce Ellis on 4/27/24.
 //
 
 import XCTest
 
-final class Stamina_Bar_Watch_AppTests2: XCTestCase {
+final class Stamina_Bar_Watch_AppTestsMain: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
