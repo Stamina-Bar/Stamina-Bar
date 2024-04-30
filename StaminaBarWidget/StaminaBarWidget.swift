@@ -36,7 +36,7 @@ struct Provider: IntentTimelineProvider {
 
     func recommendations() -> [IntentRecommendation<ConfigurationIntent>] {
         return [
-            IntentRecommendation(intent: ConfigurationIntent(), description: "Stamina Bar")
+            IntentRecommendation(intent: ConfigurationIntent(), description: "Launch Stamina Bar")
         ]
     }
 }
@@ -50,8 +50,7 @@ struct StaminaBarWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Image("complication12")
-        //Text(entry.date, style: .time)
+        
     }
 }
 
