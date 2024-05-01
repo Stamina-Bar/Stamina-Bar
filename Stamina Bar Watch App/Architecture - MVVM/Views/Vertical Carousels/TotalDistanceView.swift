@@ -14,10 +14,10 @@ struct TotalDistanceView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.scenePhase) private var scenePhase
     
-//    var distanceTraveled: Double {
-//        let stepsPerMile = 2000.0
-//        return Double(workoutManager.dailyStepCount) / stepsPerMile
-//    }
+    //    var distanceTraveled: Double {
+    //        let stepsPerMile = 2000.0
+    //        return Double(workoutManager.dailyStepCount) / stepsPerMile
+    //    }
     
     let staminaBarView = StaminaBarView()
     
@@ -35,17 +35,29 @@ struct TotalDistanceView: View {
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                 
                 HStack {
-                    Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
-                        .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    if workoutManager.distance < 0.5 {
+                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(0)))))
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    } else {
+                        Text(Measurement(value: workoutManager.distance, unit: UnitLength.miles).formatted(.measurement(width: .abbreviated, usage: .road, numberFormatStyle: .number.precision(.fractionLength(2)))))
+                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                    }
                     
-                    Image(systemName: "shoeprints.fill")
-                        .foregroundColor(.blue)
+                    if workoutManager.running == true {
+                        Image(systemName: "figure.walk")
+                            .foregroundColor(.blue)
+                    } else {
+                        Image(systemName: "figure.walk")
+                            .foregroundColor(.gray)
+                    }
+                    
+                    
                 }
             }
             .onTapGesture(count: 2, perform: {
                 workoutManager.togglePause()
                 workoutManager.running ? HapticManager.directionDownHaptic() : HapticManager.successHaptic()
-
+                
             })
             
             .onLongPressGesture(minimumDuration: 3) {

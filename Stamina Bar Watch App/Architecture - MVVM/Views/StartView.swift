@@ -48,21 +48,20 @@ struct StartView: View {
             
             Spacer()
             
-            Image(systemName: "gearshape")
+            Image(systemName: "info.circle.fill")
                 .foregroundColor(.white)
                 .imageScale(.large)
-                .padding(10)
-                .background(Circle().fill(Color.white.opacity(0.1)))
-                .rotationEffect(.degrees(rotateGear ? 360 : 0)) // Apply rotation
-                .animation(.easeInOut(duration: 0.75), value: rotateGear) // Animation configuration
+//                .padding(10)
+//                .background(Circle().fill(Color.white.opacity(0.1)))
+//                .rotationEffect(.degrees(rotateGear ? 360 : 0)) // Apply rotation
+//                .animation(.easeInOut(duration: 0.75), value: rotateGear) // Animation configuration
                 .onTapGesture {
-                    rotateGear = true // Trigger rotation
+//                    rotateGear = true // Trigger rotation
                     
                     // Delay to allow animation to complete before showing settings
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         showingSettings = true
-                        rotateGear = false // Reset rotation
-                    }
+//                    }
                 }
                 .sheet(isPresented: $showingSettings) {
                     SettingsView() // Settings view to show

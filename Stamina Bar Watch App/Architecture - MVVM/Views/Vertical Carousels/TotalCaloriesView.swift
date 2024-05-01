@@ -25,11 +25,11 @@ struct TotalCaloriesView: View {
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
                 
                 HStack {
-                    Text("\(Measurement(value: workoutManager.basalEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Basal Cals")
+                    Text("\(Measurement(value: workoutManager.basalEnergy, unit: UnitEnergy.kilocalories).value, specifier: "%.0f") Cals")
                         .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                     
-                    Image(systemName: "flame.fill")
-                        .foregroundColor(.orange)
+                    Image(systemName: "sofa.fill")
+                        .foregroundColor(.purple)
                 }
             }
             .onTapGesture(count: 2, perform: {

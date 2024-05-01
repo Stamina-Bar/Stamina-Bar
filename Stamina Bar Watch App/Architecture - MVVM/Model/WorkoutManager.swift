@@ -53,12 +53,11 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.beginCollection(withStart: startDate) { (success, error) in
             
         }
-        self.fetchMostRecentHRV()
-        self.fetchDailyBasalEnergyBurn()
         self.fetchDailyActiveEnergyBurned()
-        self.fetchDailyStepCount()
+        self.fetchDailyBasalEnergyBurn()
         self.fetchMostRecentVO2Max()
-        
+        self.fetchMostRecentHRV()
+        self.fetchDailyStepCount()
     }
     
     func requestAuthorization() {
@@ -138,6 +137,7 @@ class WorkoutManager: NSObject, ObservableObject {
             case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning), HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning):
                 let mileUnit = HKUnit.mile()
                 self.distance = statistics.sumQuantity()?.doubleValue(for: mileUnit) ?? 0
+            
             default:
                 return
             }
@@ -266,17 +266,16 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
                 self?.totalDailyEnergy = activeEnergy
             }
         }
-        
         healthStore.execute(query)
     }
     
     func fetchDailyStepCount() {
-        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+        guard let stepCountType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
             return
         }
         
-        let startOfDay = Calendar.current.startOfDay(for: Date())
         let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: .now)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
         
         let startTime = Date()
@@ -284,16 +283,14 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
             // Calculate elapsed time
             let elapsedTime = Date().timeIntervalSince(startTime)
-            guard let result = result, let sum = result.sumQuantity() else {
-                return
-            }
             
-            DispatchQueue.main.async {
-                self.dailyStepCount = Int(sum.doubleValue(for: HKUnit.count()))
-                
+            if let sum = result?.sumQuantity() {
+                let steps = sum.doubleValue(for: HKUnit.count()).rounded()
+                DispatchQueue.main.async {
+                    self.dailyStepCount = Int((sum.doubleValue(for: HKUnit.count())))
+                }
             }
         }
-        
         healthStore.execute(query)
     }
     
@@ -301,9 +298,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else {
             return
         }
-        
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        
         let query = HKSampleQuery(sampleType: vo2MaxType, predicate: nil, limit: 1, sortDescriptors: [sortDescriptor]) { _, results, error in
             guard let vo2MaxSample = results?.first as? HKQuantitySample else {
                 return

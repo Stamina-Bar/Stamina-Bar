@@ -18,22 +18,18 @@ struct VerticalCarouselView: View {
                     .tag(0)
                 HeartRateView()
                     .tag(1)
-                CurrentCaloriesView()
-                    .tag(2)
-                TotalCaloriesView()
-                    .tag(3)
-                StepCountView()
-                    .tag(4)
                 TotalDistanceView()
+                    .tag(2)
+                CurrentCaloriesView()
+                    .tag(3)
+                TotalCaloriesView()
+                    .tag(4)
+                HeartRateVariabilityView()
                     .tag(5)
                 CardioFitnessView()
                     .tag(6)
-                HeartRateVariabilityView()
-                    .tag(7)
-            } 
+            }
             .tabViewStyle(.carousel)
             .navigationBarBackButtonHidden(true)
-
-        
     }
 }
