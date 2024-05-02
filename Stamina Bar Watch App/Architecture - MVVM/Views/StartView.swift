@@ -44,7 +44,7 @@ struct StartView: View {
             Image(systemName: "gearshape")
                 .foregroundColor(.white)
                 .imageScale(.large)
-                .padding(10)
+                .padding(5)
                 .background(Circle().fill(Color.white.opacity(0.1)))
                 .rotationEffect(.degrees(rotateGear ? 360 : 0)) // Apply rotation
                 .animation(.easeInOut(duration: 0.75), value: rotateGear) // Animation configuration

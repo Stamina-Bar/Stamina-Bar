@@ -25,12 +25,6 @@ struct SummaryView: View {
         return formatter
     }()
     
-    // Computed property to calculate distance
-    var distanceTraveled: Double {
-        let stepsPerMile = 2000.0
-        return Double(workoutManager.dailyStepCount) / stepsPerMile
-    }
-    
     var body: some View {
         
         if workoutManager.workout == nil {
@@ -66,48 +60,38 @@ struct SummaryView: View {
                     SummaryMetricView(title: "Elapsed Time",
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
                     .foregroundStyle(.white)
-                    
+                    Divider()
+
                     Text("Avg. Stamina %")
                     //StaminaBarView(data: workoutManager.averageHeartRate)
                     (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
                     Divider()
                     
-                    SummaryMetricView(title: "Avg. Heart Rate",
-                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
-                    .foregroundStyle(.red)
-                    
-                    SummaryMetricView(title: "Cals Burned",
-                                      value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,unit: UnitEnergy.kilocalories)
-                        .formatted(.measurement(width: .abbreviated,
-                                                usage: .workout,
-                                                numberFormatStyle: .number.precision(.fractionLength(0)))))
-                    .foregroundStyle(.pink)
-                    
-                    
                     SummaryMetricView(title: "Total Daily Calories",
                                       value: formattedCalories(workoutManager.basalEnergy + workoutManager.totalDailyEnergy) + " Cals")
                     .foregroundStyle(Color.orange) // Choose a color that fits your app's design
-                    
-                    SummaryMetricView(title: "Daily Step Count",
-                                      value: workoutManager.dailyStepCount.formatted(.number.precision(.fractionLength(0))))
+                    Divider()
+
+                    SummaryMetricView(title: "Distance Tracked",
+                                      value: workoutManager.distance.formatted(.number.precision(.fractionLength(2))))
                     .foregroundStyle(.blue)
-                    
-                    SummaryMetricView(title: "Daily Distance",
-                                      value: String(format: "%.2f Miles", distanceTraveled))
-                    .foregroundStyle(.blue)
-                    
-                    SummaryMetricView(title: "Heart Rate Variability",
+                    Divider()
+
+                    SummaryMetricView(title: "Heart Rate Variability (HRV)",
                                       value: workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))))
                     .foregroundStyle(.blue)
-                    
-                    SummaryMetricView(title: "V02 Max",
+                    Divider()
+
+                    SummaryMetricView(title: "Cardio Fitness (V02 Max)",
                                       value: workoutManager.currentVO2Max.formatted(.number.precision(.fractionLength(1))))
                     .foregroundStyle(.green)
                     
                     
                     Button("Done") {
                         dismiss()
-                    }
+                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
+                        .cornerRadius(25)
                 }
                 .scenePadding()
             }
@@ -142,7 +126,6 @@ struct SummaryMetricView: View {
             .foregroundStyle(.foreground)
         Text(value)
             .font(.system(.title2, design: .rounded).lowercaseSmallCaps())
-        Divider()
     }
 }
 
