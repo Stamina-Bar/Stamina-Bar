@@ -11,9 +11,7 @@ import Foundation
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
-    
-    // Example settings
-    @AppStorage("notificationsEnabled") var notificationsEnabled: Bool = false
+    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
     
     // Accessing app version and build number
     let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
@@ -22,6 +20,9 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             Section {
+                Toggle("Enable Haptics", isOn: $hapticsEnabled)
+                    .padding()
+                Divider()
                 ScanQRView()
                 Divider()
                 AppVersionView()

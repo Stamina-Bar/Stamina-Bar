@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import SwiftUI
 import HealthKit
+import SwiftUI
+import TipKit
 
 struct InfoView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
@@ -15,9 +16,10 @@ struct InfoView: View {
     @State private var hasPausedWorkoutOnAppear = false
     @State private var showSwipeInstruction = true
     @State private var blinkOpacity: Double = 1 // Add this line for blinking effect
+    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
 
     @State private var showingSettings = false // State to control settings view presentation
-
+    private let favoriteBackyardTip = ToggleWorkoutTip(id: " ")
     
     let staminaBarView = StaminaBarView()
     
@@ -27,7 +29,7 @@ struct InfoView: View {
 
                 // Modified section for the blinking effect
                 if showSwipeInstruction {
-                    Text("Double tap to Start & Pause a workout")
+                    Text("📖 Double tap to Start or Pause a workout")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
@@ -35,7 +37,7 @@ struct InfoView: View {
                         .transition(.move(edge: .trailing))
 
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Wait for 7 seconds before starting blinking
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 7) { // Wait for 7 seconds before starting blinking
                                 // Speeding up the blinking by reducing the duration to 0.3 seconds
                                 withAnimation(Animation.easeInOut(duration: 0.3).repeatCount(3, autoreverses: true)) {
                                     self.blinkOpacity = 0.5
@@ -62,10 +64,14 @@ struct InfoView: View {
                         .scenePadding()
                 }
                 
+                
+                    
                 // Use your existing staminaBarView logic here
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
 
             }
+            
+            
             
             .onTapGesture(count: 2, perform: {
                 workoutManager.togglePause()
@@ -82,9 +88,13 @@ struct InfoView: View {
             
             
             .onAppear {
+               
                 if !self.hasPausedWorkoutOnAppear {
                     self.workoutManager.pause()
-                    self.hasPausedWorkoutOnAppear = true // Ensure it's a one-time action
+                    self.hasPausedWorkoutOnAppear = true
+                    if hapticsEnabled {
+                        HapticManager.successHaptic()
+                    }// Ensure it's a one-time action
                 }
             }
             
