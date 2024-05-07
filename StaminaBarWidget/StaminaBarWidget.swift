@@ -9,9 +9,12 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: ConfigurationIntent())
+        
+        
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {

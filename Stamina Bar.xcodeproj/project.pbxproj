@@ -26,6 +26,12 @@
 		DAB8D2882A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */; };
 		DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8D28B2A21136200333D83 /* HapticManager.swift */; };
 		DABECD592B3286AB00FF2B29 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABECD582B3286AB00FF2B29 /* Onboarding.swift */; };
+		DAC32C3B2BEABDFA00A4D76B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */; };
+		DAC32C3C2BEABDFA00A4D76B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */; };
+		DAC32C3F2BEABDFA00A4D76B /* StaminaBarWidget2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC32C3E2BEABDFA00A4D76B /* StaminaBarWidget2.swift */; };
+		DAC32C412BEABDFA00A4D76B /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC32C402BEABDFA00A4D76B /* AppIntent.swift */; };
+		DAC32C432BEABDFB00A4D76B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC32C422BEABDFB00A4D76B /* Assets.xcassets */; };
+		DAC32C472BEABDFB00A4D76B /* StaminaBarWidget2Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DAC32C3A2BEABDFA00A4D76B /* StaminaBarWidget2Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DACA59ED2B4CB45100818B4C /* TotalDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */; };
 		DACEAD462AD1CD1300DCC032 /* CurrentCaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */; };
 		DACEAD482AD3549700DCC032 /* StepCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEAD472AD3549700DCC032 /* StepCountView.swift */; };
@@ -57,6 +63,13 @@
 			remoteGlobalIDString = DAA3BCC729288C8700146F96;
 			remoteInfo = "Stamina Bar Watch App";
 		};
+		DAC32C452BEABDFB00A4D76B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAA3BCBC29288C8700146F96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAC32C392BEABDFA00A4D76B;
+			remoteInfo = StaminaBarWidget2Extension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,6 +82,17 @@
 				DAA3BCC929288C8700146F96 /* Stamina Bar Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAC32C4B2BEABDFB00A4D76B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DAC32C472BEABDFB00A4D76B /* StaminaBarWidget2Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -97,6 +121,11 @@
 		DAB8D28B2A21136200333D83 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		DABECD582B3286AB00FF2B29 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		DAC2575D2BD899B5003BD1CA /* StaminaBar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StaminaBar-Bridging-Header.h"; sourceTree = "<group>"; };
+		DAC32C3A2BEABDFA00A4D76B /* StaminaBarWidget2Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StaminaBarWidget2Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAC32C3E2BEABDFA00A4D76B /* StaminaBarWidget2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarWidget2.swift; sourceTree = "<group>"; };
+		DAC32C402BEABDFA00A4D76B /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		DAC32C422BEABDFB00A4D76B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAC32C442BEABDFB00A4D76B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDistanceView.swift; sourceTree = "<group>"; };
 		DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCaloriesView.swift; sourceTree = "<group>"; };
 		DACEAD472AD3549700DCC032 /* StepCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCountView.swift; sourceTree = "<group>"; };
@@ -133,6 +162,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAC32C372BEABDFA00A4D76B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC32C3C2BEABDFA00A4D76B /* SwiftUI.framework in Frameworks */,
+				DAC32C3B2BEABDFA00A4D76B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -164,6 +202,7 @@
 				DAA3BCCC29288C8700146F96 /* Stamina Bar Watch App */,
 				DAF3ED6B2AFD16F900ABCC8A /* StaminaBarWidget */,
 				DA64F6512BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain */,
+				DAC32C3D2BEABDFA00A4D76B /* StaminaBarWidget2 */,
 				DAF3ED662AFD16F900ABCC8A /* Frameworks */,
 				DAA3BCC329288C8700146F96 /* Products */,
 			);
@@ -175,6 +214,7 @@
 				DAA3BCC229288C8700146F96 /* Stamina Bar.app */,
 				DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */,
 				DA64F6502BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain.xctest */,
+				DAC32C3A2BEABDFA00A4D76B /* StaminaBarWidget2Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +242,17 @@
 				DA8A9AC52BE2D99800E268C0 /* ToggleWorkoutTip.swift */,
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		DAC32C3D2BEABDFA00A4D76B /* StaminaBarWidget2 */ = {
+			isa = PBXGroup;
+			children = (
+				DAC32C3E2BEABDFA00A4D76B /* StaminaBarWidget2.swift */,
+				DAC32C402BEABDFA00A4D76B /* AppIntent.swift */,
+				DAC32C422BEABDFB00A4D76B /* Assets.xcassets */,
+				DAC32C442BEABDFB00A4D76B /* Info.plist */,
+			);
+			path = StaminaBarWidget2;
 			sourceTree = "<group>";
 		};
 		DACEAD412AD1C6B100DCC032 /* Vertical Carousels */ = {
@@ -309,15 +360,34 @@
 				DAA3BCC429288C8700146F96 /* Sources */,
 				DAA3BCC529288C8700146F96 /* Frameworks */,
 				DAA3BCC629288C8700146F96 /* Resources */,
+				DAC32C4B2BEABDFB00A4D76B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DAC32C462BEABDFB00A4D76B /* PBXTargetDependency */,
 			);
 			name = "Stamina Bar Watch App";
 			productName = "Stamina Bar Watch App";
 			productReference = DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DAC32C392BEABDFA00A4D76B /* StaminaBarWidget2Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAC32C482BEABDFB00A4D76B /* Build configuration list for PBXNativeTarget "StaminaBarWidget2Extension" */;
+			buildPhases = (
+				DAC32C362BEABDFA00A4D76B /* Sources */,
+				DAC32C372BEABDFA00A4D76B /* Frameworks */,
+				DAC32C382BEABDFA00A4D76B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StaminaBarWidget2Extension;
+			productName = StaminaBarWidget2Extension;
+			productReference = DAC32C3A2BEABDFA00A4D76B /* StaminaBarWidget2Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -340,6 +410,9 @@
 					DAA3BCC729288C8700146F96 = {
 						CreatedOnToolsVersion = 14.1;
 					};
+					DAC32C392BEABDFA00A4D76B = {
+						CreatedOnToolsVersion = 15.3;
+					};
 				};
 			};
 			buildConfigurationList = DAA3BCBF29288C8700146F96 /* Build configuration list for PBXProject "Stamina Bar" */;
@@ -358,6 +431,7 @@
 				DAA3BCC129288C8700146F96 /* Stamina Bar */,
 				DAA3BCC729288C8700146F96 /* Stamina Bar Watch App */,
 				DA64F64F2BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain */,
+				DAC32C392BEABDFA00A4D76B /* StaminaBarWidget2Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -388,6 +462,14 @@
 				DAD35EC329F2364700E2E782 /* LICENSE in Resources */,
 				DAA3BCD529288C8A00146F96 /* Preview Assets.xcassets in Resources */,
 				DAA3BCD229288C8A00146F96 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAC32C382BEABDFA00A4D76B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC32C432BEABDFB00A4D76B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +515,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAC32C362BEABDFA00A4D76B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC32C3F2BEABDFA00A4D76B /* StaminaBarWidget2.swift in Sources */,
+				DAC32C412BEABDFA00A4D76B /* AppIntent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -445,6 +536,11 @@
 			isa = PBXTargetDependency;
 			target = DAA3BCC729288C8700146F96 /* Stamina Bar Watch App */;
 			targetProxy = DAA3BCCA29288C8700146F96 /* PBXContainerItemProxy */;
+		};
+		DAC32C462BEABDFB00A4D76B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAC32C392BEABDFA00A4D76B /* StaminaBarWidget2Extension */;
+			targetProxy = DAC32C452BEABDFB00A4D76B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -619,12 +715,13 @@
 		DAA3BCD929288C8A00146F96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.2;
+				CURRENT_PROJECT_VERSION = 1.9.3;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -639,7 +736,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -655,12 +752,13 @@
 		DAA3BCDA29288C8A00146F96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Stamina Bar Watch App/Stamina Bar Watch App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.2;
+				CURRENT_PROJECT_VERSION = 1.9.3;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -675,7 +773,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -696,7 +794,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.2;
+				CURRENT_PROJECT_VERSION = 1.9.3;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -705,7 +803,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -723,7 +821,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.2;
+				CURRENT_PROJECT_VERSION = 1.9.3;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -732,7 +830,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -740,6 +838,77 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Stamina Bar-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAC32C492BEABDFB00A4D76B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 339H39SFM9;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StaminaBarWidget2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StaminaBarWidget2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Debug;
+		};
+		DAC32C4A2BEABDFB00A4D76B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 339H39SFM9;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StaminaBarWidget2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StaminaBarWidget2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp.StaminaBarWidget2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
 			};
 			name = Release;
 		};
@@ -778,6 +947,15 @@
 			buildConfigurations = (
 				DAA3BCDD29288C8A00146F96 /* Debug */,
 				DAA3BCDE29288C8A00146F96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC32C482BEABDFB00A4D76B /* Build configuration list for PBXNativeTarget "StaminaBarWidget2Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAC32C492BEABDFB00A4D76B /* Debug */,
+				DAC32C4A2BEABDFB00A4D76B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
