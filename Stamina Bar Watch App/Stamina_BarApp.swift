@@ -5,7 +5,6 @@
 //  Created by Bryce Ellis on 11/18/22.
 
 import SwiftUI
-import TipKit
 
 @main
 struct Stamina_Bar_Watch_AppApp: App {

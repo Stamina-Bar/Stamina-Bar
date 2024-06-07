@@ -11,7 +11,7 @@ import Foundation
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
-    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
+    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = false
     
     // Accessing app version and build number
     let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"

@@ -10,7 +10,6 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Binding var shouldShowOnboarding: Bool
-
     var body: some View {
         TabView {
 
