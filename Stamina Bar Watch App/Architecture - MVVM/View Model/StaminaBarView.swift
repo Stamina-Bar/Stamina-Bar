@@ -24,9 +24,9 @@ class StaminaBarView {
             staminaPercentage = "Loading"
         case 1..<60:
             staminaPercentage = "100"
-            if hapticsEnabled {
-                HapticManager.successHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.successHaptic()
+//            }
         case 60..<64:
             staminaPercentage = "99"
         case 64..<68:
@@ -50,9 +50,9 @@ class StaminaBarView {
             // MARK: Zone 2, Green
         case 99..<100:
             staminaPercentage = "89"
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
         case 100..<104:
             staminaPercentage = "88"
         case 104..<106:
@@ -111,14 +111,14 @@ class StaminaBarView {
         case (148)..<(149.4):
             staminaPercentage = "61"
         case (149.4)..<(150.8):
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             staminaPercentage = "60"
         case (150.8)..<(152.2):
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             staminaPercentage = "59"
         case (152.2)..<(153.6):
             staminaPercentage = "58"
@@ -156,19 +156,19 @@ class StaminaBarView {
         case (169.0)..<(169.7):
             staminaPercentage = "42"
         case (169.7)..<(170.4):
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             staminaPercentage = "41"
         case (170.4)..<(171.1):
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             staminaPercentage = "40"
         case (171.1)..<(171.9):
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             staminaPercentage = "39"
         case (171.9)..<(172.5):
             staminaPercentage = "38"
@@ -185,15 +185,15 @@ class StaminaBarView {
         case (175.3)..<(176.0):
             staminaPercentage = "32"
         case (176.0)..<(176.7):
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             staminaPercentage = "31"
         case (176.7)..<(177.4):
             staminaPercentage = "30"
-            if hapticsEnabled {
-                HapticManager.directionDownHaptic()
-            }
+//            if hapticsEnabled {
+//                HapticManager.directionDownHaptic()
+//            }
             // MARK: Zone 5, Red
         case (177.4)..<(178.4):
             staminaPercentage = "29"
