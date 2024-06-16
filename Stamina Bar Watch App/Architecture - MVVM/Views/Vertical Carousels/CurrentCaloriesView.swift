@@ -18,7 +18,7 @@ struct CurrentCaloriesView: View {
     var body: some View {
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
             VStack (alignment: .trailing) {
-                if workoutManager.running == true {
+                if workoutManager.running {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
@@ -40,19 +40,7 @@ struct CurrentCaloriesView: View {
                     }
                 }
             }
-            .onTapGesture(count: 2, perform: {
-                workoutManager.togglePause()
-                workoutManager.running ? HapticManager.directionDownHaptic() : HapticManager.successHaptic()
-
-            })
-            
-            .onLongPressGesture(minimumDuration: 3) {
-                workoutManager.endWorkout()
-                HapticManager.stopHaptic()
-                
-            }
         }
-        
     }
 }
 

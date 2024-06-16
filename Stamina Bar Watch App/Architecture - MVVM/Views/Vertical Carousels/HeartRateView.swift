@@ -21,7 +21,7 @@ struct HeartRateView: View {
                 
                 // TODO: Monitor if this fixes timer being shown in bug fix
                 
-                if workoutManager.running == true {
+                if workoutManager.running {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: true)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
@@ -40,19 +40,6 @@ struct HeartRateView: View {
                         .foregroundColor(.red)
                 }
             }
-            
-            .onTapGesture(count: 2, perform: {
-                workoutManager.togglePause()
-                workoutManager.running ? HapticManager.directionDownHaptic() : HapticManager.successHaptic()
-
-            })
-            
-            .onLongPressGesture(minimumDuration: 3) {
-                workoutManager.endWorkout()
-                HapticManager.stopHaptic()
-                
-            }
-            
         }
     }
 }

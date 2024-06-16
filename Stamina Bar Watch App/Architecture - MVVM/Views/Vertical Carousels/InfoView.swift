@@ -11,10 +11,7 @@ import SwiftUI
 
 struct InfoView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @State private var showElapsedTime = false
-    @State private var hasPausedWorkoutOnAppear = false
     @State private var showSwipeInstruction = true
-    @State private var blinkOpacity: Double = 1 // Add this line for blinking effect
     @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
     
     @State private var showingSettings = false // State to control settings view presentation
@@ -23,83 +20,16 @@ struct InfoView: View {
     
     var body: some View {
         TimelineView(InfoViewTimelineSchedule(from: workoutManager.builder?.startDate ?? Date(), isPaused: workoutManager.session?.state == .paused)) { context in
-            VStack (alignment: .trailing) {
-                
-                // Modified section for the blinking effect
-                if showSwipeInstruction {
-                    Text("📖 Double tap to Start or Pause a workout")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .opacity(blinkOpacity) // Use the blinkOpacity for the blinking effect
-                        .transition(.move(edge: .trailing))
-                    
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 7) { // Wait for 7 seconds before starting blinking
-                                // Speeding up the blinking by reducing the duration to 0.3 seconds
-                                withAnimation(Animation.easeInOut(duration: 0.3).repeatCount(3, autoreverses: true)) {
-                                    self.blinkOpacity = 0.5
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Adjusted for faster blinking
-                                    self.blinkOpacity = 1 // Reset the opacity to ensure it's fully visible before sliding out
-                                    // Slowing down the ease-in-out by increasing the duration to 2 seconds
-                                    withAnimation(.easeInOut(duration: 2)) {
-                                        self.showSwipeInstruction = false
-                                    }
-                                }
-                            }
-                        }
-                    
-                    
-                }
-                
-                // TODO: Monitor if this fixes timer being shown in bug fix
-                if workoutManager.running == true && showSwipeInstruction == false {
+            VStack (alignment: .trailing) {       
+                if workoutManager.running {
                     ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime(at: context.date) ?? 0, showSubseconds: true)
                         .foregroundStyle(.white)
                         .font(.system(.title2, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .scenePadding()
                 }
-                
-                
-                
-                // Use your existing staminaBarView logic here
                 (staminaBarView.stressFunction(heart_rate: workoutManager.heartRate) as AnyView)
-                
             }
-            
-            
-            
-            .onTapGesture(count: 2, perform: {
-                workoutManager.togglePause()
-                workoutManager.running ? HapticManager.directionDownHaptic() : HapticManager.successHaptic()
-                
-            })
-            
-            .onLongPressGesture(minimumDuration: 3) {
-                workoutManager.endWorkout()
-                HapticManager.stopHaptic()
-                
-            }
-            
-            
-            
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 24 * 60 * 60) {
-                    workoutManager.endWorkout()
-                    HapticManager.stopHaptic()
-                }
-                if !self.hasPausedWorkoutOnAppear {
-                    self.workoutManager.pause()
-                    self.hasPausedWorkoutOnAppear = true
-                    if hapticsEnabled {
-                        HapticManager.successHaptic()
-                    }// Ensure it's a one-time action
-                }
-            }
-            
-            
         }
     }
 }
