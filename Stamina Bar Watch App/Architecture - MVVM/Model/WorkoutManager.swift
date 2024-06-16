@@ -26,6 +26,10 @@ class WorkoutManager: NSObject, ObservableObject {
         }
     }
     
+    init(selectedWorkout: HKWorkoutActivityType? = nil) {
+            self.selectedWorkout = selectedWorkout
+        }
+    
     var builder: HKLiveWorkoutBuilder?
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?

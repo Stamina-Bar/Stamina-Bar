@@ -12,12 +12,10 @@ struct OnboardingView: View {
     @Binding var shouldShowOnboarding: Bool
     var body: some View {
         TabView {
-
-            PageView(pageNumber: 0, title: "Welcome", subTitle: "Stamina Bar", imageName: "SplashLogo", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "Ready", subTitle: "You may now leave this page.", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "Welcome", imageSystemName: "digitalcrown.arrow.clockwise.fill", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-//            PageView(pageNumber: 3, title: "Ready", subTitle: "Complete onboarding", imageName: "SplashLogo", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "Authorized", imageSystemName: "pip.exit", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(.carousel)
@@ -27,52 +25,51 @@ struct OnboardingView: View {
 struct PageView: View {
     let pageNumber: Int  // Page number
     let title: String
-    let subTitle: String
-    let imageName: String
+    
+    let imageSystemName: String
     let showsDismissButton: Bool
     @Binding var shouldShowOnboarding: Bool
     @EnvironmentObject var workoutManager: WorkoutManager
-    
+    @State private var animateValue = false
+
     var body: some View {
         VStack {
             if !showsDismissButton {
-                Text(title)
-                    .font(.title)
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 72, height: 72)
-                Text(subTitle)
-                    .font(.subheadline)
-                    .foregroundStyle(Color.secondary)
-                    .multilineTextAlignment(.center)
-                Divider()
+                if #available(watchOS 10.0, *) {
+                    Image(systemName: imageSystemName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 72, height: 72)
+                        .symbolEffect(.pulse.byLayer, options: .repeat(10), value: animateValue)
+                        .onAppear {
+                            animateValue.toggle()
+                        }
+                    
+                    Text(title)
+                        .font(.title)
+                    
+                }
             }
             
             
-            
             else {
-//                Image(imageName)
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 75, height: 75)
-                Text(title)
-                    .font(.title)
-                Text(subTitle)
-                    .font(.subheadline)
-                    .foregroundStyle(Color.secondary)
-                    .multilineTextAlignment(.center)
-                
-                
+                Image(systemName: imageSystemName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 72, height: 72)
+//                Text(title)
+//                    .font(.title)
+//                
+//                
                 Button(action: {
                     shouldShowOnboarding.toggle()
                 }) {
-                    Text("Exit")
+                    Text("Get Started")
                         .bold()
                         .foregroundColor(.white)
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
-                .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
+                .background(.blue)
                 .cornerRadius(25)
             }
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA01A35F2C1F823E0066C0DF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA01A35E2C1F823E0066C0DF /* ViewModel.swift */; };
 		DA06645A2BCF630D00071B43 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0664592BCF630D00071B43 /* HeartRateView.swift */; };
 		DA06645C2BCF642800071B43 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA06645B2BCF642800071B43 /* InfoView.swift */; };
 		DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD64F2BB50A1500D90874 /* SettingsView.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA01A35E2C1F823E0066C0DF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		DA0664592BCF630D00071B43 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		DA06645B2BCF642800071B43 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */,
 				DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */,
 				DA0664592BCF630D00071B43 /* HeartRateView.swift */,
+				DA01A35E2C1F823E0066C0DF /* ViewModel.swift */,
 				DA06645B2BCF642800071B43 /* InfoView.swift */,
 				DADAA7552BD893B700219A89 /* StaminaAlgorithmTest.swift */,
 			);
@@ -493,6 +496,7 @@
 				DACEAD4A2AD57E6A00DCC032 /* TotalCaloriesView.swift in Sources */,
 				DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */,
 				DA3BD6522BB668AE00D90874 /* TestingView.swift in Sources */,
+				DA01A35F2C1F823E0066C0DF /* ViewModel.swift in Sources */,
 				DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */,
 				DA8E526F29EEF71700DD26AF /* StaminaBarView.swift in Sources */,
 				DABECD592B3286AB00FF2B29 /* Onboarding.swift in Sources */,
