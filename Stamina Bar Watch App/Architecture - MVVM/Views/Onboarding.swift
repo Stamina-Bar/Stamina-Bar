@@ -13,9 +13,9 @@ struct OnboardingView: View {
     var body: some View {
         TabView {
             
-            PageView(pageNumber: 0, title: "Welcome", imageSystemName: "digitalcrown.arrow.clockwise.fill", showsDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "Welcome", imageSystemName: "digitalcrown.arrow.clockwise.fill", finalOnboardingPage: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "Authorized", imageSystemName: "pip.exit", showsDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "Authorized", imageSystemName: "pip.exit", finalOnboardingPage: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(.carousel)
@@ -23,18 +23,18 @@ struct OnboardingView: View {
 }
 
 struct PageView: View {
-    let pageNumber: Int  // Page number
+    let pageNumber: Int  
     let title: String
     
     let imageSystemName: String
-    let showsDismissButton: Bool
+    let finalOnboardingPage: Bool
     @Binding var shouldShowOnboarding: Bool
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var animateValue = false
-
+    
     var body: some View {
         VStack {
-            if !showsDismissButton {
+            if !finalOnboardingPage {
                 if #available(watchOS 10.0, *) {
                     Image(systemName: imageSystemName)
                         .resizable()
@@ -44,23 +44,24 @@ struct PageView: View {
                         .onAppear {
                             animateValue.toggle()
                         }
-                    
                     Text(title)
                         .font(.title)
-                    
+                } else {
+                    Image(systemName: imageSystemName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 72, height: 72)
+                    Text(title)
+                        .font(.title)
                 }
             }
-            
             
             else {
                 Image(systemName: imageSystemName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 72, height: 72)
-//                Text(title)
-//                    .font(.title)
-//                
-//                
+                
                 Button(action: {
                     shouldShowOnboarding.toggle()
                 }) {

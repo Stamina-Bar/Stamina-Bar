@@ -17,6 +17,8 @@ struct SummaryView: View {
     @Environment(\.dismiss) var dismiss
     let staminaBarView = StaminaBarView()
     @State private var showError = false
+    @State private var animateValue = false
+    
     
     @State private var durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -30,15 +32,39 @@ struct SummaryView: View {
         if workoutManager.workout == nil {
             
             if showError {
-                // Using ScrollView for long error message
-                ScrollView {
-                    Text("It's taking longer than expected. Please double tap the Digital Crown then swipe away to close the app. Reopen the app afterwards.")
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .navigationBarHidden(true)
+                if #available(watchOS 10.0, *) {
+                    // Using ScrollView for long error message
+                    ScrollView {
+                        Image(systemName: "digitalcrown.press.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                            .symbolEffect(.pulse.byLayer, options: .repeat(10), value: animateValue)
+                            .onAppear {
+                                animateValue.toggle()
+                            }
+                        
+                        Text("The app is taking longer than expected to generate your workout summary. Please double tap the Digital Crown then swipe away to close the app. Reopen the app afterwards.")
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .navigationBarHidden(true)
+                    }
+                } else {
+                    ScrollView {
+                        Image(systemName: "digitalcrown.press.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                        
+                        Text("The app is taking longer than expected to generate your workout summary. Please double tap the Digital Crown then swipe away to close the app. Reopen the app afterwards.")
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .navigationBarHidden(true)
+                    }
                 }
+                
             } else {
-                ProgressView("Generating Summary..")
+                ProgressView("Generating Summary...")
                     .navigationBarHidden(true)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
@@ -61,36 +87,36 @@ struct SummaryView: View {
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
                     .foregroundStyle(.white)
                     Divider()
-
-                    Text("Avg. Stamina %")
+                    
+                    Text("Stamina % Average")
                     //StaminaBarView(data: workoutManager.averageHeartRate)
                     (staminaBarView.stressFunction(heart_rate: workoutManager.averageHeartRate) as AnyView)
                     Divider()
                     
-                    SummaryMetricView(title: "Total Daily Calories",
+                    SummaryMetricView(title: "Daily Calories Burned",
                                       value: formattedCalories(workoutManager.basalEnergy + workoutManager.totalDailyEnergy) + " Cals")
-                    .foregroundStyle(Color.orange) // Choose a color that fits your app's design
+                    .foregroundStyle(Color.orange)
                     Divider()
-
+                    
                     SummaryMetricView(title: "Distance Tracked",
-                                      value: workoutManager.distance.formatted(.number.precision(.fractionLength(2))))
+                                      value: workoutManager.distance.formatted(.number.precision(.fractionLength(2))) + " miles")
                     .foregroundStyle(.blue)
                     Divider()
-
-                    SummaryMetricView(title: "Heart Rate Variability (HRV)",
+                    
+                    SummaryMetricView(title: "HRV",
                                       value: workoutManager.heartRateVariability.formatted(.number.precision(.fractionLength(0))))
                     .foregroundStyle(.blue)
                     Divider()
-
-                    SummaryMetricView(title: "Cardio Fitness (V02 Max)",
+                    
+                    SummaryMetricView(title: "V02 Max",
                                       value: workoutManager.currentVO2Max.formatted(.number.precision(.fractionLength(1))))
                     .foregroundStyle(.green)
                     
                     
                     Button("Done") {
                         dismiss()
-                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) // Apply to Button
+                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 50)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) 
                         .cornerRadius(25)
                 }
                 .scenePadding()
