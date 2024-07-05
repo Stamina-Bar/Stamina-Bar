@@ -20,9 +20,6 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             Section {
-                Toggle("Enable Haptics", isOn: $hapticsEnabled)
-                    .padding()
-                Divider()
                 ScanQRView()
                 Divider()
                 AppVersionView()
@@ -43,8 +40,6 @@ struct AppVersionView: View {
     var body: some View {
         Section {
             VStack(alignment: .center, spacing: 10) {
-                Text("App Version")
-                    .font(.headline)
                 Text("v\(appVersion)")
                     .foregroundColor(.gray)
                     .font(.subheadline)
@@ -66,7 +61,7 @@ struct ScanQRView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)
-                    Text("Scan for FAQ's")
+                    Text("FAQ's")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)

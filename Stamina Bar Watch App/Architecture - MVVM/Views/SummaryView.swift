@@ -116,7 +116,7 @@ struct SummaryView: View {
                     Button("Done") {
                         dismiss()
                     }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 50)
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.cyan, Color.blue]), startPoint: .leading, endPoint: .trailing)) 
+                        .background(.blue)
                         .cornerRadius(25)
                 }
                 .scenePadding()
