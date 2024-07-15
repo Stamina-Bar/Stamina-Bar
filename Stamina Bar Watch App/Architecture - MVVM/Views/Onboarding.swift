@@ -13,9 +13,9 @@ struct OnboardingView: View {
     var body: some View {
         TabView {
             
-            PageView(pageNumber: 0, title: "Welcome", imageSystemName: "digitalcrown.arrow.clockwise.fill", finalOnboardingPage: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 0, title: "Welcome", title2: "Scroll Up", imageSystemName: "digitalcrown.arrow.clockwise.fill", finalOnboardingPage: false, shouldShowOnboarding: $shouldShowOnboarding)
             
-            PageView(pageNumber: 1, title: "Authorized", imageSystemName: "pip.exit", finalOnboardingPage: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(pageNumber: 1, title: "Authorized", title2: "Onboarding Completed ", imageSystemName: "checkmark.circle", finalOnboardingPage: true, shouldShowOnboarding: $shouldShowOnboarding)
             
         }
         .tabViewStyle(.carousel)
@@ -23,63 +23,81 @@ struct OnboardingView: View {
 }
 
 struct PageView: View {
-    let pageNumber: Int  
+    let pageNumber: Int
     let title: String
+    let title2: String
     
     let imageSystemName: String
     let finalOnboardingPage: Bool
     @Binding var shouldShowOnboarding: Bool
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @State private var animateValue = false
+    //    @EnvironmentObject var workoutManager: WorkoutManager
+    @ObservedObject var healthKitModel = HealthKitModel()
     
     var body: some View {
         VStack {
             if !finalOnboardingPage {
-                if #available(watchOS 10.0, *) {
-                    Image(systemName: imageSystemName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 72, height: 72)
-                        .symbolEffect(.pulse.byLayer, options: .repeat(10), value: animateValue)
-                        .onAppear {
-                            animateValue.toggle()
-                        }
-                    Text(title)
-                        .font(.title)
-                } else {
-                    Image(systemName: imageSystemName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 72, height: 72)
-                    Text(title)
-                        .font(.title)
-                }
-            }
-            
-            else {
+                Text(title)
+                    .font(.title)
+                Spacer()
                 Image(systemName: imageSystemName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 72, height: 72)
+                    .frame(width: 60, height: 60)
                 
-                Button(action: {
-                    shouldShowOnboarding.toggle()
-                }) {
-                    Text("Get Started")
-                        .bold()
-                        .foregroundColor(.white)
+                Text(title2)
+                    .font(.subheadline)
+            }
+            
+            else {
+                //                Image(systemName: imageSystemName)
+                //                    .resizable()
+                //                    .aspectRatio(contentMode: .fill)
+                //                    .frame(width: 72, height: 72)
+                //
+                //                Text(title2)
+                //                    .font(.subheadline)
+                if #available(watchOS 9.0, *) {
+                    
+                    
+                    Button(action: {
+                        shouldShowOnboarding.toggle()
+                    }) {
+                        Text("Onboarding Completed ✅")
+                            .bold()
+                            .foregroundColor(.black)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
+                    .background(.green.gradient)
+                    .cornerRadius(25)
+//                    Image(systemName: imageSystemName)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fill)
+//                        .frame(width: 60, height: 60)
+                } else {
+                    
+                    
+                    Button(action: {
+                        shouldShowOnboarding.toggle()
+                    }) {
+                        Text("Onboarding Completed ✅")
+                            .bold()
+                            .foregroundColor(.black)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
+                    .background(.green)
+                    .cornerRadius(25)     
+
+                    
                 }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50) // Apply to Button, not Text
-                .background(.blue)
-                .cornerRadius(25)
             }
         }
         
-        .onAppear {
-            if pageNumber == 1 { // Request authorization on the second page
-                workoutManager.requestAuthorization()
-            }
-        }
+//        .onAppear {
+//            if pageNumber == 1 { // Request authorization on the second page
+//                //                workoutManager.requestAuthorization()
+//                healthKitModel.requestAuthorization()
+//            }
+//        }
     }
 }
 
