@@ -86,6 +86,12 @@ struct StartView: View {
                             .foregroundColor(.blue)
                     }
                 }
+                .onTapGesture {
+                    healthKitModel.fetchDailyStepCount()
+                }
+                .onAppear {
+                    healthKitModel.fetchDailyStepCount()
+                }
                 .tag(4)
             }
             .tabViewStyle(.carousel)
@@ -150,6 +156,12 @@ struct StartView: View {
                         Image(systemName: "shoeprints.fill")
                             .foregroundColor(.blue)
                     }
+                }
+                .onTapGesture {
+                    healthKitModel.fetchDailyStepCount()
+                }
+                .onAppear {
+                    healthKitModel.fetchDailyStepCount()
                 }
                 .tag(4)
             }
