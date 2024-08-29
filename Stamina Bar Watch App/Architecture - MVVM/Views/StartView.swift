@@ -43,10 +43,12 @@ struct StartView: View {
                 VStack(alignment: .trailing) {
                     staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
                     HStack {
-                        Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
+//                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
+                        Text("Heart Rate: 109 BPM")
+
                     }
                 }
                 .tag(1)

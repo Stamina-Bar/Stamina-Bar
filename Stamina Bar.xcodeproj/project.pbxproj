@@ -207,7 +207,6 @@
 		DAA3BCBB29288C8700146F96 = {
 			isa = PBXGroup;
 			children = (
-				DADBC8862C450529007D6637 /* StaminaBarViewSeniorCitizens.swift */,
 				DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */,
 				DAD35EC129F2364700E2E782 /* LICENSE */,
 				DA346CA129DB32F8009DCB4E /* README.md */,
@@ -311,6 +310,7 @@
 			children = (
 				DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */,
 				DA0265AD2C386CF20012D217 /* StaminaBarView2.swift */,
+				DADBC8862C450529007D6637 /* StaminaBarViewSeniorCitizens.swift */,
 				DA0265A92C3868C80012D217 /* StartView2.swift */,
 				DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */,
 				DA5CDB052A36C1990089757D /* UserAgeReader.swift */,
