@@ -1,5 +1,6 @@
 import SwiftUI
 import HealthKit
+import UIKit
 
 //struct WorkoutType: Identifiable {
 //    var id: HKWorkoutActivityType {
@@ -12,11 +13,11 @@ import HealthKit
 struct StartView: View {
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
     //    @EnvironmentObject var workoutManager: WorkoutManager
-    //    @State private var showingSettings = false 
+    //    @State private var showingSettings = false
     //    @State private var rotateGear = false
     let staminaBarView2 = StaminaBarView2()
     let staminaBarViewSeniorCitizens = StaminaBarViewSeniorCitizens()
-
+    
     @ObservedObject var healthKitModel = HealthKitModel()
     
     
@@ -27,151 +28,166 @@ struct StartView: View {
     @State private var selectedTab: Int = 0
     
     var body: some View {
+        let (staminaView, staminaPercentage) = staminaBarView2.stressFunction(
+                    heart_rate: staminaBarView2.healthKitModel.latestHeartRate,
+                    hrv: staminaBarView2.healthKitModel.latestHeartRateVariability
+                )
+        
         if healthKitModel.userAgeInYears <= 28 {
             TabView(selection: $selectedTab) {
                 //            MARK:
                 VStack {
-                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+                    staminaView
+                                   .accessibilityElement()
+                                   .accessibilityLabel(Text("Stamina percentage is \(staminaPercentage)"))
+                                   .accessibilityAddTraits(.isButton)
+                                   .onLongPressGesture {
+                                       WKInterfaceDevice.current().play(.click)
+                                   }
+                    
+                    
                     
                     if healthKitModel.latestHeartRate == 0 {
                         Text("Reading heart rate")
                             .font(.subheadline)
                     }
                 }
+                
                 .tag(0)
                 
-                VStack(alignment: .trailing) {
-                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
+//                VStack(alignment: .trailing) {
+//                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        //                        Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
+//                        //                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        Image(systemName: "heart.fill")
+//                            .foregroundColor(.red)
+//                        Text("Heart Rate: 109 BPM")
+//                        
+//                    }
+//                }
+//                .tag(1)
+                
+                
+//                VStack(alignment: .trailing) {
+//                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+//                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        Image(systemName: "waveform.path.ecg")
+//                            .foregroundColor(.blue)
+//                    }
+//                }
+//                .tag(2)
+                
+//                VStack(alignment: .trailing) {
+//                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        Text("\(String(format: "%.1f", healthKitModel.latestV02Max)) VO2 max")
+//                            .font(.system(.body, design:
+//                                    .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        
+//                        Image(systemName: "lungs.fill")
+//                            .foregroundColor(.green)
+//                        
+//                    }
+//                }
+                //.tag(3)
+                
+//                VStack(alignment: .trailing) {
+//                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        Text("\(healthKitModel.latestStepCount) Steps")
+//                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        Image(systemName: "shoeprints.fill")
+//                            .foregroundColor(.blue)
+//                    }
+//                }
+//                .onTapGesture {
+//                    healthKitModel.fetchDailyStepCount()
+//                }
+//                .onAppear {
+//                    healthKitModel.fetchDailyStepCount()
+//                }
+//                .tag(4)
+            }
+            .tabViewStyle(.carousel)
+            .navigationBarTitle("Stamina Bar")
+            .navigationBarTitleDisplayMode(.inline)
+            
+        } 
+//        else {
+//            TabView(selection: $selectedTab) {
+//                //            MARK:
+//                VStack {
+//                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    
+//                    if healthKitModel.latestHeartRate == 0 {
+//                        Text("Reading heart rate")
+//                            .font(.subheadline)
+//                    }
+//                }
+//                .tag(0)
+//                
+//                VStack(alignment: .trailing) {
+//                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
 //                        Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
 //                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(.red)
-                        Text("Heart Rate: 109 BPM")
-
-                    }
-                }
-                .tag(1)
-                
-                
-                VStack(alignment: .trailing) {
-                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: "waveform.path.ecg")
-                            .foregroundColor(.blue)
-                    }
-                }
-                .tag(2)
-                
-                VStack(alignment: .trailing) {
-                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text("\(String(format: "%.1f", healthKitModel.latestV02Max)) VO2 max")
-                            .font(.system(.body, design:
-                                    .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "lungs.fill")
-                            .foregroundColor(.green)
-                        
-                    }
-                }
-                .tag(3)
-                
-                VStack(alignment: .trailing) {
-                    staminaBarView2.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text("\(healthKitModel.latestStepCount) Steps")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                    }
-                }
-                .onTapGesture {
-                    healthKitModel.fetchDailyStepCount()
-                }
-                .onAppear {
-                    healthKitModel.fetchDailyStepCount()
-                }
-                .tag(4)
-            }
-            .tabViewStyle(.carousel)
-            .navigationBarTitle("Stamina Bar")
-            .navigationBarTitleDisplayMode(.inline)
-
-        } else {
-            TabView(selection: $selectedTab) {
-                //            MARK:
-                VStack {
-                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    
-                    if healthKitModel.latestHeartRate == 0 {
-                        Text("Reading heart rate")
-                            .font(.subheadline)
-                    }
-                }
-                .tag(0)
-                
-                VStack(alignment: .trailing) {
-                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(.red)
-                    }
-                }
-                .tag(1)
-                
-                
-                VStack(alignment: .trailing) {
-                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: "waveform.path.ecg")
-                            .foregroundColor(.blue)
-                    }
-                }
-                .tag(2)
-                
-                VStack(alignment: .trailing) {
-                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text("\(String(format: "%.1f", healthKitModel.latestV02Max)) VO2 max")
-                            .font(.system(.body, design:
-                                    .rounded).monospacedDigit().lowercaseSmallCaps())
-                        
-                        Image(systemName: "lungs.fill")
-                            .foregroundColor(.green)
-                        
-                    }
-                }
-                .tag(3)
-                
-                VStack(alignment: .trailing) {
-                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
-                    HStack {
-                        Text("\(healthKitModel.latestStepCount) Steps")
-                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                    }
-                }
-                .onTapGesture {
-                    healthKitModel.fetchDailyStepCount()
-                }
-                .onAppear {
-                    healthKitModel.fetchDailyStepCount()
-                }
-                .tag(4)
-            }
-            .tabViewStyle(.carousel)
-            .navigationBarTitle("Stamina Bar")
-            .navigationBarTitleDisplayMode(.inline)
-
-        }
+//                        Image(systemName: "heart.fill")
+//                            .foregroundColor(.red)
+//                    }
+//                }
+//                .tag(1)
+//                
+//                
+//                VStack(alignment: .trailing) {
+//                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV")
+//                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        Image(systemName: "waveform.path.ecg")
+//                            .foregroundColor(.blue)
+//                    }
+//                }
+//                .tag(2)
+//                
+//                VStack(alignment: .trailing) {
+//                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        Text("\(String(format: "%.1f", healthKitModel.latestV02Max)) VO2 max")
+//                            .font(.system(.body, design:
+//                                    .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        
+//                        Image(systemName: "lungs.fill")
+//                            .foregroundColor(.green)
+//                        
+//                    }
+//                }
+//                .tag(3)
+//                
+//                VStack(alignment: .trailing) {
+//                    staminaBarViewSeniorCitizens.stressFunction(heart_rate: healthKitModel.latestHeartRate, hrv: healthKitModel.latestHeartRateVariability)
+//                    HStack {
+//                        Text("\(healthKitModel.latestStepCount) Steps")
+//                            .font(.system(.body, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+//                        Image(systemName: "shoeprints.fill")
+//                            .foregroundColor(.blue)
+//                    }
+//                }
+//                .onTapGesture {
+//                    healthKitModel.fetchDailyStepCount()
+//                }
+//                .onAppear {
+//                    healthKitModel.fetchDailyStepCount()
+//                }
+//                .tag(4)
+//            }
+//            .tabViewStyle(.carousel)
+//            .navigationBarTitle("Stamina Bar")
+//            .navigationBarTitleDisplayMode(.inline)
+//            
+//        }
         
         //        VStack {
         //            Spacer()
@@ -187,24 +203,24 @@ struct StartView: View {
         //                }
         //                               .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.blue, lineWidth: 2))
         //            }
-        //                        
-        //            
-        //            
+        //
+        //
+        //
         //            Image(systemName: "info.circle.fill")
         //                .foregroundColor(.blue)
         //                .frame(width: 60, height: 60)
         //
-        //                
+        //
         //        //                .background(Circle().fill(Color.white.opacity(0.1)))
         //                .onTapGesture {
-        //                    
+        //
         //                        showingSettings = true
-        //                    
+        //
         //                }
         //                .sheet(isPresented: $showingSettings) {
         //                    SettingsView() // Settings view to show
         //                }
-        //            
+        //
         //        }
         //        .modifier(ConditionalScrollIndicatorModifier(shouldHide: shouldShowOnboarding))
         //        .fullScreenCover(isPresented: $shouldShowOnboarding, content: {
@@ -238,7 +254,7 @@ struct ConditionalScrollIndicatorModifier: ViewModifier {
 //    public var id: UInt {
 //        rawValue
 //    }
-//    
+//
 //    var name: String {
 //        switch self {
 //        case .walking:
