@@ -12,21 +12,17 @@ import SwiftUI
 class HealthKitModel: ObservableObject {
     var healthStore: HKHealthStore?
     var query: HKQuery?
-    @Published var isHeartRateAvailable: Bool = false
-    @Published var latestHeartRate: Double = 0.0
     
     @Published var isHeartRateVariabilityAvailable: Bool = false
-    @Published var latestHeartRateVariability: Double = 0
-    
+    @Published var isHeartRateAvailable: Bool = false
     @Published var isV02MaxAvailable: Bool = false
+    @Published var latestHeartRateVariability: Double = 0
+    @Published var latestHeartRate: Double = 0.0
     @Published var latestV02Max: Double = 0.0
     @Published var latestStepCount: Int = 0
     @Published var latestActiveEnergy: Double = 0.0
     @Published var latestRestingEnergy: Double = 0.0
-    
     @Published var userAgeInYears: Int = 0
-    
-    
     
     init() {
         if HKHealthStore.isHealthDataAvailable() {
@@ -43,8 +39,6 @@ class HealthKitModel: ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
             HKQuantityType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
-            
-            
             //            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
             //            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         ]
@@ -61,60 +55,14 @@ class HealthKitModel: ObservableObject {
                         print("Failed to read age: \(error.localizedDescription)")
                     } else {
                         print("User's age is \(age)")
-                        // You can add further code here that depends on the user's age
                     }
                 }
-                //                self.startActiveEnergyQuery()
-                //                self.startRestingEnergyQuery()
             } else {
                 print("Authorization failed")
             }
         }
     }
-    
-    //    func startActiveEnergyQuery() {
-    //        guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
-    //            print("Active Energy type is unavailable.")
-    //            return
-    //        }
-    //
-    //        let calendar = Calendar.current
-    //        let now = Date()
-    //        let startOfDay = calendar.startOfDay(for: now)
-    //        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-    //
-    //        let query = HKAnchoredObjectQuery(type: activeEnergyType,
-    //                                          predicate: predicate,
-    //                                          anchor: nil,
-    //                                          limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
-    //            self.processActiveEnergySamples(samples)
-    //        }
-    //
-    //        query.updateHandler = { query, samples, deletedObjects, anchor, error in
-    //            self.processActiveEnergySamples(samples)
-    //        }
-    //
-    //        healthStore?.execute(query)
-    //    }
-    
-    //    private func processActiveEnergySamples(_ samples: [HKSample]?) {
-    //        guard let energySamples = samples as? [HKQuantitySample] else {
-    //            print("Could not extract active energy samples.")
-    //            return
-    //        }
-    //
-    //        let totalEnergy = energySamples.reduce(0.0) { (result, sample) -> Double in
-    //            return result + sample.quantity.doubleValue(for: HKUnit.kilocalorie())
-    //        }
-    //
-    //        DispatchQueue.main.async {
-    //            self.latestActiveEnergy = totalEnergy
-    //            print("Updated latest active energy: \(self.latestActiveEnergy) kcal")
-    //        }
-    //    }
-    
-    
-    
+    //    MARK: Resting Energy 
     //    func startRestingEnergyQuery() {
     //        guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
     //
@@ -156,7 +104,7 @@ class HealthKitModel: ObservableObject {
     //        }
     //    }
     
-    
+    //    MARK: Step Count
     func fetchDailyStepCount() {
         guard let stepCountType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
             return
@@ -170,10 +118,10 @@ class HealthKitModel: ObservableObject {
         
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
             // Calculate elapsed time
-            let elapsedTime = Date().timeIntervalSince(startTime)
+            _ = Date().timeIntervalSince(startTime)
             
             if let sum = result?.sumQuantity() {
-                let steps = sum.doubleValue(for: HKUnit.count()).rounded()
+                _ = sum.doubleValue(for: HKUnit.count()).rounded()
                 DispatchQueue.main.async {
                     self.latestStepCount = Int((sum.doubleValue(for: HKUnit.count())))
                 }
@@ -182,7 +130,7 @@ class HealthKitModel: ObservableObject {
         healthStore?.execute(query)
     }
     
-    
+    //    MARK: Step Count
     private func updateStepCounts(_ samples: [HKSample]?) {
         guard let stepSamples = samples as? [HKQuantitySample] else {
             print("Could not extract step count samples.")
@@ -196,7 +144,7 @@ class HealthKitModel: ObservableObject {
             self.latestStepCount = totalSteps  // This is an Int, so no decimals
         }
     }
-    
+    //    MARK: v02Max
     func startV02MaxQuery() {
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else { return }
         
@@ -214,7 +162,7 @@ class HealthKitModel: ObservableObject {
         healthStore?.execute(query)
         self.query = query
     }
-    
+    //    MARK: v02 Max
     private func updateVO2Max(_ samples: [HKSample]?) {
         guard let vo2MaxSamples = samples as? [HKQuantitySample] else { return }
         
@@ -222,7 +170,7 @@ class HealthKitModel: ObservableObject {
             self.latestV02Max = vo2MaxSamples.last?.quantity.doubleValue(for: HKUnit(from: "ml/kg*min")) ?? 0
         }
     }
-    
+    //    MARK: Age
     private func readAge(completion: @escaping (Int, Error?) -> Void) {
         do {
             let dateOfBirthComponents = try healthStore?.dateOfBirthComponents()
@@ -244,7 +192,7 @@ class HealthKitModel: ObservableObject {
             completion(0, error)
         }
     }
-    
+    //    MARK: HR
     func startHeartRateQuery() {
         guard let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate) else { return }
         
@@ -263,6 +211,7 @@ class HealthKitModel: ObservableObject {
         self.query = query
     }
     
+    //    MARK: HRV
     func startHeartRateVariabilityQuery() {
         guard let heartRateVariabilityType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN) else { return }
         
@@ -281,6 +230,7 @@ class HealthKitModel: ObservableObject {
         self.query = query
     }
     
+    //    MARK: HR
     private func updateHeartRates(_ samples: [HKSample]?) {
         guard let heartRateSamples = samples as? [HKQuantitySample] else { return }
         
@@ -290,6 +240,7 @@ class HealthKitModel: ObservableObject {
         }
     }
     
+//    MARK: HRV
     private func updateHeartRateVariability(_ samples: [HKSample]? ) {
         guard let heartRateVariabilitySample = samples as? [HKQuantitySample] else { return }
         
