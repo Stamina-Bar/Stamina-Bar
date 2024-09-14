@@ -7,22 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA01A35F2C1F823E0066C0DF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA01A35E2C1F823E0066C0DF /* ViewModel.swift */; };
-		DA0265AA2C3868C80012D217 /* StartView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0265A92C3868C80012D217 /* StartView2.swift */; };
 		DA0265AC2C386CCD0012D217 /* HealthKitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */; };
-		DA0265AE2C386CF20012D217 /* StaminaBarView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0265AD2C386CF20012D217 /* StaminaBarView2.swift */; };
-		DA06645A2BCF630D00071B43 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0664592BCF630D00071B43 /* HeartRateView.swift */; };
-		DA06645C2BCF642800071B43 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA06645B2BCF642800071B43 /* InfoView.swift */; };
-		DA32A2B12C1F996000963538 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32A2B02C1F996000963538 /* ControlsView.swift */; };
-		DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD64F2BB50A1500D90874 /* SettingsView.swift */; };
-		DA3BD6522BB668AE00D90874 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3BD6512BB668AE00D90874 /* TestingView.swift */; };
-		DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */; };
-		DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */; };
-		DA5531012B3F0257004AF31F /* CountdownProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5531002B3F0257004AF31F /* CountdownProgressView.swift */; };
-		DA5CDB062A36C1990089757D /* UserAgeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5CDB052A36C1990089757D /* UserAgeReader.swift */; };
+		DA0265AE2C386CF20012D217 /* StaminaCalculationAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0265AD2C386CF20012D217 /* StaminaCalculationAlgorithm.swift */; };
 		DA64F6532BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64F6522BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift */; };
-		DA8A9AC62BE2D99800E268C0 /* ToggleWorkoutTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9AC52BE2D99800E268C0 /* ToggleWorkoutTip.swift */; };
-		DA8E526F29EEF71700DD26AF /* StaminaBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */; };
 		DA8E527229F0D75A00DD26AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */; };
 		DAA3BCC929288C8700146F96 /* Stamina Bar Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAA3BCCE29288C8700146F96 /* Stamina_BarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */; };
@@ -30,28 +17,16 @@
 		DAA3BCD529288C8A00146F96 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */; };
 		DAB8D2882A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */; };
 		DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8D28B2A21136200333D83 /* HapticManager.swift */; };
-		DABECD592B3286AB00FF2B29 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABECD582B3286AB00FF2B29 /* Onboarding.swift */; };
 		DAC32C3B2BEABDFA00A4D76B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */; };
 		DAC32C3C2BEABDFA00A4D76B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */; };
 		DAC32C3F2BEABDFA00A4D76B /* StaminaBarWidget2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC32C3E2BEABDFA00A4D76B /* StaminaBarWidget2.swift */; };
 		DAC32C412BEABDFA00A4D76B /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC32C402BEABDFA00A4D76B /* AppIntent.swift */; };
 		DAC32C432BEABDFB00A4D76B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC32C422BEABDFB00A4D76B /* Assets.xcassets */; };
 		DAC32C472BEABDFB00A4D76B /* StaminaBarWidget2Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DAC32C3A2BEABDFA00A4D76B /* StaminaBarWidget2Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DACA59ED2B4CB45100818B4C /* TotalDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */; };
-		DACEAD462AD1CD1300DCC032 /* CurrentCaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */; };
-		DACEAD482AD3549700DCC032 /* StepCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEAD472AD3549700DCC032 /* StepCountView.swift */; };
-		DACEAD4A2AD57E6A00DCC032 /* TotalCaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */; };
-		DACEAD4C2AD57FDD00DCC032 /* CardioFitnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEAD4B2AD57FDD00DCC032 /* CardioFitnessView.swift */; };
 		DAD35EB829F1C4A600E2E782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD129288C8A00146F96 /* Assets.xcassets */; };
-		DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */; };
 		DAD35EC229F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
 		DAD35EC329F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
-		DADBC8872C450529007D6637 /* StaminaBarViewSeniorCitizens.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADBC8862C450529007D6637 /* StaminaBarViewSeniorCitizens.swift */; };
-		DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */; };
 		DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83529C54E9D0027A3D8 /* StartView.swift */; };
-		DAFEE83829C54EEA0027A3D8 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */; };
-		DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83929C550380027A3D8 /* SessionPagingView.swift */; };
-		DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,24 +79,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DA01A35E2C1F823E0066C0DF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		DA0265A92C3868C80012D217 /* StartView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView2.swift; sourceTree = "<group>"; };
 		DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitModel.swift; sourceTree = "<group>"; };
-		DA0265AD2C386CF20012D217 /* StaminaBarView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarView2.swift; sourceTree = "<group>"; };
-		DA0664592BCF630D00071B43 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
-		DA06645B2BCF642800071B43 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		DA32A2B02C1F996000963538 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
+		DA0265AD2C386CF20012D217 /* StaminaCalculationAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaCalculationAlgorithm.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DA3BD64F2BB50A1500D90874 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		DA3BD6512BB668AE00D90874 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
-		DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCarouselView.swift; sourceTree = "<group>"; };
-		DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateVariabilityView.swift; sourceTree = "<group>"; };
-		DA5531002B3F0257004AF31F /* CountdownProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownProgressView.swift; sourceTree = "<group>"; };
-		DA5CDB052A36C1990089757D /* UserAgeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgeReader.swift; sourceTree = "<group>"; };
 		DA64F6502BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stamina Bar Watch AppTestsMain.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA64F6522BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamina_Bar_Watch_AppTestsMain.swift; sourceTree = "<group>"; };
-		DA8A9AC52BE2D99800E268C0 /* ToggleWorkoutTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWorkoutTip.swift; sourceTree = "<group>"; };
-		DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarView.swift; sourceTree = "<group>"; };
 		DAA3BCC229288C8700146F96 /* Stamina Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA3BCCD29288C8700146F96 /* Stamina_BarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamina_BarApp.swift; sourceTree = "<group>"; };
@@ -130,33 +92,20 @@
 		DAA3BCDF29288CA500146F96 /* Stamina Bar Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Stamina Bar Watch App.entitlements"; sourceTree = "<group>"; };
 		DAB8D2872A2082E600333D83 /* Stamina-Bar-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stamina-Bar-Watch-App-Info.plist"; sourceTree = "<group>"; };
 		DAB8D28B2A21136200333D83 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		DABECD582B3286AB00FF2B29 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		DAC2575D2BD899B5003BD1CA /* StaminaBar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StaminaBar-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAC32C3A2BEABDFA00A4D76B /* StaminaBarWidget2Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StaminaBarWidget2Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC32C3E2BEABDFA00A4D76B /* StaminaBarWidget2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarWidget2.swift; sourceTree = "<group>"; };
 		DAC32C402BEABDFA00A4D76B /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		DAC32C422BEABDFB00A4D76B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAC32C442BEABDFB00A4D76B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDistanceView.swift; sourceTree = "<group>"; };
-		DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCaloriesView.swift; sourceTree = "<group>"; };
-		DACEAD472AD3549700DCC032 /* StepCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCountView.swift; sourceTree = "<group>"; };
-		DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCaloriesView.swift; sourceTree = "<group>"; };
-		DACEAD4B2AD57FDD00DCC032 /* CardioFitnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardioFitnessView.swift; sourceTree = "<group>"; };
-		DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		DAD35EC129F2364700E2E782 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		DADAA7552BD893B700219A89 /* StaminaAlgorithmTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaAlgorithmTest.swift; sourceTree = "<group>"; };
-		DADBC8862C450529007D6637 /* StaminaBarViewSeniorCitizens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarViewSeniorCitizens.swift; sourceTree = "<group>"; };
 		DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarWidget.swift; sourceTree = "<group>"; };
 		DAF3ED6E2AFD16F900ABCC8A /* StaminaBarWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = StaminaBarWidget.intentdefinition; sourceTree = "<group>"; };
 		DAF3ED6F2AFD16FA00ABCC8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAF3ED712AFD16FA00ABCC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		DAFEE83529C54E9D0027A3D8 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
-		DAFEE83929C550380027A3D8 /* SessionPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPagingView.swift; sourceTree = "<group>"; };
-		DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,13 +195,7 @@
 		DAB8D28A2A2111BF00333D83 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				DA5531002B3F0257004AF31F /* CountdownProgressView.swift */,
 				DAB8D28B2A21136200333D83 /* HapticManager.swift */,
-				DAFEE83929C550380027A3D8 /* SessionPagingView.swift */,
-				DA8E526E29EEF71700DD26AF /* StaminaBarView.swift */,
-				DA48B42F2A380D3200E9269B /* VerticalCarouselView.swift */,
-				DA8A9AC52BE2D99800E268C0 /* ToggleWorkoutTip.swift */,
-				DA32A2B02C1F996000963538 /* ControlsView.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -266,23 +209,6 @@
 				DAC32C442BEABDFB00A4D76B /* Info.plist */,
 			);
 			path = StaminaBarWidget2;
-			sourceTree = "<group>";
-		};
-		DACEAD412AD1C6B100DCC032 /* Vertical Carousels */ = {
-			isa = PBXGroup;
-			children = (
-				DACEAD4B2AD57FDD00DCC032 /* CardioFitnessView.swift */,
-				DACEAD452AD1CD1300DCC032 /* CurrentCaloriesView.swift */,
-				DA534F792AD5B84100C3706B /* HeartRateVariabilityView.swift */,
-				DACEAD472AD3549700DCC032 /* StepCountView.swift */,
-				DACEAD492AD57E6A00DCC032 /* TotalCaloriesView.swift */,
-				DACA59EC2B4CB45100818B4C /* TotalDistanceView.swift */,
-				DA0664592BCF630D00071B43 /* HeartRateView.swift */,
-				DA01A35E2C1F823E0066C0DF /* ViewModel.swift */,
-				DA06645B2BCF642800071B43 /* InfoView.swift */,
-				DADAA7552BD893B700219A89 /* StaminaAlgorithmTest.swift */,
-			);
-			path = "Vertical Carousels";
 			sourceTree = "<group>";
 		};
 		DAF3ED662AFD16F900ABCC8A /* Frameworks */ = {
@@ -309,12 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */,
-				DA0265AD2C386CF20012D217 /* StaminaBarView2.swift */,
-				DADBC8862C450529007D6637 /* StaminaBarViewSeniorCitizens.swift */,
-				DA0265A92C3868C80012D217 /* StartView2.swift */,
-				DAD35EBF29F1D2B900E2E782 /* ComplicationController.swift */,
-				DA5CDB052A36C1990089757D /* UserAgeReader.swift */,
-				DAFEE7F729BA45310027A3D8 /* WorkoutManager.swift */,
+				DA0265AD2C386CF20012D217 /* StaminaCalculationAlgorithm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,12 +244,6 @@
 			isa = PBXGroup;
 			children = (
 				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
-				DABECD582B3286AB00FF2B29 /* Onboarding.swift */,
-				DA3BD64F2BB50A1500D90874 /* SettingsView.swift */,
-				DAFEE83F29C551050027A3D8 /* ElapsedTimeView.swift */,
-				DAFEE83729C54EEA0027A3D8 /* SummaryView.swift */,
-				DACEAD412AD1C6B100DCC032 /* Vertical Carousels */,
-				DA3BD6512BB668AE00D90874 /* TestingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -506,36 +421,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAFEE83829C54EEA0027A3D8 /* SummaryView.swift in Sources */,
-				DACEAD462AD1CD1300DCC032 /* CurrentCaloriesView.swift in Sources */,
-				DACEAD4A2AD57E6A00DCC032 /* TotalCaloriesView.swift in Sources */,
-				DAFEE7F829BA45310027A3D8 /* WorkoutManager.swift in Sources */,
-				DA32A2B12C1F996000963538 /* ControlsView.swift in Sources */,
-				DA3BD6522BB668AE00D90874 /* TestingView.swift in Sources */,
-				DA01A35F2C1F823E0066C0DF /* ViewModel.swift in Sources */,
-				DADBC8872C450529007D6637 /* StaminaBarViewSeniorCitizens.swift in Sources */,
-				DAFEE84029C551050027A3D8 /* ElapsedTimeView.swift in Sources */,
-				DA8E526F29EEF71700DD26AF /* StaminaBarView.swift in Sources */,
-				DABECD592B3286AB00FF2B29 /* Onboarding.swift in Sources */,
-				DACA59ED2B4CB45100818B4C /* TotalDistanceView.swift in Sources */,
 				DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */,
-				DA5CDB062A36C1990089757D /* UserAgeReader.swift in Sources */,
-				DA8A9AC62BE2D99800E268C0 /* ToggleWorkoutTip.swift in Sources */,
 				DAA3BCCE29288C8700146F96 /* Stamina_BarApp.swift in Sources */,
-				DA0265AA2C3868C80012D217 /* StartView2.swift in Sources */,
-				DAD35EC029F1D2B900E2E782 /* ComplicationController.swift in Sources */,
 				DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */,
-				DA48B4302A380D3200E9269B /* VerticalCarouselView.swift in Sources */,
-				DA06645C2BCF642800071B43 /* InfoView.swift in Sources */,
-				DA06645A2BCF630D00071B43 /* HeartRateView.swift in Sources */,
-				DAFEE83A29C550380027A3D8 /* SessionPagingView.swift in Sources */,
-				DACEAD482AD3549700DCC032 /* StepCountView.swift in Sources */,
-				DA534F7A2AD5B84100C3706B /* HeartRateVariabilityView.swift in Sources */,
-				DACEAD4C2AD57FDD00DCC032 /* CardioFitnessView.swift in Sources */,
-				DA5531012B3F0257004AF31F /* CountdownProgressView.swift in Sources */,
 				DA0265AC2C386CCD0012D217 /* HealthKitModel.swift in Sources */,
-				DA3BD6502BB50A1500D90874 /* SettingsView.swift in Sources */,
-				DA0265AE2C386CF20012D217 /* StaminaBarView2.swift in Sources */,
+				DA0265AE2C386CF20012D217 /* StaminaCalculationAlgorithm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

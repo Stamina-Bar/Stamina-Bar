@@ -1,38 +1,30 @@
 //
-//  StaminaBarViewSeniorCitizens.swift
-//  Stamina Bar Watch App
-//
-//  Created by Bryce Ellis on 7/15/24.
-//
-
-import Foundation
-//
 //  StaminaBarView2.swift
 //  Stamina Bar Watch App
 //
 //  Created by Bryce Ellis on 7/5/24.
 //
 
+
+import Foundation
 import SwiftUI
 
 import HealthKit
 
 
-class StaminaBarViewSeniorCitizens {
+class StaminaCalculationAlgorithm {
     
-    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
+//    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
     @ObservedObject var healthKitModel = HealthKitModel()
 
     func stressFunction(heart_rate: CGFloat, hrv: CGFloat) -> AnyView {
         
-        let baselineHRV: CGFloat = 33
-        let adjustmentPerUnit: CGFloat = 0.5
+        let baselineHRV: CGFloat = 65
+        let adjustmentPerUnit: CGFloat = 0.25
         let hrvAdjustment = -(max(baselineHRV - hrv, 0) * adjustmentPerUnit)
             
-        
         var initalHeartRateMapping: String = ""
         var finalStaminaPercentage: CGFloat
-        
 
         switch heart_rate {
             // MARK: Zone 1, Blue
@@ -270,7 +262,5 @@ class StaminaBarViewSeniorCitizens {
                 .aspectRatio(contentMode: .fit)
                 
         })
-        
     }
-    
 }

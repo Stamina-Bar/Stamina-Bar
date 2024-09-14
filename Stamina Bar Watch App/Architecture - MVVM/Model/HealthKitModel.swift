@@ -37,8 +37,8 @@ class HealthKitModel: ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
-            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
-            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!
+//            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
             //            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
             //            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         ]
@@ -52,13 +52,13 @@ class HealthKitModel: ObservableObject {
                 self.fetchDailyStepCount()
                 self.readAge { age, error in
                     if let error = error {
-                        print("Failed to read age: \(error.localizedDescription)")
+//                        print("Failed to read age: \(error.localizedDescription)")
                     } else {
-                        print("User's age is \(age)")
+//                        print("User's age is \(age)")
                     }
                 }
             } else {
-                print("Authorization failed")
+//                print("Authorization failed")
             }
         }
     }
