@@ -117,26 +117,26 @@ struct StartView: View {
         }
     }
     
-    func getGradientBackground(for percentage: CGFloat) -> Color  {
+    func getGradientBackground(for percentage: CGFloat) -> Color {
         let color: Color
         switch percentage {
-        case 90...100:
+        case 91...100:
             color = .blue  // High stamina
-        case 86..<90:
+        case 86...90:
             color = .green // Medium-high stamina
-        case 50..<86:
-            color = .yellow // Medium-low stamina
-        case 29..<50:
-            color = .red // Medium-low stamina
+        case 51...85:
+            color = .yellow // Medium stamina
+        case 30...50:
+            color = .orange // Medium-low stamina
+        case 1...29:
+            color = .red // Low stamina
         default:
-            color = .clear
-            
+            color = .clear // 0 or negative values (if possible)
         }
         
-        // Create a gradient from the color
         return color
-        
     }
+
     
     var body: some View {
         // Calculate the stamina view and percentage outside the VStack
