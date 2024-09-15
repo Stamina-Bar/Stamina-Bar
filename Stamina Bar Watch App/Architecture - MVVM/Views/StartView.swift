@@ -4,10 +4,10 @@ import HealthKit
 struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
-
+    
     @State private var currentIndex = 0
-
-    // Functions to display individual metrics
+    
+    //    MARK: Extension Methods
     func displayedValue() -> String? {
         switch currentIndex {
         case 0:
@@ -24,7 +24,7 @@ struct StartView: View {
             return nil
         }
     }
-
+    
     func displayedSystemImage() -> String? {
         switch currentIndex {
         case 0:
@@ -41,7 +41,7 @@ struct StartView: View {
             return nil
         }
     }
-
+    
     func displayedForegroundColor() -> Color {
         switch currentIndex {
         case 0:
@@ -58,8 +58,7 @@ struct StartView: View {
             return .clear
         }
     }
-
-    // Helper function to format the step count
+    
     func formattedStepCount(_ stepCount: Int, abbreviate: Bool = true) -> String {
         if abbreviate && stepCount >= 1000 {
             let formatted = Double(stepCount) / 1000.0
@@ -72,8 +71,7 @@ struct StartView: View {
             return "\(formattedStepCount)"
         }
     }
-
-    // View for all metrics being displayed at once around the stamina bar
+    
     func allMetricsView() -> some View {
         VStack {
             // Arrange metrics around the stamina bar
@@ -84,21 +82,21 @@ struct StartView: View {
                     Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))))
                         .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                 }
-
+                
                 VStack {
                     Image(systemName: "waveform.path.ecg")
                         .foregroundColor(.blue)
                     Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))))
                         .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                 }
-
+                
                 VStack {
                     Image(systemName: "lungs.fill")
                         .foregroundColor(.green)
                     Text(healthKitModel.latestV02Max.formatted(.number.precision(.fractionLength(1))))
                         .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
                 }
-
+                
                 // Conditionally display step count without "Steps" text if < 1,000
                 if healthKitModel.latestStepCount >= 1000 {
                     VStack {
@@ -118,33 +116,66 @@ struct StartView: View {
             }
         }
     }
-
+    
     var body: some View {
-        VStack(alignment: .trailing) {
-            staminaCalculationAlgorithm.stressFunction(
-                heart_rate: healthKitModel.latestHeartRate,
-                hrv: healthKitModel.latestHeartRateVariability
-            )
-
-            if currentIndex == 1 {
-                // Display all metrics around the stamina bar
-                allMetricsView()
-            } else {
-                // Display one metric at a time
-                HStack {
-                    if let text = displayedValue(), let systemImage = displayedSystemImage() {
-                        Text(text)
-                            .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                        Image(systemName: systemImage)
-                            .foregroundColor(displayedForegroundColor())
+        
+        if #available(watchOS 10.0, *) {
+            TabView {
+                VStack(alignment: .trailing) {
+                    staminaCalculationAlgorithm.stressFunction(
+                        heart_rate: healthKitModel.latestHeartRate,
+                        hrv: healthKitModel.latestHeartRateVariability
+                    )
+                    
+                    if currentIndex == 1 {
+                        // Display all metrics around the stamina bar
+                        allMetricsView()
                     } else {
-                        EmptyView()
+                        // Display one metric at a time
+                        HStack {
+                            if let text = displayedValue(), let systemImage = displayedSystemImage() {
+                                Text(text)
+                                    .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                Image(systemName: systemImage)
+                                    .foregroundColor(displayedForegroundColor())
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                    }
+                }
+                .onTapGesture {
+                    currentIndex = (currentIndex + 1) % 6 // Cycle through the states
+                }
+            }
+            .containerBackground(.blue.gradient, for: .tabView)
+        } else {
+            VStack(alignment: .trailing) {
+                staminaCalculationAlgorithm.stressFunction(
+                    heart_rate: healthKitModel.latestHeartRate,
+                    hrv: healthKitModel.latestHeartRateVariability
+                )
+                
+                if currentIndex == 1 {
+                    // Display all metrics around the stamina bar
+                    allMetricsView()
+                } else {
+                    // Display one metric at a time
+                    HStack {
+                        if let text = displayedValue(), let systemImage = displayedSystemImage() {
+                            Text(text)
+                                .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                            Image(systemName: systemImage)
+                                .foregroundColor(displayedForegroundColor())
+                        } else {
+                            EmptyView()
+                        }
                     }
                 }
             }
-        }
-        .onTapGesture {
-            currentIndex = (currentIndex + 1) % 6 // Cycle through the states
+            .onTapGesture {
+                currentIndex = (currentIndex + 1) % 6 // Cycle through the states
+            }
         }
     }
 }
