@@ -49,7 +49,6 @@ struct StaminaBarWidget2EntryView : View {
     var body: some View {
         switch widgetFamily {
        
-       
         case .accessoryCircular:
             Image("StaminaBarWidget")
                 .resizable()
@@ -77,16 +76,6 @@ struct StaminaBarWidget2EntryView : View {
                 .padding()
             
         }
-//
-//        VStack {
-//            HStack {
-//                Text("Time:")
-//                Text(entry.date, style: .time)
-//            }
-//        
-//            Text("Favorite Emoji:")
-//            Text(entry.configuration.favoriteEmoji)
-//        }
     }
 }
 

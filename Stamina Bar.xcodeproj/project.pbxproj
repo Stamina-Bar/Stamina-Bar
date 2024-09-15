@@ -101,10 +101,6 @@
 		DAD35EC129F2364700E2E782 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaBarWidget.swift; sourceTree = "<group>"; };
-		DAF3ED6E2AFD16F900ABCC8A /* StaminaBarWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = StaminaBarWidget.intentdefinition; sourceTree = "<group>"; };
-		DAF3ED6F2AFD16FA00ABCC8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DAF3ED712AFD16FA00ABCC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAFEE83529C54E9D0027A3D8 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +157,6 @@
 				DA346CA129DB32F8009DCB4E /* README.md */,
 				DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */,
 				DAA3BCCC29288C8700146F96 /* Stamina Bar Watch App */,
-				DAF3ED6B2AFD16F900ABCC8A /* StaminaBarWidget */,
 				DA64F6512BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain */,
 				DAC32C3D2BEABDFA00A4D76B /* StaminaBarWidget2 */,
 				DAF3ED662AFD16F900ABCC8A /* Frameworks */,
@@ -218,17 +213,6 @@
 				DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DAF3ED6B2AFD16F900ABCC8A /* StaminaBarWidget */ = {
-			isa = PBXGroup;
-			children = (
-				DAF3ED6C2AFD16F900ABCC8A /* StaminaBarWidget.swift */,
-				DAF3ED6E2AFD16F900ABCC8A /* StaminaBarWidget.intentdefinition */,
-				DAF3ED6F2AFD16FA00ABCC8A /* Assets.xcassets */,
-				DAF3ED712AFD16FA00ABCC8A /* Info.plist */,
-			);
-			path = StaminaBarWidget;
 			sourceTree = "<group>";
 		};
 		DAFEE7F629BA45170027A3D8 /* Model */ = {
@@ -330,7 +314,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					DA64F64F2BDD5F7100B8E9D6 = {
 						CreatedOnToolsVersion = 15.3;
@@ -512,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -574,6 +559,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
