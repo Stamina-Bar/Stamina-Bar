@@ -51,7 +51,7 @@ class HealthKitModel: ObservableObject {
                 self.startV02MaxQuery()
                 self.fetchDailyStepCount()
                 self.readAge { age, error in
-                    if let error = error {
+                    if error != nil {
 //                        print("Failed to read age: \(error.localizedDescription)")
                     } else {
 //                        print("User's age is \(age)")
@@ -131,7 +131,7 @@ class HealthKitModel: ObservableObject {
     }
     
     //    MARK: Step Count
-    private func updateStepCounts(_ samples: [HKSample]?) {
+    func updateStepCounts(_ samples: [HKSample]?) {
         guard let stepSamples = samples as? [HKQuantitySample] else {
             print("Could not extract step count samples.")
             return

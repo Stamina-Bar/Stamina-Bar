@@ -211,7 +211,7 @@ struct StartView: View {
             .onTapGesture {
                 currentIndex = (currentIndex + 1) % 6 // Cycle through the states
                 HapticManager.clickHaptic()
-
+                healthKitModel.fetchDailyStepCount()
             }
         }
     }
