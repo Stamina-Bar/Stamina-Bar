@@ -14,18 +14,18 @@ import HealthKit
 
 class StaminaCalculationAlgorithm {
     
-//    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
+    //    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
     @ObservedObject var healthKitModel = HealthKitModel()
-
-    func stressFunction(heart_rate: CGFloat, hrv: CGFloat) -> AnyView {
+    
+    func stressFunction(heart_rate: CGFloat, hrv: CGFloat) -> (view: AnyView, staminaPercentage: String) {
         
         let baselineHRV: CGFloat = 65
         let adjustmentPerUnit: CGFloat = 0.25
         let hrvAdjustment = -(max(baselineHRV - hrv, 0) * adjustmentPerUnit)
-            
+        
         var initalHeartRateMapping: String = ""
         var finalStaminaPercentage: CGFloat
-
+        
         switch heart_rate {
             // MARK: Zone 1, Blue
         case -1..<1:
@@ -55,7 +55,7 @@ class StaminaCalculationAlgorithm {
             // MARK: Zone 2, Green
         case 99..<100:
             initalHeartRateMapping = "89"
-
+            
         case 100..<104:
             initalHeartRateMapping = "88"
         case 104..<106:
@@ -155,10 +155,10 @@ class StaminaCalculationAlgorithm {
         case (169.0)..<(169.7):
             initalHeartRateMapping = "42"
         case (169.7)..<(170.4):
-       
+            
             initalHeartRateMapping = "41"
         case (170.4)..<(171.1):
-       
+            
             initalHeartRateMapping = "40"
         case (171.1)..<(171.9):
             
@@ -178,11 +178,11 @@ class StaminaCalculationAlgorithm {
         case (175.3)..<(176.0):
             initalHeartRateMapping = "32"
         case (176.0)..<(176.7):
-     
+            
             initalHeartRateMapping = "31"
         case (176.7)..<(177.4):
             initalHeartRateMapping = "30"
-           
+            
             // MARK: Zone 5, Red
         case (177.4)..<(178.4):
             initalHeartRateMapping = "29"
@@ -243,24 +243,27 @@ class StaminaCalculationAlgorithm {
         case (205.4)..<(206):
             initalHeartRateMapping = "1"
         default:
-            return AnyView(Text("Invalid Value"))
+            return (view: AnyView(Text("Invalid Value")), staminaPercentage: "Invalid")
         }
         
         // Convert initial stamina to a CGFloat for HRV calculation
-            if let initialGenericMap = Float(initalHeartRateMapping) {
-                finalStaminaPercentage = max(CGFloat(initialGenericMap) + hrvAdjustment, 0)
-            } else {
-                return AnyView(ProgressView()) // Fallback in case of conversion failure
-            }
-
-            // Convert final stamina percentage back to string for image selection
+        if let initialGenericMap = Float(initalHeartRateMapping) {
+            finalStaminaPercentage = max(CGFloat(initialGenericMap) + hrvAdjustment, 0)
+        } else {
+            return (view: AnyView(ProgressView()), staminaPercentage: "Loading")
+        }
+        
+        // Convert final stamina percentage back to string for image selection
         let finalStaminaString = String(format: "%.0f", finalStaminaPercentage)
         
-        return AnyView(VStack(alignment: .leading) {
-            Image(finalStaminaString)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                
-        })
+        let staminaView = AnyView(
+            VStack(alignment: .leading) {
+                Image(finalStaminaString)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+        )
+        
+        return (view: staminaView, staminaPercentage: finalStaminaString)
     }
 }

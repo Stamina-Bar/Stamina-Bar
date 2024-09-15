@@ -7,7 +7,7 @@ struct StartView: View {
     
     @State private var currentIndex = 0
     
-    //    MARK: Extension Methods
+    // MARK: Extension Methods
     func displayedValue() -> String? {
         switch currentIndex {
         case 0:
@@ -117,16 +117,44 @@ struct StartView: View {
         }
     }
     
+    func getGradientBackground(for percentage: CGFloat) -> Color  {
+        let color: Color
+        switch percentage {
+        case 90...100:
+            color = .blue  // High stamina
+        case 86..<90:
+            color = .green // Medium-high stamina
+        case 50..<86:
+            color = .yellow // Medium-low stamina
+        case 29..<50:
+            color = .red // Medium-low stamina
+        default:
+            color = .clear
+
+        }
+        
+        // Create a gradient from the color
+        return color
+        
+    }
+    
     var body: some View {
+        // Calculate the stamina view and percentage outside the VStack
+        let (staminaView, staminaPercentage) = staminaCalculationAlgorithm.stressFunction(
+            heart_rate: healthKitModel.latestHeartRate,
+            hrv: healthKitModel.latestHeartRateVariability
+        )
+        
+        // Convert the stamina percentage to CGFloat
+        let staminaValue = CGFloat(Double(staminaPercentage) ?? 0)
         
         if #available(watchOS 10.0, *) {
             TabView {
                 VStack(alignment: .trailing) {
-                    staminaCalculationAlgorithm.stressFunction(
-                        heart_rate: healthKitModel.latestHeartRate,
-                        hrv: healthKitModel.latestHeartRateVariability
-                    )
-                    
+                    staminaView
+                        .accessibilityElement()
+                        .accessibilityLabel(Text("Stamina percentage is \(staminaPercentage)%"))
+                    // Display the stamina view or all metrics
                     if currentIndex == 1 {
                         // Display all metrics around the stamina bar
                         allMetricsView()
@@ -144,38 +172,17 @@ struct StartView: View {
                         }
                     }
                 }
+                .padding()
+                // Apply the dynamic background based on stamina percentage
+                .containerBackground(getGradientBackground(for: staminaValue).gradient, for: .tabView)
+                .cornerRadius(10)
                 .onTapGesture {
                     currentIndex = (currentIndex + 1) % 6 // Cycle through the states
                 }
             }
-            .containerBackground(.blue.gradient, for: .tabView)
         } else {
-            VStack(alignment: .trailing) {
-                staminaCalculationAlgorithm.stressFunction(
-                    heart_rate: healthKitModel.latestHeartRate,
-                    hrv: healthKitModel.latestHeartRateVariability
-                )
-                
-                if currentIndex == 1 {
-                    // Display all metrics around the stamina bar
-                    allMetricsView()
-                } else {
-                    // Display one metric at a time
-                    HStack {
-                        if let text = displayedValue(), let systemImage = displayedSystemImage() {
-                            Text(text)
-                                .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                            Image(systemName: systemImage)
-                                .foregroundColor(displayedForegroundColor())
-                        } else {
-                            EmptyView()
-                        }
-                    }
-                }
-            }
-            .onTapGesture {
-                currentIndex = (currentIndex + 1) % 6 // Cycle through the states
-            }
+            // Fallback for watchOS versions < 10
+            Text("This app requires watchOS 10.0 or later.")
         }
     }
 }
