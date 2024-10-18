@@ -29,7 +29,9 @@ class StaminaCalculationAlgorithm {
         switch heart_rate {
             // MARK: Zone 1, Blue
         case -1..<1:
-            initalHeartRateMapping = "Loading"
+            initalHeartRateMapping = "100"
+//            initalHeartRateMapping = "Loading"
+
         case 1..<60:
             initalHeartRateMapping = "100"
         case 60..<64:
@@ -222,26 +224,8 @@ class StaminaCalculationAlgorithm {
             initalHeartRateMapping = "12"
         case (195.4)..<(196.4):
             initalHeartRateMapping = "11"
-        case (196.4)..<(197.4):
+        case (196.4)..<(205):
             initalHeartRateMapping = "10"
-        case (197.4)..<(198.4):
-            initalHeartRateMapping = "9"
-        case (198.4)..<(199.4):
-            initalHeartRateMapping = "8"
-        case (199.4)..<(200.4):
-            initalHeartRateMapping = "7"
-        case (200.4)..<(201.4):
-            initalHeartRateMapping = "6"
-        case (201.4)..<(202.4):
-            initalHeartRateMapping = "5"
-        case (202.4)..<(203.4):
-            initalHeartRateMapping = "4"
-        case (203.4)..<(204.4):
-            initalHeartRateMapping = "3"
-        case (204.4)..<(205.4):
-            initalHeartRateMapping = "2"
-        case (205.4)..<(206):
-            initalHeartRateMapping = "1"
         default:
             return (view: AnyView(Text("Invalid Value")), staminaPercentage: "Invalid")
         }

@@ -1,30 +1,13 @@
-import SwiftUI
 import HealthKit
+import SwiftUI
 
 struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
-    
+
     @State private var currentIndex = 0
-    
-    // MARK: Extension Methods
-    func displayedValue() -> String? {
-        switch currentIndex {
-        case 0:
-            return nil
-        case 2:
-            return healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))) + " BPM"
-        case 3:
-            return healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))) + " HRV"
-        case 4:
-            return healthKitModel.latestV02Max.formatted(.number.precision(.fractionLength(1))) + " V02 Max"
-        case 5:
-            return healthKitModel.latestStepCount.formatted(.number.precision(.fractionLength(0))) + " Steps"
-        default:
-            return nil
-        }
-    }
-    
+
+    //    MARK: SF Symbols
     func displayedSystemImage() -> String? {
         switch currentIndex {
         case 0:
@@ -41,7 +24,8 @@ struct StartView: View {
             return nil
         }
     }
-    
+
+    //    MARK: Background gradient colors
     func displayedForegroundColor() -> Color {
         switch currentIndex {
         case 0:
@@ -58,8 +42,10 @@ struct StartView: View {
             return .clear
         }
     }
-    
-    func formattedStepCount(_ stepCount: Int, abbreviate: Bool = true) -> String {
+
+    //    MARK: Format Steps
+    func formattedStepCount(_ stepCount: Int, abbreviate: Bool = true) -> String
+    {
         if abbreviate && stepCount >= 1000 {
             let formatted = Double(stepCount) / 1000.0
             return String(format: "%.1fK", formatted)
@@ -67,104 +53,179 @@ struct StartView: View {
             // Use NumberFormatter to format with commas
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
-            let formattedStepCount = numberFormatter.string(from: NSNumber(value: stepCount)) ?? "\(stepCount)"
+            let formattedStepCount =
+                numberFormatter.string(from: NSNumber(value: stepCount))
+                ?? "\(stepCount)"
             return "\(formattedStepCount)"
         }
     }
-    
-    func allMetricsView() -> some View {
-        VStack {
-            // Arrange metrics around the stamina bar
-            HStack(spacing: 10) {
-                VStack {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                    Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))))
-                        .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                }
-                
-                VStack {
-                    Image(systemName: "waveform.path.ecg")
-                        .foregroundColor(.blue)
-                    Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))))
-                        .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                }
-                
-                VStack {
-                    Image(systemName: "lungs.fill")
-                        .foregroundColor(.green)
-                    Text(healthKitModel.latestV02Max.formatted(.number.precision(.fractionLength(1))))
-                        .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                }
-                
-                // Conditionally display step count without "Steps" text if < 1,000
-                if healthKitModel.latestStepCount >= 1000 {
-                    VStack {
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                        Text(formattedStepCount(healthKitModel.latestStepCount, abbreviate: true)) // Abbreviated step count with "Steps"
-                            .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                    }
-                } else {
-                    VStack {
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                        Text("\(healthKitModel.latestStepCount)") // Just the number, no "Steps" label
-                            .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
-                    }
-                }
-            }
-        }
-    }
-    
+
     func getGradientBackground(for percentage: CGFloat) -> Color {
         let color: Color
         switch percentage {
         case 91...100:
             color = .blue  // High stamina
         case 86...90:
-            color = .green // Medium-high stamina
+            color = .green  // Medium-high stamina
         case 51...85:
-            color = .yellow // Medium stamina
+            color = .yellow  // Medium stamina
         case 30...50:
-            color = .orange // Medium-low stamina
+            color = .orange  // Medium-low stamina
         case 1...29:
-            color = .red // Low stamina
+            color = .red  // Low stamina
         default:
-            color = .clear // 0 or negative values (if possible)
+            color = .clear  // 0 or negative values (if possible)
         }
-        
+
         return color
     }
 
-    
+    //    MARK: PAGES
+    func displayedValue() -> String? {
+        switch currentIndex {
+        case 0:
+            return nil
+        case 2:
+            return healthKitModel.latestHeartRate.formatted(
+                .number.precision(.fractionLength(0))) + " BPM"
+        case 3:
+            return healthKitModel.latestHeartRateVariability.formatted(
+                .number.precision(.fractionLength(0))) + " HRV"
+        case 4:
+            return healthKitModel.latestV02Max.formatted(
+                .number.precision(.fractionLength(1))) + " V02 Max"
+        case 5:
+            return healthKitModel.latestStepCount.formatted(
+                .number.precision(.fractionLength(0))) + " Steps"
+        default:
+            return nil
+        }
+    }
+
+    //    MARK: Shows all pages
+    func allMetricsView() -> some View {
+        VStack {
+            // Arrange metrics around the stamina bar
+            HStack(spacing: 20) {
+                VStack {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.red)
+                        .font(.system(size: 20))
+                    Text(
+                        healthKitModel.latestHeartRate.formatted(
+                            .number.precision(.fractionLength(0)))
+                    )
+                    
+//                    Text("100")
+                    .font(
+                        .system(.headline, design: .rounded)
+                        .smallCaps())
+                        .bold()
+                }
+
+                VStack {
+                    Image(systemName: "waveform.path.ecg")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 20))
+
+                    Text(
+                        healthKitModel.latestHeartRateVariability.formatted(
+                            .number.precision(.fractionLength(0)))
+                    )
+                   // Text("100")
+                        .font(
+                            .system(.headline, design: .rounded)
+                            .smallCaps())
+                            .bold()
+                }
+
+                VStack {
+                    Image(systemName: "lungs.fill")
+                        .foregroundColor(.green)
+                        .font(.system(size: 20))
+
+                    Text(
+                        healthKitModel.latestV02Max.formatted(
+                            .number.precision(.fractionLength(1)))
+                    )
+                    //Text("90.9")
+                        .font(
+                            .system(.headline, design: .rounded)
+                            .smallCaps())
+                            .bold()
+
+                }
+
+                // Conditionally display step count without "Steps" text if < 1,000
+                if healthKitModel.latestStepCount >= 1000 {
+                    VStack {
+                        Image(systemName: "shoeprints.fill")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 20))
+
+                        Text(
+                            formattedStepCount(
+                                healthKitModel.latestStepCount, abbreviate: true
+                            )
+                        )
+                        //Text("10.2K")
+                            .font(
+                                .system(.headline, design: .rounded)
+                                .smallCaps())
+                                .bold()
+
+                    }
+                } else {
+                    VStack {
+                        Image(systemName: "shoeprints.fill")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 20))
+
+                        Text("\(healthKitModel.latestStepCount)")
+                        //Text("10.2K")
+                           
+                        // Just the number, no "Steps" label
+                            .font(
+                                .system(.headline, design: .rounded)
+                                .smallCaps())
+                                .bold()
+                    }
+                }
+            }
+        }
+    }
+
     var body: some View {
-        // Calculate the stamina view and percentage outside the VStack
-        let (staminaView, staminaPercentage) = staminaCalculationAlgorithm.stressFunction(
-            heart_rate: healthKitModel.latestHeartRate,
-            hrv: healthKitModel.latestHeartRateVariability
-        )
-        
-        // Convert the stamina percentage to CGFloat
+        let (staminaView, staminaPercentage) =
+            staminaCalculationAlgorithm.stressFunction(
+                heart_rate: healthKitModel.latestHeartRate,
+                hrv: healthKitModel.latestHeartRateVariability
+            )
+
         let staminaValue = CGFloat(Double(staminaPercentage) ?? 0)
-        
+
         if #available(watchOS 10.0, *) {
+            
             TabView {
                 VStack(alignment: .trailing) {
                     staminaView
                         .accessibilityElement()
-                        .accessibilityLabel(Text("Stamina percentage is \(staminaPercentage)%"))
-                    // Display the stamina view or all metrics
+                        .accessibilityLabel(
+                            Text("Stamina percentage is \(staminaPercentage)%"))
                     if currentIndex == 1 {
-                        // Display all metrics around the stamina bar
                         allMetricsView()
                     } else {
                         // Display one metric at a time
-                        HStack {
-                            if let text = displayedValue(), let systemImage = displayedSystemImage() {
+                        HStack(spacing: 10) {
+                            if let text = displayedValue(),
+                                let systemImage = displayedSystemImage()
+                            {
                                 Text(text)
-                                    .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                    .font(
+                                        .system(.headline, design: .rounded)
+                                            .monospacedDigit())
                                 Image(systemName: systemImage)
+                                    .font(.system(size: 24))
                                     .foregroundColor(displayedForegroundColor())
                             } else {
                                 EmptyView()
@@ -172,21 +233,31 @@ struct StartView: View {
                         }
                     }
                 }
+                .onAppear {
+                    healthKitModel.fetchDailyStepCount()
+                }
                 .padding()
-                // Apply the dynamic background based on stamina percentage
-                .containerBackground(getGradientBackground(for: staminaValue).gradient, for: .tabView)
+                .containerBackground(
+                    getGradientBackground(for: staminaValue).gradient,
+                    for: .tabView
+                )
                 .cornerRadius(10)
                 .onTapGesture {
-                    currentIndex = (currentIndex + 1) % 6 // Cycle through the states
+                    healthKitModel.fetchDailyStepCount()
+
+                    currentIndex = (currentIndex + 1) % 6  // Cycle through the states
                     HapticManager.clickHaptic()
                 }
             }
+     
+            
         } else {
             // Fallback for watchOS versions < 10
             VStack(alignment: .trailing) {
                 staminaView
                     .accessibilityElement()
-                    .accessibilityLabel(Text("Stamina percentage is \(staminaPercentage)%"))
+                    .accessibilityLabel(
+                        Text("Stamina percentage is \(staminaPercentage)%"))
                 // Display the stamina view or all metrics
                 if currentIndex == 1 {
                     // Display all metrics around the stamina bar
@@ -196,8 +267,11 @@ struct StartView: View {
                     HStack {
                         if let text = displayedValue(), let systemImage = displayedSystemImage() {
                             Text(text)
-                                .font(.system(.footnote, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                .font(
+                                    .system(.headline, design: .rounded)
+                                        .monospacedDigit())
                             Image(systemName: systemImage)
+                                .font(.system(size: 24))
                                 .foregroundColor(displayedForegroundColor())
                         } else {
                             EmptyView()
@@ -207,9 +281,11 @@ struct StartView: View {
             }
             .padding()
             // Apply the dynamic background based on stamina percentage
-            
+            .onAppear {
+                healthKitModel.fetchDailyStepCount()
+            }
             .onTapGesture {
-                currentIndex = (currentIndex + 1) % 6 // Cycle through the states
+                currentIndex = (currentIndex + 1) % 6  // Cycle through the states
                 HapticManager.clickHaptic()
                 healthKitModel.fetchDailyStepCount()
             }
@@ -222,4 +298,3 @@ struct StartView_Previews: PreviewProvider {
         StartView()
     }
 }
-
