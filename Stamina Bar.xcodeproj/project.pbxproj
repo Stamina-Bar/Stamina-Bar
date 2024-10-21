@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA0265AC2C386CCD0012D217 /* HealthKitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */; };
 		DA0265AE2C386CF20012D217 /* StaminaCalculationAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0265AD2C386CF20012D217 /* StaminaCalculationAlgorithm.swift */; };
+		DA1CD8232CC2C9E0009C5723 /* HealthNotAuthorizedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1CD8222CC2C9E0009C5723 /* HealthNotAuthorizedView.swift */; };
 		DA64F6532BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64F6522BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift */; };
 		DA8E527229F0D75A00DD26AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */; };
 		DAA3BCC929288C8700146F96 /* Stamina Bar Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitModel.swift; sourceTree = "<group>"; };
 		DA0265AD2C386CF20012D217 /* StaminaCalculationAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaminaCalculationAlgorithm.swift; sourceTree = "<group>"; };
+		DA1CD8222CC2C9E0009C5723 /* HealthNotAuthorizedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthNotAuthorizedView.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA64F6502BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stamina Bar Watch AppTestsMain.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA64F6522BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamina_Bar_Watch_AppTestsMain.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				DAFEE83529C54E9D0027A3D8 /* StartView.swift */,
+				DA1CD8222CC2C9E0009C5723 /* HealthNotAuthorizedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */,
 				DA0265AC2C386CCD0012D217 /* HealthKitModel.swift in Sources */,
 				DA0265AE2C386CF20012D217 /* StaminaCalculationAlgorithm.swift in Sources */,
+				DA1CD8232CC2C9E0009C5723 /* HealthNotAuthorizedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,7 +640,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.92;
+				MARKETING_VERSION = 1.9.93;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -673,7 +677,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.92;
+				MARKETING_VERSION = 1.9.93;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -694,7 +698,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.92;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -703,7 +707,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.92;
+				MARKETING_VERSION = 1.9.93;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -721,7 +725,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.92;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 339H39SFM9;
 				INFOPLIST_KEY_CFBundleDisplayName = "Stamina Bar";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Stamina_Bar_Watch_App.ComplicationController;
@@ -730,7 +734,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.92;
+				MARKETING_VERSION = 1.9.93;
 				PRODUCT_BUNDLE_IDENTIFIER = "zellis.Stamina-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

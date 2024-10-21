@@ -24,10 +24,17 @@ class HealthKitModel: ObservableObject {
     @Published var latestRestingEnergy: Double = 0.0
     @Published var userAgeInYears: Int = 0
     
+    @Published var healthDataAvailable: Bool = true  // Default to true
+
     init() {
+        
+        
         if HKHealthStore.isHealthDataAvailable() {
             healthStore = HKHealthStore()
             requestAuthorization()
+            startStepCountObserver()
+        } else {
+            healthDataAvailable = false
         }
     }
     
@@ -144,6 +151,38 @@ class HealthKitModel: ObservableObject {
             self.latestStepCount = totalSteps  // This is an Int, so no decimals
         }
     }
+    
+    // MARK: Step Count Observer Query
+        func startStepCountObserver() {
+            guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+                return
+            }
+
+            let query = HKObserverQuery(sampleType: stepCountType, predicate: nil) { [weak self] _, completionHandler, error in
+                if let error = error {
+                    print("Observer query failed: \(error.localizedDescription)")
+                    return
+                }
+
+                // When there's an update in step count, fetch the new data
+                self?.fetchDailyStepCount()
+
+                // Notify HealthKit that the query has been handled
+                completionHandler()
+            }
+
+            // Execute the query to monitor for changes
+            healthStore?.execute(query)
+
+            // Enable background delivery to receive updates even when the app is not active
+            healthStore?.enableBackgroundDelivery(for: stepCountType, frequency: .immediate, withCompletion: { success, error in
+                if let error = error {
+                    print("Failed to enable background delivery: \(error.localizedDescription)")
+                } else if success {
+                    print("Background delivery enabled for step count")
+                }
+            })
+        }
     //    MARK: v02Max
     func startV02MaxQuery() {
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else { return }
