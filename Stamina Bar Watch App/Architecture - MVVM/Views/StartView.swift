@@ -4,8 +4,9 @@ import SwiftUI
 struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
-    
     @State private var currentIndex = 0
+    @State private var showHKPage = false
+
     
     //    MARK: SF Symbols
     func displaySymbol() -> String? {
@@ -115,14 +116,14 @@ struct StartView: View {
                         healthKitModel.latestHeartRate.formatted(
                             .number.precision(.fractionLength(0)))
                     )
-//                    
+                    //
                     .font(
                         .system(.headline, design: .rounded)
                         .smallCaps())
                     .bold()
                     .layoutPriority(1)
                     .fixedSize(horizontal: true, vertical: false)
-
+                    
                 }
                 
                 VStack {
@@ -134,14 +135,14 @@ struct StartView: View {
                         healthKitModel.latestHeartRateVariability.formatted(
                             .number.precision(.fractionLength(0)))
                     )
-//                     Text("100")
+                    //                     Text("100")
                     .font(
                         .system(.headline, design: .rounded)
                         .smallCaps())
                     .bold()
                     .layoutPriority(1)
                     .fixedSize(horizontal: true, vertical: false)
-
+                    
                 }
                 
                 VStack {
@@ -153,14 +154,14 @@ struct StartView: View {
                         healthKitModel.latestV02Max.formatted(
                             .number.precision(.fractionLength(1)))
                     )
-//                    Text("90.9")
+                    //                    Text("90.9")
                     .font(
                         .system(.headline, design: .rounded)
                         .smallCaps())
                     .bold()
                     .layoutPriority(1)
                     .fixedSize(horizontal: true, vertical: false)
-
+                    
                     
                 }
                 
@@ -183,7 +184,7 @@ struct StartView: View {
                         .bold()
                         .layoutPriority(1)
                         .fixedSize(horizontal: true, vertical: false)
-
+                        
                         
                     }
                 } else {
@@ -202,7 +203,7 @@ struct StartView: View {
                             .bold()
                             .layoutPriority(1)
                             .fixedSize(horizontal: true, vertical: false)
-
+                        
                     }
                 }
             }
@@ -224,6 +225,21 @@ struct StartView: View {
             TabView {
                 VStack(alignment: .trailing) {
                     staminaView
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button {
+                                    showHKPage = true
+                                    // Perform an action here.
+                                } label: {
+                                    Image(systemName:"chart.line.uptrend.xyaxis")
+                                }
+                            }
+                        }
+                    
+                        .sheet(isPresented: $showHKPage) {
+                            HealthKitPage() // Settings view to show
+                        }
+                    
                         .accessibilityElement()
                         .accessibilityLabel(
                             Text("Stamina percentage is \(staminaPercentage)%"))
@@ -296,7 +312,7 @@ struct StartView: View {
                 }
             }
             .padding()
-
+            
             .onTapGesture {
                 currentIndex = (currentIndex + 1) % 6
             }
