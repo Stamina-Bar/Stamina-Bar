@@ -7,11 +7,11 @@
 
 import SwiftUI
 
+@available(watchOS 9.0, *)
 struct HealthKitPage: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
     var body: some View {
-//        _ = [healthKitModel.latestHeartRate, healthKitModel.latestHeartRateVariability, healthKitModel.latestV02Max]
         
         let (staminaView, staminaPercentage) =
         staminaCalculationAlgorithm.stressFunction(
@@ -37,8 +37,11 @@ struct HealthKitPage: View {
                             .foregroundColor(.red)
                             .font(.system(size: 24))
                     }
-                   
-                }
+                } .listRowBackground(
+                    RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
+                        .fill(heartRateCell(for: healthKitModel.latestHeartRate))
+                        .padding(2)
+                )
                 
                 VStack (alignment: .leading) {
                     Text("Variability (HRV)")
@@ -54,13 +57,24 @@ struct HealthKitPage: View {
                 }
             }
         }
-        
-        
     }
     
-    
+    // Helper function to determine background color based on heart rate
+       func heartRateCell(for heartRate: Double) -> Color {
+           if heartRate > 100 {
+               return Color.red.opacity(0.2) // Light red for high heart rate
+           } else if heartRate < 60 {
+               return Color.blue.opacity(0.2) // Light blue for low heart rate
+           } else {
+               return Color.green.opacity(0.2) // Light green for normal heart rate
+           }
+       }
 }
 
 #Preview {
-    HealthKitPage()
+    if #available(watchOS 9.0, *) {
+        HealthKitPage()
+    } else {
+        // Fallback on earlier versions
+    }
 }
