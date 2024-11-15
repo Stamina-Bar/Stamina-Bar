@@ -8,17 +8,12 @@ import SwiftUI
 
 @main
 struct Stamina_Bar_Watch_AppApp: App {
-//    @StateObject private var workoutManager = WorkoutManager()
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
                 StartView()
             }
-//            .sheet(isPresented: $workoutManager.showingSummaryView) {
-//                SummaryView()
-//            }
-//            .environmentObject(workoutManager)
         }
     }
 }

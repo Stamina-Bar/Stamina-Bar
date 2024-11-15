@@ -8,7 +8,7 @@ struct StartView: View {
     @State private var currentIndex = 0
     
     //    MARK: SF Symbols
-    func displayedSystemImage() -> String? {
+    func displaySymbol() -> String? {
         switch currentIndex {
         case 0:
             return nil
@@ -63,7 +63,6 @@ struct StartView: View {
         return color
     }
     
-    
     //    MARK: Format Steps
     func formattedStepCount(_ stepCount: Int, abbreviate: Bool = true) -> String
     {
@@ -81,9 +80,8 @@ struct StartView: View {
         }
     }
     
- 
     //    MARK: PAGES
-    func displayedValue() -> String? {
+    func displayHK() -> String? {
         switch currentIndex {
         case 0:
             return nil
@@ -229,19 +227,20 @@ struct StartView: View {
                         .accessibilityElement()
                         .accessibilityLabel(
                             Text("Stamina percentage is \(staminaPercentage)%"))
+                    
                     if currentIndex == 1 {
                         allMetricsView()
                     } else {
                         // Display one metric at a time
                         HStack(spacing: 10) {
-                            if let text = displayedValue(),
-                               let systemImage = displayedSystemImage()
+                            if let healthMetric = displayHK(),
+                               let sfSymbol = displaySymbol()
                             {
-                                Text(text)
+                                Text(healthMetric)
                                     .font(
                                         .system(.headline, design: .rounded)
                                         .monospacedDigit())
-                                Image(systemName: systemImage)
+                                Image(systemName: sfSymbol)
                                     .font(.system(size: 24))
                                     .foregroundColor(displayedForegroundColor())
                             } else {
@@ -266,9 +265,9 @@ struct StartView: View {
                     HapticManager.clickHaptic()
                 }
             }
-            
-            
-        } else {
+        }
+        
+        else {
             // Fallback for watchOS versions < 10
             VStack(alignment: .trailing) {
                 staminaView
@@ -282,7 +281,7 @@ struct StartView: View {
                 } else {
                     // Display one metric at a time
                     HStack {
-                        if let text = displayedValue(), let systemImage = displayedSystemImage() {
+                        if let text = displayHK(), let systemImage = displaySymbol() {
                             Text(text)
                                 .font(
                                     .system(.headline, design: .rounded)
@@ -297,11 +296,9 @@ struct StartView: View {
                 }
             }
             .padding()
-            // Apply the dynamic background based on stamina percentage
-            
+
             .onTapGesture {
-                currentIndex = (currentIndex + 1) % 6  // Cycle through the states
-                // print("Hello WOrld")
+                currentIndex = (currentIndex + 1) % 6
             }
         }
     }

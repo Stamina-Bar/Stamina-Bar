@@ -24,18 +24,10 @@ class HealthKitModel: ObservableObject {
     @Published var latestRestingEnergy: Double = 0.0
     @Published var userAgeInYears: Int = 0
     
-    @Published var healthDataAvailable: Bool = true  // Default to true
-
     init() {
-        
-        
-        if HKHealthStore.isHealthDataAvailable() {
-            healthStore = HKHealthStore()
-            requestAuthorization()
-            startStepCountObserver()
-        } else {
-            healthDataAvailable = false
-        }
+        healthStore = HKHealthStore()
+        requestAuthorization()
+        stepsObserver()
     }
     
     func requestAuthorization() {
@@ -45,11 +37,7 @@ class HealthKitModel: ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
             HKQuantityType.quantityType(forIdentifier: .stepCount)!
-//            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
-            //            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
-            //            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         ]
-        
         
         healthStore?.requestAuthorization(toShare: [], read: readTypes) { success, error in
             if success {
@@ -57,19 +45,11 @@ class HealthKitModel: ObservableObject {
                 self.startHeartRateQuery()
                 self.startV02MaxQuery()
                 self.fetchDailyStepCount()
-                self.readAge { age, error in
-                    if error != nil {
-//                        print("Failed to read age: \(error.localizedDescription)")
-                    } else {
-//                        print("User's age is \(age)")
-                    }
-                }
-            } else {
-//                print("Authorization failed")
             }
         }
     }
-    //    MARK: Resting Energy 
+    
+    //    MARK: Resting Energy
     //    func startRestingEnergyQuery() {
     //        guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
     //
@@ -140,7 +120,6 @@ class HealthKitModel: ObservableObject {
     //    MARK: Step Count
     func updateStepCounts(_ samples: [HKSample]?) {
         guard let stepSamples = samples as? [HKQuantitySample] else {
-            print("Could not extract step count samples.")
             return
         }
         
@@ -148,41 +127,36 @@ class HealthKitModel: ObservableObject {
             let totalSteps = stepSamples.reduce(0) { (result, sample) -> Int in
                 return result + Int(sample.quantity.doubleValue(for: HKUnit.count()))
             }
-            self.latestStepCount = totalSteps  // This is an Int, so no decimals
+            self.latestStepCount = totalSteps
         }
     }
     
     // MARK: Step Count Observer Query
-        func startStepCountObserver() {
-            guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+    func stepsObserver() {
+        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            return
+        }
+        
+        let query = HKObserverQuery(sampleType: stepCountType, predicate: nil) { [weak self] _, completionHandler, error in
+            if let error = error {
+                print("Observer query failed: \(error.localizedDescription)")
                 return
             }
-
-            let query = HKObserverQuery(sampleType: stepCountType, predicate: nil) { [weak self] _, completionHandler, error in
-                if let error = error {
-                    print("Observer query failed: \(error.localizedDescription)")
-                    return
-                }
-
-                // When there's an update in step count, fetch the new data
-                self?.fetchDailyStepCount()
-
-                // Notify HealthKit that the query has been handled
-                completionHandler()
-            }
-
-            // Execute the query to monitor for changes
-            healthStore?.execute(query)
-
-            // Enable background delivery to receive updates even when the app is not active
-            healthStore?.enableBackgroundDelivery(for: stepCountType, frequency: .immediate, withCompletion: { success, error in
-                if let error = error {
-                    print("Failed to enable background delivery: \(error.localizedDescription)")
-                } else if success {
-                    print("Background delivery enabled for step count")
-                }
-            })
+            self?.fetchDailyStepCount()
+            completionHandler()
         }
+        
+        healthStore?.execute(query)
+        
+        healthStore?.enableBackgroundDelivery(for: stepCountType, frequency: .immediate, withCompletion: { success, error in
+            if let error = error {
+                print("Failed to enable background delivery: \(error.localizedDescription)")
+            } else if success {
+                print("Background delivery enabled for step count")
+            }
+        })
+    }
+    
     //    MARK: v02Max
     func startV02MaxQuery() {
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else { return }
@@ -201,6 +175,7 @@ class HealthKitModel: ObservableObject {
         healthStore?.execute(query)
         self.query = query
     }
+    
     //    MARK: v02 Max
     private func updateVO2Max(_ samples: [HKSample]?) {
         guard let vo2MaxSamples = samples as? [HKQuantitySample] else { return }
@@ -209,6 +184,7 @@ class HealthKitModel: ObservableObject {
             self.latestV02Max = vo2MaxSamples.last?.quantity.doubleValue(for: HKUnit(from: "ml/kg*min")) ?? 0
         }
     }
+    
     //    MARK: Age
     private func readAge(completion: @escaping (Int, Error?) -> Void) {
         do {
@@ -231,6 +207,7 @@ class HealthKitModel: ObservableObject {
             completion(0, error)
         }
     }
+    
     //    MARK: HR
     func startHeartRateQuery() {
         guard let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate) else { return }
@@ -279,7 +256,7 @@ class HealthKitModel: ObservableObject {
         }
     }
     
-//    MARK: HRV
+    //    MARK: HRV
     private func updateHeartRateVariability(_ samples: [HKSample]? ) {
         guard let heartRateVariabilitySample = samples as? [HKQuantitySample] else { return }
         
