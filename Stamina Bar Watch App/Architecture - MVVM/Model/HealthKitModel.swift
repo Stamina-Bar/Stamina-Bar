@@ -36,7 +36,9 @@ class HealthKitModel: ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
-            HKQuantityType.quantityType(forIdentifier: .stepCount)!
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
+            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
+            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         ]
         
         healthStore?.requestAuthorization(toShare: [], read: readTypes) { success, error in
@@ -45,51 +47,95 @@ class HealthKitModel: ObservableObject {
                 self.startHeartRateQuery()
                 self.startV02MaxQuery()
                 self.fetchDailyStepCount()
+                self.startRestingEnergyQuery()
+                self.startActiveEnergyQuery()
             }
         }
     }
     
-    //    MARK: Resting Energy
-    //    func startRestingEnergyQuery() {
-    //        guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
-    //
-    //            return
-    //        }
-    //
-    //        let calendar = Calendar.current
-    //        let now = Date()
-    //        let startOfDay = calendar.startOfDay(for: now)
-    //        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-    //
-    //        let query = HKAnchoredObjectQuery(type: restingEnergyType,
-    //                                          predicate: predicate,
-    //                                          anchor: nil,
-    //                                          limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
-    //            self.processRestingSamples(samples)
-    //        }
-    //
-    //        query.updateHandler = { query, samples, deletedObjects, anchor, error in
-    //            self.processRestingSamples(samples)
-    //        }
-    //
-    //        healthStore?.execute(query)
-    //    }
     
-    //    private func processRestingSamples(_ samples: [HKSample]?) {
-    //        guard let energySamples = samples as? [HKQuantitySample] else {
-    //
-    //            return
-    //        }
-    //
-    //        let totalEnergy2 = energySamples.reduce(0.0) { (result, sample) -> Double in
-    //            return result + sample.quantity.doubleValue(for: HKUnit.kilocalorie())
-    //        }
-    //
-    //        DispatchQueue.main.async {
-    //            self.latestRestingEnergy = totalEnergy2
-    ////            print("Updated latest resting energy: \(self.latestRestingEnergy) kcal")
-    //        }
-    //    }
+        func startActiveEnergyQuery() {
+            guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+    
+                return
+            }
+    
+            let calendar = Calendar.current
+            let now = Date()
+            let startOfDay = calendar.startOfDay(for: now)
+            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+    
+            let query = HKAnchoredObjectQuery(type: activeEnergyType,
+                                              predicate: predicate,
+                                              anchor: nil,
+                                              limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
+                self.processActiveSamples(samples)
+            }
+    
+            query.updateHandler = { query, samples, deletedObjects, anchor, error in
+                self.processActiveSamples(samples)
+            }
+    
+            healthStore?.execute(query)
+        }
+    
+    //    MARK: Resting Energy
+        func startRestingEnergyQuery() {
+            guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
+    
+                return
+            }
+    
+            let calendar = Calendar.current
+            let now = Date()
+            let startOfDay = calendar.startOfDay(for: now)
+            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+    
+            let query = HKAnchoredObjectQuery(type: restingEnergyType,
+                                              predicate: predicate,
+                                              anchor: nil,
+                                              limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
+                self.processRestingSamples(samples)
+            }
+    
+            query.updateHandler = { query, samples, deletedObjects, anchor, error in
+                self.processRestingSamples(samples)
+            }
+    
+            healthStore?.execute(query)
+        }
+    
+        private func processRestingSamples(_ samples: [HKSample]?) {
+            guard let energySamples = samples as? [HKQuantitySample] else {
+    
+                return
+            }
+    
+            let totalEnergy2 = energySamples.reduce(0.0) { (result, sample) -> Double in
+                return result + sample.quantity.doubleValue(for: HKUnit.kilocalorie())
+            }
+    
+            DispatchQueue.main.async {
+                self.latestRestingEnergy = totalEnergy2
+    //            print("Updated latest resting energy: \(self.latestRestingEnergy) kcal")
+            }
+        }
+    
+    private func processActiveSamples(_ samples: [HKSample]?) {
+        guard let energySamples = samples as? [HKQuantitySample] else {
+
+            return
+        }
+
+        let totalEnergy2 = energySamples.reduce(0.0) { (result, sample) -> Double in
+            return result + sample.quantity.doubleValue(for: HKUnit.kilocalorie())
+        }
+
+        DispatchQueue.main.async {
+            self.latestActiveEnergy = totalEnergy2
+//            print("Updated latest resting energy: \(self.latestRestingEnergy) kcal")
+        }
+    }
     
     //    MARK: Step Count
     func fetchDailyStepCount() {
@@ -156,6 +202,10 @@ class HealthKitModel: ObservableObject {
             }
         })
     }
+    
+    
+    
+    
     
     //    MARK: v02Max
     func startV02MaxQuery() {
