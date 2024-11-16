@@ -26,26 +26,34 @@ struct HealthKitPage: View {
                     Text("Stamina percentage is \(staminaPercentage)%"))
             
             List {
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     Text("Heart Rate")
                         .font(.headline)
                     HStack {
                         Text(healthKitModel.latestHeartRate.formatted(
                             .number.precision(.fractionLength(0))))
-                        .font(.title2)
+                            .font(.title2)
                         Image(systemName: "heart.fill")
                             .foregroundColor(heartRateSFSymbolColor(for: healthKitModel.latestHeartRate))
                             .font(.system(size: 24))
+                            .accessibilityHidden(true)
                     }
-                } .listRowBackground(
-                    RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
+                }
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 16)
                         .fill(heartRateCell(for: healthKitModel.latestHeartRate).gradient)
                         .padding(2)
                 )
+                .accessibilityEnhanced(
+                    label: "Heart Rate: \(healthKitModel.latestHeartRate) beats per minute",
+                    hint: "Displays the latest heart rate measured using HealthKit"
+                )
                 
+
                 VStack (alignment: .leading) {
                     Text("Variability (HRV)")
                         .font(.headline)
+                    
                     HStack {
                         Text(healthKitModel.latestHeartRateVariability.formatted(
                             .number.precision(.fractionLength(0))))
@@ -54,10 +62,15 @@ struct HealthKitPage: View {
                             .foregroundColor(.white)
                             .font(.system(size: 24))
                     }
-                } .listRowBackground(
-                    RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
+                }
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 16)
                         .fill(variabilityCell(for: healthKitModel.latestHeartRateVariability).gradient)
                         .padding(2)
+                )
+                .accessibilityEnhanced(
+                    label: "HRV: \(healthKitModel.latestHeartRateVariability)",
+                    hint: "Displays the latest heart rate Variability measured using HealthKit"
                 )
                 
                 VStack (alignment: .leading) {
@@ -71,10 +84,15 @@ struct HealthKitPage: View {
                             .foregroundColor(.white)
                             .font(.system(size: 24))
                     }
-                } .listRowBackground(
-                    RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
-                        .fill(fitnessCell(for: healthKitModel.latestHeartRateVariability).gradient)
+                }
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(fitnessCell(for: healthKitModel.latestV02Max).gradient)
                         .padding(2)
+                )
+                .accessibilityEnhanced(
+                    label: "V02 Max: \(healthKitModel.latestV02Max)",
+                    hint: "Displays the latest V02 Max measured using HealthKit"
                 )
                 
                 VStack (alignment: .leading) {
@@ -88,10 +106,15 @@ struct HealthKitPage: View {
                             .foregroundColor(.white)
                             .font(.system(size: 24))
                     }
-                } .listRowBackground(
+                }
+                .listRowBackground(
                     RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
                         .fill(stepsCell(for: Double(healthKitModel.latestStepCount)).gradient)
                         .padding(2)
+                )
+                .accessibilityEnhanced(
+                    label: "Steps: \(healthKitModel.latestStepCount) steps",
+                    hint: "Displays the latest heart rate Variability measured using HealthKit"
                 )
                 
                 VStack (alignment: .leading) {
@@ -105,7 +128,12 @@ struct HealthKitPage: View {
                             .foregroundColor(.white)
                             .font(.system(size: 24))
                     }
-                } .listRowBackground(
+                }
+                .accessibilityEnhanced(
+                    label: "Basal Energy: \(healthKitModel.latestRestingEnergy) Cals",
+                    hint: "Displays the latest Basal Energy measured using HealthKit"
+                )
+                .listRowBackground(
                     RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
                         .fill(stepsCell(for: Double(healthKitModel.latestStepCount)).gradient)
                         .padding(2)
@@ -122,11 +150,17 @@ struct HealthKitPage: View {
                             .foregroundColor(.white)
                             .font(.system(size: 24))
                     }
-                } .listRowBackground(
+                }
+                .listRowBackground(
                     RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
                         .fill(calsCell(for: Double(healthKitModel.latestActiveEnergy)).gradient)
                         .padding(2)
                 )
+                .accessibilityEnhanced(
+                    label: "Active Cals: \(healthKitModel.latestActiveEnergy)",
+                    hint: "Displays the latest active cals measured using HealthKit"
+                )
+    
             }
         }
     }
@@ -138,47 +172,63 @@ struct HealthKitPage: View {
             return Color.red
         }
     }
-    // Helper function to determine background color based on heart rate
+    
     func heartRateCell(for heartRate: Double) -> Color {
-        
-        if (heartRate > 100) { return Color.red }
-        else { return Color.green }
-        
+        if (heartRate > 100) { return Color.yellow.opacity(0.7) }
+        else if (heartRate < 80) { return Color.green.opacity(0.7) }
+        else { return Color.blue.opacity(0.7) }
     }
     
     func variabilityCell(for heartRateVariability: Double) -> Color {
-        
-        if (heartRateVariability > 65) { return Color.blue }
-        else { return Color.yellow }
-        
+        if (heartRateVariability < 20) {
+            return Color.red.opacity(0.7)
+        } else if (heartRateVariability < 40) {
+            return Color.yellow.opacity(0.7)
+        } else if (heartRateVariability > 60) {
+            return Color.teal.opacity(0.7)
+        } else if (heartRateVariability > 85) {
+            return Color.green.opacity(0.7)
+        } else { return Color.blue.opacity(0.7) }
     }
     
     func fitnessCell(for cardioFitness: Double) -> Color {
-        
-        if (cardioFitness > 50) { return Color.green }
-        else { return Color.yellow }
+        if (cardioFitness >= 50) {
+            return Color.blue.opacity(0.7)
+        } else if (cardioFitness >= 40) {
+            return Color.green.opacity(0.7)
+        } else {
+            return Color.yellow.opacity(0.7)
+        }
         
     }
     
     func stepsCell(for steps: Double) -> Color {
-        
-        if (steps > 10000) { return Color.green }
-        else { return Color.yellow }
-        
+        if (steps > 12500) {
+            return Color.blue.opacity(0.7)
+        } else if (steps > 9000) {
+            return Color.green.opacity(0.7)
+        } else if (steps > 5750) {
+            return Color.cyan.opacity(0.7)
+        } else { return Color.yellow.opacity(0.7) }
     }
     
     func bmrCell(for bmr: Double) -> Color {
-        
-        if (bmr > 2000) { return Color.yellow }
-        else { return Color.green }
-        
+        switch bmr {
+        case ..<800:
+            return Color.yellow.opacity(0.7)
+        case 1200..<1500:
+            return Color.green.opacity(0.7)
+        case 1800..<2000:
+            return Color.blue.opacity(0.7)
+        default:
+            return Color.purple.opacity(0.7)
+        }
     }
-    
+
     func calsCell(for cals: Double) -> Color {
-        
-        if (cals > 500) { return Color.blue }
-        else { return Color.yellow }
-        
+        if (cals > 500) { return Color.blue.opacity(0.7) }
+        else if (cals > 399) { return Color.green.opacity(0.7) }
+        else { return Color.yellow.opacity(0.7) }
     }
 }
 

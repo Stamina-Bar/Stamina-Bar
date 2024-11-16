@@ -203,6 +203,10 @@ class HealthKitModel: ObservableObject {
         })
     }
     
+    
+    
+    
+    
     //    MARK: v02Max
     func startV02MaxQuery() {
         guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else { return }

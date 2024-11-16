@@ -28,6 +28,7 @@
 		DAD35EC229F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
 		DAD35EC329F2364700E2E782 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAD35EC129F2364700E2E782 /* LICENSE */; };
 		DAF5ED032CE76EC3004C1F8B /* HealthKitPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5ED022CE76EC3004C1F8B /* HealthKitPage.swift */; };
+		DAF5ED052CE8393E004C1F8B /* AccessibilityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF5ED042CE8393E004C1F8B /* AccessibilityModifier.swift */; };
 		DAFEE83629C54E9D0027A3D8 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEE83529C54E9D0027A3D8 /* StartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		DAF3ED672AFD16F900ABCC8A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DAF3ED692AFD16F900ABCC8A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		DAF5ED022CE76EC3004C1F8B /* HealthKitPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPage.swift; sourceTree = "<group>"; };
+		DAF5ED042CE8393E004C1F8B /* AccessibilityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityModifier.swift; sourceTree = "<group>"; };
 		DAFEE83529C54E9D0027A3D8 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +196,7 @@
 		DAB8D28A2A2111BF00333D83 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				DAF5ED042CE8393E004C1F8B /* AccessibilityModifier.swift */,
 				DAB8D28B2A21136200333D83 /* HapticManager.swift */,
 			);
 			path = "View Model";
@@ -416,6 +419,7 @@
 				DAB8D28C2A21136200333D83 /* HapticManager.swift in Sources */,
 				DAF5ED032CE76EC3004C1F8B /* HealthKitPage.swift in Sources */,
 				DA0265AC2C386CCD0012D217 /* HealthKitModel.swift in Sources */,
+				DAF5ED052CE8393E004C1F8B /* AccessibilityModifier.swift in Sources */,
 				DA0265AE2C386CF20012D217 /* StaminaCalculationAlgorithm.swift in Sources */,
 				DA1CD8232CC2C9E0009C5723 /* HealthNotAuthorizedView.swift in Sources */,
 			);
