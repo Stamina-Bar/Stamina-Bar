@@ -1,5 +1,6 @@
 import HealthKit
 import SwiftUI
+import TipKit
 
 struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
@@ -220,10 +221,12 @@ struct StartView: View {
         
         let staminaValue = CGFloat(Double(staminaPercentage) ?? 0)
         
-        if #available(watchOS 10.0, *) {
+        /*if #available(watchOS 10.0, *)*/
             
             TabView {
                 VStack(alignment: .trailing) {
+                    TipView(SimpleInlineTip())
+                    
                     staminaView
                         .toolbar {
                             ToolbarItem(placement: .topBarLeading) {
@@ -281,42 +284,42 @@ struct StartView: View {
                     HapticManager.clickHaptic()
                 }
             }
-        }
+//        }
         
-        else {
-            // Fallback for watchOS versions < 10
-            VStack(alignment: .trailing) {
-                staminaView
-                    .accessibilityElement()
-                    .accessibilityLabel(
-                        Text("Stamina percentage is \(staminaPercentage)%"))
-                // Display the stamina view or all metrics
-                if currentIndex == 1 {
-                    // Display all metrics around the stamina bar
-                    allMetricsView()
-                } else {
-                    // Display one metric at a time
-                    HStack {
-                        if let text = displayHK(), let systemImage = displaySymbol() {
-                            Text(text)
-                                .font(
-                                    .system(.headline, design: .rounded)
-                                    .monospacedDigit())
-                            Image(systemName: systemImage)
-                                .font(.system(size: 24))
-                                .foregroundColor(displayedForegroundColor())
-                        } else {
-                            EmptyView()
-                        }
-                    }
-                }
-            }
-            .padding()
-            
-            .onTapGesture {
-                currentIndex = (currentIndex + 1) % 6
-            }
-        }
+//        else {
+//            // Fallback for watchOS versions < 10
+//            VStack(alignment: .trailing) {
+//                staminaView
+//                    .accessibilityElement()
+//                    .accessibilityLabel(
+//                        Text("Stamina percentage is \(staminaPercentage)%"))
+//                // Display the stamina view or all metrics
+//                if currentIndex == 1 {
+//                    // Display all metrics around the stamina bar
+//                    allMetricsView()
+//                } else {
+//                    // Display one metric at a time
+//                    HStack {
+//                        if let text = displayHK(), let systemImage = displaySymbol() {
+//                            Text(text)
+//                                .font(
+//                                    .system(.headline, design: .rounded)
+//                                    .monospacedDigit())
+//                            Image(systemName: systemImage)
+//                                .font(.system(size: 24))
+//                                .foregroundColor(displayedForegroundColor())
+//                        } else {
+//                            EmptyView()
+//                        }
+//                    }
+//                }
+//            }
+//            .padding()
+//            
+//            .onTapGesture {
+//                currentIndex = (currentIndex + 1) % 6
+//            }
+//        }
     }
 }
 
