@@ -7,7 +7,7 @@ struct StartView: View {
     @ObservedObject var healthKitModel = HealthKitModel()
     @State private var currentIndex = 0
     @State private var showHKPage = false
-
+    
     
     //    MARK: SF Symbols
     func displaySymbol() -> String? {
@@ -222,104 +222,69 @@ struct StartView: View {
         let staminaValue = CGFloat(Double(staminaPercentage) ?? 0)
         
         /*if #available(watchOS 10.0, *)*/
-            
-            TabView {
-                VStack(alignment: .trailing) {
-                    TipView(SimpleInlineTip())
-                    
-                    staminaView
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    showHKPage = true
-                                    // Perform an action here.
-                                } label: {
-                                    Image(systemName:"chart.line.uptrend.xyaxis")
-                                }
-                            }
-                        }
-                    
-                        .sheet(isPresented: $showHKPage) {
-                            HealthKitPage() // Settings view to show
-                        }
-                    
-                        .accessibilityElement()
-                        .accessibilityLabel(
-                            Text("Stamina percentage is \(staminaPercentage)%"))
-                    
-                    if currentIndex == 1 {
-                        allMetricsView()
-                    } else {
-                        // Display one metric at a time
-                        HStack(spacing: 10) {
-                            if let healthMetric = displayHK(),
-                               let sfSymbol = displaySymbol()
-                            {
-                                Text(healthMetric)
-                                    .font(
-                                        .system(.headline, design: .rounded)
-                                        .monospacedDigit())
-                                Image(systemName: sfSymbol)
-                                    .font(.system(size: 24))
-                                    .foregroundColor(displayedForegroundColor())
-                            } else {
-                                EmptyView()
+        
+        TabView {
+            VStack(alignment: .trailing) {
+                TipView(SimpleInlineTip())
+                
+                staminaView
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                showHKPage = true
+                                // Perform an action here.
+                            } label: {
+                                Image(systemName:"chart.line.uptrend.xyaxis")
                             }
                         }
                     }
-                }
-                .onAppear {
-                    healthKitModel.fetchDailyStepCount()
-                }
-                .padding()
-                .containerBackground(
-                    getGradientBackground(for: staminaValue).gradient,
-                    for: .tabView
-                )
-                .cornerRadius(10)
-                .onTapGesture {
-                    healthKitModel.fetchDailyStepCount()
-                    
-                    currentIndex = (currentIndex + 1) % 6  // Cycle through the states
-                    HapticManager.clickHaptic()
+                
+                    .sheet(isPresented: $showHKPage) {
+                        HealthKitPage() // Settings view to show
+                    }
+                
+                    .accessibilityElement()
+                    .accessibilityLabel(
+                        Text("Stamina percentage is \(staminaPercentage)%"))
+                
+                if currentIndex == 1 {
+                    allMetricsView()
+                } else {
+                    // Display one metric at a time
+                    HStack(spacing: 10) {
+                        if let healthMetric = displayHK(),
+                           let sfSymbol = displaySymbol()
+                        {
+                            Text(healthMetric)
+                                .font(
+                                    .system(.headline, design: .rounded)
+                                    .monospacedDigit())
+                            Image(systemName: sfSymbol)
+                                .font(.system(size: 24))
+                                .foregroundColor(displayedForegroundColor())
+                        } else {
+                            EmptyView()
+                        }
+                    }
                 }
             }
-//        }
-        
-//        else {
-//            // Fallback for watchOS versions < 10
-//            VStack(alignment: .trailing) {
-//                staminaView
-//                    .accessibilityElement()
-//                    .accessibilityLabel(
-//                        Text("Stamina percentage is \(staminaPercentage)%"))
-//                // Display the stamina view or all metrics
-//                if currentIndex == 1 {
-//                    // Display all metrics around the stamina bar
-//                    allMetricsView()
-//                } else {
-//                    // Display one metric at a time
-//                    HStack {
-//                        if let text = displayHK(), let systemImage = displaySymbol() {
-//                            Text(text)
-//                                .font(
-//                                    .system(.headline, design: .rounded)
-//                                    .monospacedDigit())
-//                            Image(systemName: systemImage)
-//                                .font(.system(size: 24))
-//                                .foregroundColor(displayedForegroundColor())
-//                        } else {
-//                            EmptyView()
-//                        }
-//                    }
-//                }
-//            }
-//            .padding()
-//            
-//            .onTapGesture {
-//                currentIndex = (currentIndex + 1) % 6
-//            }
-//        }
+            .onAppear {
+                healthKitModel.requestAuthorization()
+                healthKitModel.fetchDailyStepCount()
+            }
+            .padding()
+            .containerBackground(
+                getGradientBackground(for: staminaValue).gradient,
+                for: .tabView
+            )
+            .cornerRadius(10)
+            .onTapGesture {
+                healthKitModel.requestAuthorization()
+                healthKitModel.fetchDailyStepCount()
+                currentIndex = (currentIndex + 1) % 6  // Cycle through the states
+                HapticManager.clickHaptic()
+            }
+        }        
     }
 }
 
