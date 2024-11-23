@@ -11,6 +11,15 @@ import SwiftUI
 struct HealthKitPage: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
+    
+    @State private var animatedHeartRate: Double = 0
+    @State private var animatedHRV: Double = 0
+    @State private var animatedV02Max: Double = 0
+    @State private var animatedSteps: Double = 0
+    @State private var animatedBMR: Double = 0
+    @State private var animatedActiveCals: Double = 0
+
+
     var body: some View {
         
         let (staminaView, staminaPercentage) =
@@ -30,9 +39,9 @@ struct HealthKitPage: View {
                     Text("Heart Rate")
                         .font(.headline)
                     HStack {
-                        Text(healthKitModel.latestHeartRate.formatted(
-                            .number.precision(.fractionLength(0))))
+                        Text(animatedHeartRate.formatted(.number.precision(.fractionLength(0))))
                             .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedHeartRate) // Smooth animation
                         Image(systemName: "heart.fill")
                             .foregroundColor(heartRateSFSymbolColor(for: healthKitModel.latestHeartRate))
                             .font(.system(size: 24))
@@ -161,6 +170,10 @@ struct HealthKitPage: View {
                     hint: "Displays the latest active cals measured using HealthKit"
                 )
     
+            } .onReceive(healthKitModel.$latestHeartRate) { newHeartRate in
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    self.animatedHeartRate = newHeartRate
+                }
             }
         }
     }
