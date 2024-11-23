@@ -15,7 +15,7 @@ struct HealthKitPage: View {
     @State private var animatedHeartRate: Double = 0
     @State private var animatedHRV: Double = 0
     @State private var animatedV02Max: Double = 0
-    @State private var animatedSteps: Double = 0
+    @State private var animatedSteps: Int = 0
     @State private var animatedBMR: Double = 0
     @State private var animatedActiveCals: Double = 0
 
@@ -30,6 +30,9 @@ struct HealthKitPage: View {
         
         VStack(alignment: .leading) {
             staminaView
+                .id(staminaPercentage)
+                .animation(.easeInOut(duration: 0.5), value: staminaCalculationAlgorithm.currentStaminaPercentage)
+            
                 .accessibilityElement()
                 .accessibilityLabel(
                     Text("Stamina percentage is \(staminaPercentage)%"))
@@ -43,7 +46,7 @@ struct HealthKitPage: View {
                             .font(.title2)
                             .animation(.easeInOut(duration: 0.5), value: animatedHeartRate) // Smooth animation
                         Image(systemName: "heart.fill")
-                            .foregroundColor(heartRateSFSymbolColor(for: healthKitModel.latestHeartRate))
+                            .foregroundColor(.red)
                             .font(.system(size: 24))
                             .accessibilityHidden(true)
                     }
@@ -64,11 +67,11 @@ struct HealthKitPage: View {
                         .font(.headline)
                     
                     HStack {
-                        Text(healthKitModel.latestHeartRateVariability.formatted(
-                            .number.precision(.fractionLength(0))))
-                        .font(.title2)
+                        Text(animatedHRV.formatted(.number.precision(.fractionLength(0))))
+                            .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedHRV)
                         Image(systemName: "waveform.path.ecg")
-                            .foregroundColor(.white)
+                            .foregroundColor(.blue)
                             .font(.system(size: 24))
                     }
                 }
@@ -86,11 +89,11 @@ struct HealthKitPage: View {
                     Text("Cardio Fitness (V02 Max)")
                         .font(.headline)
                     HStack {
-                        Text(healthKitModel.latestV02Max.formatted(
-                            .number.precision(.fractionLength(0))))
-                        .font(.title2)
+                        Text(animatedV02Max.formatted(.number.precision(.fractionLength(1))))
+                            .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedV02Max)
                         Image(systemName: "lungs.fill")
-                            .foregroundColor(.white)
+                            .foregroundColor(.green)
                             .font(.system(size: 24))
                     }
                 }
@@ -108,11 +111,11 @@ struct HealthKitPage: View {
                     Text("Steps")
                         .font(.headline)
                     HStack {
-                        Text(healthKitModel.latestStepCount.formatted(
-                            .number.precision(.fractionLength(0))))
-                        .font(.title2)
+                        Text(animatedSteps.formatted(.number.precision(.fractionLength(0))))
+                            .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedSteps)
                         Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.white)
+                            .foregroundColor(.mint)
                             .font(.system(size: 24))
                     }
                 }
@@ -130,11 +133,11 @@ struct HealthKitPage: View {
                     Text("BMR")
                         .font(.headline)
                     HStack {
-                        Text(healthKitModel.latestRestingEnergy.formatted(
-                            .number.precision(.fractionLength(0))))
-                        .font(.title2)
+                        Text(animatedBMR.formatted(.number.precision(.fractionLength(0))))
+                            .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedBMR)
                         Image(systemName: "flame.fill")
-                            .foregroundColor(.white)
+                            .foregroundColor(.indigo)
                             .font(.system(size: 24))
                     }
                 }
@@ -152,11 +155,11 @@ struct HealthKitPage: View {
                     Text("Active Cals")
                         .font(.headline)
                     HStack {
-                        Text(healthKitModel.latestActiveEnergy.formatted(
-                            .number.precision(.fractionLength(0))))
-                        .font(.title2)
+                        Text(animatedActiveCals.formatted(.number.precision(.fractionLength(0))))
+                            .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedActiveCals)
                         Image(systemName: "flame.fill")
-                            .foregroundColor(.white)
+                            .foregroundColor(.orange)
                             .font(.system(size: 24))
                     }
                 }
@@ -170,78 +173,93 @@ struct HealthKitPage: View {
                     hint: "Displays the latest active cals measured using HealthKit"
                 )
     
-            } .onReceive(healthKitModel.$latestHeartRate) { newHeartRate in
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    self.animatedHeartRate = newHeartRate
+            }
+            .onReceive(healthKitModel.$latestHeartRate) { newHeartRate in
+                guard newHeartRate > 0 else { return } // Prevent animation for invalid initial values
+                if animatedHeartRate != newHeartRate {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedHeartRate = newHeartRate
+                    }
                 }
             }
+            .onReceive(healthKitModel.$latestHeartRateVariability) { newHRV in
+                guard newHRV > 0 else { return } // Prevent animation for invalid initial values
+                if animatedHRV != newHRV {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedHRV = newHRV
+                    }
+                }
+            }
+            .onReceive(healthKitModel.$latestV02Max) { newV02Max in
+                guard newV02Max > 0 else { return } // Prevent animation for invalid initial values
+                if animatedV02Max != newV02Max {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedV02Max = newV02Max
+                    }
+                }
+            }
+            .onReceive(healthKitModel.$latestStepCount) { newStepCount in
+                guard newStepCount > 0 else { return } // Prevent animation for invalid initial values
+                if animatedSteps != newStepCount {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedSteps = newStepCount
+                    }
+                }
+            }
+            .onReceive(healthKitModel.$latestRestingEnergy) { newBMR in
+                guard newBMR > 0 else { return } // Prevent animation for invalid initial values
+                if animatedBMR != newBMR {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedBMR = newBMR
+                    }
+                }
+            }
+            .onReceive(healthKitModel.$latestActiveEnergy) { newActiveEnergy in
+                guard newActiveEnergy > 0 else { return } // Prevent animation for invalid initial values
+                if animatedActiveCals != newActiveEnergy {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedActiveCals = newActiveEnergy
+                    }
+                }
+            }
+            
         }
     }
     
     func heartRateSFSymbolColor(for heartRate: Double) -> Color {
-        if heartRate > 100 {
-            return Color.white
-        } else {
             return Color.red
-        }
+    }
+    
+    func hRVSFSymbolColor(for heartRate: Double) -> Color {
+            return Color.green
     }
     
     func heartRateCell(for heartRate: Double) -> Color {
-        if (heartRate > 100) { return Color.yellow.opacity(0.7) }
-        else if (heartRate < 80) { return Color.green.opacity(0.7) }
-        else { return Color.blue.opacity(0.7) }
+        return Color.gray.opacity(0.5)
     }
     
     func variabilityCell(for heartRateVariability: Double) -> Color {
-        if (heartRateVariability < 20) {
-            return Color.red.opacity(0.7)
-        } else if (heartRateVariability < 40) {
-            return Color.yellow.opacity(0.7)
-        } else if (heartRateVariability > 60) {
-            return Color.teal.opacity(0.7)
-        } else if (heartRateVariability > 85) {
-            return Color.green.opacity(0.7)
-        } else { return Color.blue.opacity(0.7) }
-    }
-    
-    func fitnessCell(for cardioFitness: Double) -> Color {
-        if (cardioFitness >= 50) {
-            return Color.blue.opacity(0.7)
-        } else if (cardioFitness >= 40) {
-            return Color.green.opacity(0.7)
-        } else {
-            return Color.yellow.opacity(0.7)
-        }
+        return Color.gray.opacity(0.5)
         
     }
     
+    func fitnessCell(for cardioFitness: Double) -> Color {
+        return Color.gray.opacity(0.5)
+
+    }
+    
     func stepsCell(for steps: Double) -> Color {
-        if (steps > 12500) {
-            return Color.blue.opacity(0.7)
-        } else if (steps > 9000) {
-            return Color.green.opacity(0.7)
-        } else if (steps > 5750) {
-            return Color.cyan.opacity(0.7)
-        } else { return Color.yellow.opacity(0.7) }
+        return Color.gray.opacity(0.5)
+
     }
     
     func bmrCell(for bmr: Double) -> Color {
-        switch bmr {
-        case ..<800:
-            return Color.yellow.opacity(0.7)
-        case 1200..<1500:
-            return Color.green.opacity(0.7)
-        case 1800..<2000:
-            return Color.blue.opacity(0.7)
-        default:
-            return Color.purple.opacity(0.7)
-        }
+        return Color.gray.opacity(0.5)
+
     }
 
     func calsCell(for cals: Double) -> Color {
-        if (cals > 500) { return Color.blue.opacity(0.7) }
-        else if (cals > 399) { return Color.green.opacity(0.7) }
-        else { return Color.yellow.opacity(0.7) }
+        return Color.gray.opacity(0.5)
     }
 }
 
@@ -252,3 +270,4 @@ struct HealthKitPage: View {
         // Fallback on earlier versions
     }
 }
+

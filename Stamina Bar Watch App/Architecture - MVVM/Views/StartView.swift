@@ -219,7 +219,7 @@ struct StartView: View {
             hrv: healthKitModel.latestHeartRateVariability
         )
         
-        let staminaValue = CGFloat(Double(staminaPercentage) ?? 0)
+        let staminaValueGradient = CGFloat(Double(staminaPercentage) ?? 0)
         
         /*if #available(watchOS 10.0, *)*/
         
@@ -228,6 +228,9 @@ struct StartView: View {
                 TipView(SimpleInlineTip())
                 
                 staminaView
+                    .id(staminaPercentage)
+                    .animation(.easeInOut(duration: 0.5), value: staminaCalculationAlgorithm.currentStaminaPercentage)
+
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
@@ -274,7 +277,7 @@ struct StartView: View {
             }
             .padding()
             .containerBackground(
-                getGradientBackground(for: staminaValue).gradient,
+                getGradientBackground(for: staminaValueGradient).gradient,
                 for: .tabView
             )
             .cornerRadius(10)
