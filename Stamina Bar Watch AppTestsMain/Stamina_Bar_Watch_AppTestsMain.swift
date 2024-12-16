@@ -6,11 +6,13 @@
 //
 
 import XCTest
+import SwiftUI
+@testable import Stamina_Bar_Watch_App
 
 final class Stamina_Bar_Watch_AppTestsMain: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // Setup code here.
     }
 
     override func tearDownWithError() throws {
@@ -33,3 +35,4 @@ final class Stamina_Bar_Watch_AppTestsMain: XCTestCase {
     }
 
 }
+

@@ -16,7 +16,7 @@ struct SimpleInlineTip: Tip {
 
     // Text needs to be optional, otherwise it does not show up.
     var message: Text? {
-        Text("Tap the stamina bar to see all your health stats.")
+        Text("Use the toolbar to show health stats.")
     }
 
     var image: Image? {

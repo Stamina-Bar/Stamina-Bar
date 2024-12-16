@@ -23,6 +23,12 @@ class HealthKitModel: ObservableObject {
     @Published var latestActiveEnergy: Double = 0.0
     @Published var latestRestingEnergy: Double = 0.0
     @Published var userAgeInYears: Int = 0
+    @State private var previousV02Max: Double?
+    @State var trend: Trend = .same
+        
+    enum Trend {
+        case up, down, same
+    }
     
     init() {
         healthStore = HKHealthStore()
@@ -38,7 +44,9 @@ class HealthKitModel: ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .vo2Max)!,
             HKQuantityType.quantityType(forIdentifier: .stepCount)!,
             HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
-            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKQuantityType.workoutType()
+            
         ]
         
         healthStore?.requestAuthorization(toShare: [], read: readTypes) { success, error in
@@ -209,32 +217,45 @@ class HealthKitModel: ObservableObject {
     
     //    MARK: v02Max
     func startV02MaxQuery() {
-        guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else { return }
-        
-        let query = HKAnchoredObjectQuery(type: vo2MaxType,
-                                          predicate: nil,
-                                          anchor: nil,
-                                          limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
-            self.updateVO2Max(samples)
-        }
-        
-        query.updateHandler = { query, samples, deletedObjects, anchor, error in
-            self.updateVO2Max(samples)
-        }
-        
-        healthStore?.execute(query)
-        self.query = query
-    }
-    
-    //    MARK: v02 Max
-    private func updateVO2Max(_ samples: [HKSample]?) {
-        guard let vo2MaxSamples = samples as? [HKQuantitySample] else { return }
-        
-        DispatchQueue.main.async {
-            self.latestV02Max = vo2MaxSamples.last?.quantity.doubleValue(for: HKUnit(from: "ml/kg*min")) ?? 0
-        }
-    }
-    
+           guard let vo2MaxType = HKObjectType.quantityType(forIdentifier: .vo2Max) else { return }
+           
+           let query = HKAnchoredObjectQuery(type: vo2MaxType,
+                                             predicate: nil,
+                                             anchor: nil,
+                                             limit: HKObjectQueryNoLimit) { query, samples, deletedObjects, anchor, error in
+               self.updateVO2Max(samples)
+           }
+           
+           query.updateHandler = { query, samples, deletedObjects, anchor, error in
+               self.updateVO2Max(samples)
+           }
+           
+           healthStore?.execute(query)
+           self.query = query
+       }
+       
+       private func updateVO2Max(_ samples: [HKSample]?) {
+           guard let vo2MaxSamples = samples as? [HKQuantitySample] else { return }
+           
+           DispatchQueue.main.async {
+               if let latestSample = vo2MaxSamples.last?.quantity.doubleValue(for: HKUnit(from: "ml/kg*min")) {
+                   // Set previous VO₂ Max before updating
+                   self.previousV02Max = self.latestV02Max
+                   self.latestV02Max = latestSample
+                   
+                   // Determine the trend
+                   if let previous = self.previousV02Max {
+                       if self.latestV02Max > previous {
+                           self.trend = .up
+                       } else if self.latestV02Max < previous {
+                           self.trend = .down
+                       } else {
+                           self.trend = .same
+                       }
+                   }
+               }
+           }
+       }
     //    MARK: Age
     private func readAge(completion: @escaping (Int, Error?) -> Void) {
         do {

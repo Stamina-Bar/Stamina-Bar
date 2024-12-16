@@ -7,6 +7,13 @@ struct StartView: View {
     @ObservedObject var healthKitModel = HealthKitModel()
     @State private var currentIndex = 0
     @State private var showHKPage = false
+    @State private var showInfoPage = false
+    @State private var showWorkoutHistoryPage = false
+    @State private var showEatingCaloriesPage = false
+
+
+
+    
     
     
     //    MARK: SF Symbols
@@ -221,8 +228,6 @@ struct StartView: View {
         
         let staminaValueGradient = CGFloat(Double(staminaPercentage) ?? 0)
         
-        /*if #available(watchOS 10.0, *)*/
-        
         TabView {
             VStack(alignment: .trailing) {
                 TipView(SimpleInlineTip())
@@ -249,6 +254,61 @@ struct StartView: View {
                     .accessibilityElement()
                     .accessibilityLabel(
                         Text("Stamina percentage is \(staminaPercentage)%"))
+                
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                showInfoPage = true
+                                // Perform an action here.
+                            } label: {
+                                Image(systemName:"info")
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                    }
+                
+                    .sheet(isPresented: $showInfoPage) {
+                        SettingsView() // Settings view to show
+                    }
+                
+                    .accessibilityElement()
+                
+//                    .toolbar {
+//                        ToolbarItem(placement: .bottomBar) {
+//                            Button {
+//                                showEatingCaloriesPage = true
+//                                // Perform an action here.
+//                            } label: {
+//                                Image(systemName:"fork.knife")
+//                                    .foregroundStyle(.white)
+//                            }
+//                        }
+//                    }
+//                
+//                    .sheet(isPresented: $showEatingCaloriesPage) {
+//                        EatingCaloriesView() // Settings view to show
+//                    }
+//                
+//                    .accessibilityElement()
+//                
+//                    .toolbar {
+//                        ToolbarItem(placement: .bottomBar) {
+//                            Button {
+//                                showWorkoutHistoryPage = true
+//                                // Perform an action here.
+//                            } label: {
+//                                Image(systemName:"magazine.fill")
+//                                    .foregroundStyle(.white)
+//                            }
+//                        }
+//                    }
+//                
+//                    .sheet(isPresented: $showWorkoutHistoryPage) {
+//                        WorkoutHistory() // Settings view to show
+//                    }
+//                
+//                    .accessibilityElement()
+    
                 
                 if currentIndex == 1 {
                     allMetricsView()
@@ -281,13 +341,13 @@ struct StartView: View {
                 for: .tabView
             )
             .cornerRadius(10)
-            .onTapGesture {
-                healthKitModel.requestAuthorization()
-                healthKitModel.fetchDailyStepCount()
-                currentIndex = (currentIndex + 1) % 6  // Cycle through the states
-                HapticManager.clickHaptic()
-            }
-        }        
+//            .onTapGesture {
+//                healthKitModel.requestAuthorization()
+//                healthKitModel.fetchDailyStepCount()
+//                currentIndex = (currentIndex + 1) % 6  // Cycle through the states
+//                HapticManager.clickHaptic()
+//            }
+        }        .tabViewStyle(.verticalPage)
     }
 }
 
