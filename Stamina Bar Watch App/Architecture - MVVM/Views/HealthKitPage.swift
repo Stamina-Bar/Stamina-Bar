@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(watchOS 9.0, *)
 struct HealthKitPage: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
@@ -18,16 +17,9 @@ struct HealthKitPage: View {
     @State private var animatedSteps: Int = 0
     @State private var animatedBMR: Double = 0
     @State private var animatedActiveCals: Double = 0
-
-
+    @State private var animatedRespiratoryRate: Double = 0
+    
     var body: some View {
-        
-        
-        let (staminaView, staminaPercentage) =
-        staminaCalculationAlgorithm.stressFunction(
-            heart_rate: healthKitModel.latestHeartRate,
-            hrv: healthKitModel.latestHeartRateVariability
-        )
         
         VStack(alignment: .leading) {
             List {
@@ -45,7 +37,7 @@ struct HealthKitPage: View {
                 }
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
-                        .fill(stepsCell(for: Double(healthKitModel.latestStepCount)).gradient)
+                        .fill(.gray.gradient.opacity(0.5))
                         .padding(2)
                 )
                 .accessibilityEnhanced(
@@ -53,16 +45,15 @@ struct HealthKitPage: View {
                     hint: "Displays the latest heart rate Variability measured using HealthKit"
                 )
                 
-                
                 VStack (alignment: .leading) {
-                    Text("Resting Calories")
+                    Text("Total Cals")
                         .font(.headline)
                     HStack {
-                        Text(animatedBMR.formatted(.number.precision(.fractionLength(0))))
+                        Text(healthKitModel.totalCalories.formatted(.number.precision(.fractionLength(0))))
                             .font(.title2)
-                            .animation(.easeInOut(duration: 0.5), value: animatedBMR)
+                            .animation(.easeInOut(duration: 0.5), value: animatedActiveCals)
                         Image(systemName: "flame.fill")
-                            .foregroundColor(.orange.opacity(0.8))
+                            .foregroundColor(.orange)
                             .font(.system(size: 24))
                     }
                 }
@@ -72,7 +63,7 @@ struct HealthKitPage: View {
                 )
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
-                        .fill(stepsCell(for: Double(healthKitModel.latestStepCount)).gradient)
+                        .fill(.gray.gradient.opacity(0.5))
                         .padding(2)
                 )
                 
@@ -91,7 +82,7 @@ struct HealthKitPage: View {
                 }
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(variabilityCell(for: healthKitModel.latestHeartRateVariability).gradient)
+                        .fill(.gray.gradient.opacity(0.5))
                         .padding(2)
                 )
                 .accessibilityEnhanced(
@@ -114,7 +105,7 @@ struct HealthKitPage: View {
                 }
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(heartRateCell(for: healthKitModel.latestHeartRate).gradient)
+                        .fill(.gray.gradient.opacity(0.5))
                         .padding(2)
                 )
                 .accessibilityEnhanced(
@@ -141,24 +132,47 @@ struct HealthKitPage: View {
                             .foregroundColor(trendColor(for: healthKitModel.trend))
                             .font(.system(size: 20))
                     }
-//                    HStack {
-//                        Text(animatedV02Max.formatted(.number.precision(.fractionLength(1))))
-//                            .font(.title2)
-//                            .animation(.easeInOut(duration: 0.5), value: animatedV02Max)
-//                        Image(systemName: "lungs.fill")
-//                            .foregroundColor(.green)
-//                            .font(.system(size: 24))
-//                    }
                 }
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
-                        .fill(stepsCell(for: Double(healthKitModel.latestStepCount)).gradient)
+                        .fill(.gray.gradient.opacity(0.5))
                         .padding(2)
                 )
                 .accessibilityEnhanced(
                     label: "V02 Max: \(healthKitModel.latestV02Max) steps",
                     hint: "Displays the latest V02 Max measured using HealthKit"
                 )
+                
+                VStack(alignment: .leading) {
+                    Text("Respiratory Rate")
+                        .font(.headline)
+                    HStack {
+                        Text(healthKitModel.latestRespiratoryRate.formatted(.number.precision(.fractionLength(1))))
+                            .font(.title2)
+                            .animation(.easeInOut(duration: 0.5), value: animatedRespiratoryRate) // Smooth animation
+                        Image(systemName: "wind")
+                            .foregroundColor(.teal)
+                            .font(.system(size: 24))
+                            .accessibilityHidden(true)
+                    }
+                }
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.gray.gradient.opacity(0.5))
+                        .padding(2)
+                )
+                .accessibilityEnhanced(
+                    label: "Heart Rate: \(healthKitModel.latestHeartRate) beats per minute",
+                    hint: "Displays the latest heart rate measured using HealthKit"
+                )
+            }
+            .onReceive(healthKitModel.$latestRespiratoryRate) { newRespiratoryRate in
+                guard newRespiratoryRate > 0 else { return } // Prevent animation for invalid initial values
+                if animatedRespiratoryRate != animatedRespiratoryRate {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.animatedRespiratoryRate = newRespiratoryRate
+                    }
+                }
             }
             .onReceive(healthKitModel.$latestHeartRate) { newHeartRate in
                 guard newHeartRate > 0 else { return } // Prevent animation for invalid initial values
@@ -210,47 +224,8 @@ struct HealthKitPage: View {
             }
             
         }
-        
-        
     }
-    
-    func heartRateSFSymbolColor(for heartRate: Double) -> Color {
-            return Color.red
-    }
-    
-    func hRVSFSymbolColor(for heartRate: Double) -> Color {
-            return Color.green
-    }
-    
-    func heartRateCell(for heartRate: Double) -> Color {
-        return Color.gray.opacity(0.5)
-    }
-    
-    func variabilityCell(for heartRateVariability: Double) -> Color {
-        return Color.gray.opacity(0.5)
-        
-    }
-    
-    func fitnessCell(for cardioFitness: Double) -> Color {
-        return Color.gray.opacity(0.5)
-
-    }
-    
-    func stepsCell(for steps: Double) -> Color {
-        return Color.gray.opacity(0.5)
-
-    }
-    
-    func bmrCell(for bmr: Double) -> Color {
-        return Color.gray.opacity(0.5)
-
-    }
-
-    func calsCell(for cals: Double) -> Color {
-        return Color.gray.opacity(0.5)
-    }
-    
-     func trendSymbol(
+    func trendSymbol(
         for trend: HealthKitModel.Trend
     ) -> String {
         switch trend {
@@ -260,7 +235,7 @@ struct HealthKitPage: View {
         }
     }
     
-     func trendColor(
+    func trendColor(
         for trend: HealthKitModel.Trend
     ) -> Color {
         switch trend {
@@ -272,10 +247,7 @@ struct HealthKitPage: View {
 }
 
 #Preview {
-    if #available(watchOS 9.0, *) {
-        HealthKitPage()
-    } else {
-        // Fallback on earlier versions
-    }
+    HealthKitPage()
+    
 }
 

@@ -8,31 +8,6 @@ struct StartView: View {
     @State private var currentIndex = 0
     @State private var showHKPage = false
     @State private var showInfoPage = false
-    @State private var showWorkoutHistoryPage = false
-    @State private var showEatingCaloriesPage = false
-
-
-
-    
-    
-    
-    //    MARK: SF Symbols
-    func displaySymbol() -> String? {
-        switch currentIndex {
-        case 0:
-            return nil
-        case 2:
-            return "heart.fill"
-        case 3:
-            return "waveform.path.ecg"
-        case 4:
-            return "lungs.fill"
-        case 5:
-            return "shoeprints.fill"
-        default:
-            return nil
-        }
-    }
     
     //    MARK: Background gradient colors
     func displayedForegroundColor() -> Color {
@@ -234,7 +209,6 @@ struct StartView: View {
                 
                 staminaView
                     .id(staminaPercentage)
-                    .animation(.easeInOut(duration: 0.5), value: staminaCalculationAlgorithm.currentStaminaPercentage)
 
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
@@ -273,63 +247,7 @@ struct StartView: View {
                 
                     .accessibilityElement()
                 
-//                    .toolbar {
-//                        ToolbarItem(placement: .bottomBar) {
-//                            Button {
-//                                showEatingCaloriesPage = true
-//                                // Perform an action here.
-//                            } label: {
-//                                Image(systemName:"fork.knife")
-//                                    .foregroundStyle(.white)
-//                            }
-//                        }
-//                    }
-//                
-//                    .sheet(isPresented: $showEatingCaloriesPage) {
-//                        EatingCaloriesView() // Settings view to show
-//                    }
-//                
-//                    .accessibilityElement()
-//                
-//                    .toolbar {
-//                        ToolbarItem(placement: .bottomBar) {
-//                            Button {
-//                                showWorkoutHistoryPage = true
-//                                // Perform an action here.
-//                            } label: {
-//                                Image(systemName:"magazine.fill")
-//                                    .foregroundStyle(.white)
-//                            }
-//                        }
-//                    }
-//                
-//                    .sheet(isPresented: $showWorkoutHistoryPage) {
-//                        WorkoutHistory() // Settings view to show
-//                    }
-//                
-//                    .accessibilityElement()
-    
                 
-                if currentIndex == 1 {
-                    allMetricsView()
-                } else {
-                    // Display one metric at a time
-                    HStack(spacing: 10) {
-                        if let healthMetric = displayHK(),
-                           let sfSymbol = displaySymbol()
-                        {
-                            Text(healthMetric)
-                                .font(
-                                    .system(.headline, design: .rounded)
-                                    .monospacedDigit())
-                            Image(systemName: sfSymbol)
-                                .font(.system(size: 24))
-                                .foregroundColor(displayedForegroundColor())
-                        } else {
-                            EmptyView()
-                        }
-                    }
-                }
             }
             .onAppear {
                 healthKitModel.requestAuthorization()
@@ -341,12 +259,6 @@ struct StartView: View {
                 for: .tabView
             )
             .cornerRadius(10)
-//            .onTapGesture {
-//                healthKitModel.requestAuthorization()
-//                healthKitModel.fetchDailyStepCount()
-//                currentIndex = (currentIndex + 1) % 6  // Cycle through the states
-//                HapticManager.clickHaptic()
-//            }
         }        .tabViewStyle(.verticalPage)
     }
 }
