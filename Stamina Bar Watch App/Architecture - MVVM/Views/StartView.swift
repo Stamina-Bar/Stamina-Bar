@@ -9,24 +9,6 @@ struct StartView: View {
     @State private var showHKPage = false
     @State private var showInfoPage = false
     
-    //    MARK: Background gradient colors
-    func displayedForegroundColor() -> Color {
-        switch currentIndex {
-        case 0:
-            return .clear
-        case 2:
-            return .red
-        case 3:
-            return .blue
-        case 4:
-            return .green
-        case 5:
-            return .blue
-        default:
-            return .clear
-        }
-    }
-    
     func getGradientBackground(for percentage: CGFloat) -> Color {
         let color: Color
         switch percentage {
@@ -43,154 +25,7 @@ struct StartView: View {
         default:
             color = .clear  // 0 or negative values (if possible)
         }
-        
         return color
-    }
-    
-    //    MARK: Format Steps
-    func formattedStepCount(_ stepCount: Int, abbreviate: Bool = true) -> String
-    {
-        if abbreviate && stepCount >= 1000 {
-            let formatted = Double(stepCount) / 1000.0
-            return String(format: "%.1fK", formatted)
-        } else {
-            // Use NumberFormatter to format with commas
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            let formattedStepCount =
-            numberFormatter.string(from: NSNumber(value: stepCount))
-            ?? "\(stepCount)"
-            return "\(formattedStepCount)"
-        }
-    }
-    
-    //    MARK: PAGES
-    func displayHK() -> String? {
-        switch currentIndex {
-        case 0:
-            return nil
-        case 2:
-            return healthKitModel.latestHeartRate.formatted(
-                .number.precision(.fractionLength(0))) + " BPM"
-        case 3:
-            return healthKitModel.latestHeartRateVariability.formatted(
-                .number.precision(.fractionLength(0))) + " HRV"
-        case 4:
-            return healthKitModel.latestV02Max.formatted(
-                .number.precision(.fractionLength(1))) + " V02 Max"
-        case 5:
-            return healthKitModel.latestStepCount.formatted(
-                .number.precision(.fractionLength(0))) + " Steps"
-        default:
-            return nil
-        }
-    }
-    
-    //    MARK: Shows all pages
-    func allMetricsView() -> some View {
-        VStack {
-            // Arrange metrics around the stamina bar
-            HStack(spacing: 18) {
-                VStack {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                        .font(.system(size: 20))
-                    Text(
-                        healthKitModel.latestHeartRate.formatted(
-                            .number.precision(.fractionLength(0)))
-                    )
-                    //
-                    .font(
-                        .system(.headline, design: .rounded)
-                        .smallCaps())
-                    .bold()
-                    .layoutPriority(1)
-                    .fixedSize(horizontal: true, vertical: false)
-                    
-                }
-                
-                VStack {
-                    Image(systemName: "waveform.path.ecg")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 20))
-                    
-                    Text(
-                        healthKitModel.latestHeartRateVariability.formatted(
-                            .number.precision(.fractionLength(0)))
-                    )
-                    //                     Text("100")
-                    .font(
-                        .system(.headline, design: .rounded)
-                        .smallCaps())
-                    .bold()
-                    .layoutPriority(1)
-                    .fixedSize(horizontal: true, vertical: false)
-                    
-                }
-                
-                VStack {
-                    Image(systemName: "lungs.fill")
-                        .foregroundColor(.green)
-                        .font(.system(size: 20))
-                    
-                    Text(
-                        healthKitModel.latestV02Max.formatted(
-                            .number.precision(.fractionLength(1)))
-                    )
-                    //                    Text("90.9")
-                    .font(
-                        .system(.headline, design: .rounded)
-                        .smallCaps())
-                    .bold()
-                    .layoutPriority(1)
-                    .fixedSize(horizontal: true, vertical: false)
-                    
-                    
-                }
-                
-                // Conditionally display step count without "Steps" text if < 1,000
-                if healthKitModel.latestStepCount >= 1000 {
-                    VStack {
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 20))
-                        
-                        Text(
-                            formattedStepCount(
-                                healthKitModel.latestStepCount, abbreviate: true
-                            )
-                        )
-                        //   Text("10.2K")
-                        .font(
-                            .system(.headline, design: .rounded)
-                            .smallCaps())
-                        .bold()
-                        .layoutPriority(1)
-                        .fixedSize(horizontal: true, vertical: false)
-                        
-                        
-                    }
-                } else {
-                    VStack {
-                        Image(systemName: "shoeprints.fill")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 20))
-                        
-                        Text("\(healthKitModel.latestStepCount)")
-                        //Text("10.2K")
-                        
-                        // Just the number, no "Steps" label
-                            .font(
-                                .system(.headline, design: .rounded)
-                                .smallCaps())
-                            .bold()
-                            .layoutPriority(1)
-                            .fixedSize(horizontal: true, vertical: false)
-                        
-                    }
-                }
-            }
-        }
     }
     
     var body: some View {
@@ -209,7 +44,7 @@ struct StartView: View {
                 
                 staminaView
                     .id(staminaPercentage)
-
+                
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
@@ -246,8 +81,6 @@ struct StartView: View {
                     }
                 
                     .accessibilityElement()
-                
-                
             }
             .onAppear {
                 healthKitModel.requestAuthorization()
