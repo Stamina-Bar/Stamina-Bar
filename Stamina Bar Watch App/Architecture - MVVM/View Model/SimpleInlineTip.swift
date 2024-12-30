@@ -11,12 +11,12 @@ import TipKit
 
 struct SimpleInlineTip: Tip {
     var title: Text {
-        Text("Show Health Stats")
+        Text("View Health Stats")
     }
 
     // Text needs to be optional, otherwise it does not show up.
     var message: Text? {
-        Text("Use the toolbar to show health stats.")
+        Text("Scroll or Swipe Up on the main page to see all stats.")
     }
 
     var image: Image? {

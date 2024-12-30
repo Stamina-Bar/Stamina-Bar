@@ -6,7 +6,6 @@ struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
     @State private var currentIndex = 0
-    @State private var showHKPage = false
     @State private var showInfoPage = false
     
     func getGradientBackground(for percentage: CGFloat) -> Color {
@@ -57,6 +56,8 @@ struct StartView: View {
                                     .foregroundStyle(.white)
                             }
                         }
+                    } .sheet(isPresented: $showInfoPage) {
+                        SettingsView() // Settings view to show
                     }
             }
             
@@ -70,6 +71,62 @@ struct StartView: View {
             
             VStack(alignment: .leading) {
                 List {
+                    
+                    // MARK: Total Calories
+                    VStack (alignment: .leading) {
+                        Text("Total Cals")
+                            .font(.headline)
+                        HStack {
+                            Text(healthKitModel.totalCalories.formatted(.number.precision(.fractionLength(0))))
+                                .font(.title2)
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(.orange)
+                                .font(.system(size: 24))
+                        }
+                    }
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.gray.gradient.opacity(0.5))
+                            .padding(2)
+                    )
+                    
+                    // MARK: ACTIVE CALS
+                    VStack (alignment: .leading) {
+                        Text("Active Cals")
+                            .font(.headline)
+                        HStack {
+                            Text(healthKitModel.latestActiveEnergy.formatted(.number.precision(.fractionLength(0))))
+                                .font(.title2)
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(.orange)
+                                .font(.system(size: 24))
+                        }
+                    }
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.gray.gradient.opacity(0.5))
+                            .padding(2)
+                    )
+                    
+                    // MARK: BASAL CALORIES
+                    VStack (alignment: .leading) {
+                        Text("Basal Cals")
+                            .font(.headline)
+                        HStack {
+                            Text(healthKitModel.latestRestingEnergy.formatted(.number.precision(.fractionLength(0))))
+                                .font(.title2)
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(.orange)
+                                .font(.system(size: 24))
+                        }
+                    }
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.gray.gradient.opacity(0.5))
+                            .padding(2)
+                    )
+                    
+                    // MARK: STEPS
                     VStack (alignment: .leading) {
                         Text("Steps")
                             .font(.headline)
@@ -77,7 +134,7 @@ struct StartView: View {
                             Text(healthKitModel.latestStepCount.formatted(.number.precision(.fractionLength(0))))
                                 .font(.title2)
                             Image(systemName: "shoeprints.fill")
-                                .foregroundColor(.mint)
+                                .foregroundColor(.white.opacity(0.8))
                                 .font(.system(size: 24))
                         }
                     }
@@ -91,82 +148,7 @@ struct StartView: View {
                         hint: "Displays the latest heart rate Variability measured using HealthKit"
                     )
                     
-                    VStack (alignment: .leading) {
-                        Text("Total Cals")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.totalCalories.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                        }
-                    }
                    
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    VStack (alignment: .leading) {
-                        Text("Basal Cals")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestRestingEnergy.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                        }
-                    }
-                   
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    VStack (alignment: .leading) {
-                        Text("Active Cals")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestActiveEnergy.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                        }
-                    }
-                   
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    
-                    VStack (alignment: .leading) {
-                        Text("HRV")
-                            .font(.headline)
-                        
-                        HStack {
-                            Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "waveform.path.ecg")
-                                .foregroundColor(.blue)
-                                .font(.system(size: 24))
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    .accessibilityEnhanced(
-                        label: "HRV: \(healthKitModel.latestHeartRateVariability)",
-                        hint: "Displays the latest heart rate Variability measured using HealthKit"
-                    )
                     
                     VStack(alignment: .leading) {
                         Text("Heart Rate")
@@ -189,6 +171,51 @@ struct StartView: View {
                         label: "Heart Rate: \(healthKitModel.latestHeartRate) beats per minute",
                         hint: "Displays the latest heart rate measured using HealthKit"
                     )
+                  
+                    
+                    // MARK: HRV
+                    VStack (alignment: .leading) {
+                        Text("HRV")
+                            .font(.headline)
+                        
+                        HStack {
+                            Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))))
+                                .font(.title2)
+                            Image(systemName: "waveform.path.ecg")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 24))
+                        }
+                    }
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.gray.gradient.opacity(0.5))
+                            .padding(2)
+                    )
+                    .accessibilityEnhanced(
+                        label: "HRV: \(healthKitModel.latestHeartRateVariability)",
+                        hint: "Displays the latest heart rate Variability measured using HealthKit"
+                    )
+                    
+                    
+                    
+                    VStack(alignment: .leading) {
+                        Text("Respiratory Rate")
+                            .font(.headline)
+                        HStack {
+                            Text(healthKitModel.latestRespiratoryRate.formatted(.number.precision(.fractionLength(1))))
+                                .font(.title2)
+                            Image(systemName: "lungs.fill")
+                                .foregroundColor(.teal)
+                                .font(.system(size: 24))
+                                .accessibilityHidden(true)
+                        }
+                    }
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.gray.gradient.opacity(0.5))
+                            .padding(2)
+                    )
+                    
                     
                     VStack (alignment: .leading) {
                         Text("V02 Max")
@@ -197,10 +224,9 @@ struct StartView: View {
                             // Display latest VO₂ Max value
                             Text(healthKitModel.latestV02Max.formatted(.number.precision(.fractionLength(1))))
                                 .font(.title2)
-                                .animation(.easeInOut(duration: 0.5), value: healthKitModel.latestV02Max)
                             
                             // Lungs icon
-                            Image(systemName: "lungs.fill")
+                            Image(systemName: "figure.run")
                                 .foregroundColor(.green)
                                 .font(.system(size: 24))
                             
@@ -217,27 +243,6 @@ struct StartView: View {
                         hint: "Displays the latest V02 Max measured using HealthKit"
                     )
                     
-                    VStack(alignment: .leading) {
-                        Text("Respiratory Rate")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestRespiratoryRate.formatted(.number.precision(.fractionLength(1))))
-                                .font(.title2)
-                            Image(systemName: "wind")
-                                .foregroundColor(.teal)
-                                .font(.system(size: 24))
-                                .accessibilityHidden(true)
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    .accessibilityEnhanced(
-                        label: "Heart Rate: \(healthKitModel.latestHeartRate) beats per minute",
-                        hint: "Displays the latest heart rate measured using HealthKit"
-                    )
                 }
             }
                 .containerBackground(

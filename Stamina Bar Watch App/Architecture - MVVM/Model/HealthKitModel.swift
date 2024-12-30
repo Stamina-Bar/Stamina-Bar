@@ -52,7 +52,6 @@ class HealthKitModel: ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .stepCount)!,
             HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
-            HKQuantityType.workoutType(),
             HKQuantityType.quantityType(forIdentifier: .respiratoryRate)!
         ]
         
