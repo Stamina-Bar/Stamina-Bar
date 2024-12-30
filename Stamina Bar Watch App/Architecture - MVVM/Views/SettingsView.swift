@@ -71,7 +71,7 @@ struct ScanQRView: View {
             Divider()
             Section {
                 AppVersionView()
-                Text("Released Dec. 16")
+                Text("Released Dec. 29")
             }
         }
     }

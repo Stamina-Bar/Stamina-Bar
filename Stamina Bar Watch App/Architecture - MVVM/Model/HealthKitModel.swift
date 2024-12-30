@@ -41,7 +41,6 @@ class HealthKitModel: ObservableObject {
         healthStore = HKHealthStore()
         requestAuthorization()
         stepsObserver()
-        
     }
     
     func requestAuthorization() {
