@@ -14,7 +14,6 @@ import HealthKit
 
 class StaminaCalculationAlgorithm {
     
-    //    @AppStorage("hapticsEnabled") var hapticsEnabled: Bool = true
     @Published var currentStaminaPercentage: String = "100"
     @ObservedObject var healthKitModel = HealthKitModel()
     
@@ -22,8 +21,8 @@ class StaminaCalculationAlgorithm {
         
         let baselineHRV: CGFloat = 65
         let adjustmentPerUnit: CGFloat = 0.25
-        let hrvAdjustment = -(max(baselineHRV - hrv, 0) * adjustmentPerUnit)
-        
+        let hrvAdjustment: CGFloat = hrv == 0 ? 0 : -(max(baselineHRV - hrv, 0) * adjustmentPerUnit)
+
         var initalHeartRateMapping: String = ""
         var finalStaminaPercentage: CGFloat
         
@@ -31,8 +30,6 @@ class StaminaCalculationAlgorithm {
             // MARK: Zone 1, Blue
         case -1..<1:
             initalHeartRateMapping = "100"
-//            initalHeartRateMapping = "Loading"
-
         case 1..<60:
             initalHeartRateMapping = "100"
         case 60..<64:

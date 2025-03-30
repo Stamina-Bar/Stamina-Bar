@@ -16,7 +16,7 @@ struct SimpleInlineTip: Tip {
 
     // Text needs to be optional, otherwise it does not show up.
     var message: Text? {
-        Text("Scroll or Swipe Up on the main page to see all stats.")
+        Text("View your most important health stats at a glance. After runs or walks, check your VO2 Max trends. Monitor HRV for recovery and readiness a higher HRV suggests improved recovery and stress resilience.")
     }
 
     var image: Image? {

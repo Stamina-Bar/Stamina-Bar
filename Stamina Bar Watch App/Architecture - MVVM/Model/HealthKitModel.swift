@@ -23,11 +23,10 @@ class HealthKitModel: ObservableObject {
     @Published var latestActiveEnergy: Double = 0.0
     @Published var latestRestingEnergy: Double = 0.0
     private var activeEnergyAnchor: HKQueryAnchor?
-    private var processedActiveSamples: Set<UUID> = [] // Tracks processed active energy samples
+    private var processedActiveSamples: Set<UUID> = []
     private var restingEnergyAnchor: HKQueryAnchor?
     @Published var userAgeInYears: Int = 0
     @State private var previousV02Max: Double?
-    @State var trend: Trend = .same
     @Published var isRespiratoryRateAvailable: Bool = false
     @Published var latestRespiratoryRate: Double = 0
     private var respiratoryRateQuery: HKAnchoredObjectQuery?
@@ -117,7 +116,6 @@ class HealthKitModel: ObservableObject {
                 if newEnergy > 0 {
                     self.latestActiveEnergy += newEnergy
                 }
-                print("Active Energy: \(self.latestActiveEnergy) kcal")
             }
         }
         
@@ -141,7 +139,6 @@ class HealthKitModel: ObservableObject {
                     if newEnergy > 0 {
                         self.latestRestingEnergy = newEnergy // Replace instead of adding
                     }
-                    print("Resting Energy: \(self.latestRestingEnergy) kcal")
                 }
             }
             
@@ -244,20 +241,9 @@ class HealthKitModel: ObservableObject {
         
         DispatchQueue.main.async {
             if let latestSample = vo2MaxSamples.last?.quantity.doubleValue(for: HKUnit(from: "ml/kg*min")) {
-                // Set previous VO₂ Max before updating
+
                 self.previousV02Max = self.latestV02Max
                 self.latestV02Max = latestSample
-                
-                // Determine the trend
-                if let previous = self.previousV02Max {
-                    if self.latestV02Max > previous {
-                        self.trend = .up
-                    } else if self.latestV02Max < previous {
-                        self.trend = .down
-                    } else {
-                        self.trend = .same
-                    }
-                }
             }
         }
     }
@@ -266,10 +252,8 @@ class HealthKitModel: ObservableObject {
         do {
             let dateOfBirthComponents = try healthStore?.dateOfBirthComponents()
             
-            // Default dateOfBirthComponents if not available
             let defaultDateComponents = DateComponents(year: 0, month: 1, day: 1)
             
-            // Use the date components from HealthKit or default if not available
             let dateOfBirth = dateOfBirthComponents?.date ?? Calendar.current.date(from: defaultDateComponents)!
             
             let calendar = Calendar.current
@@ -364,5 +348,4 @@ class HealthKitModel: ObservableObject {
             self.isRespiratoryRateAvailable = !respiratoryRateSamples.isEmpty
         }
     }
-    
 }

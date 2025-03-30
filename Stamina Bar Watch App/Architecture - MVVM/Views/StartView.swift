@@ -5,7 +5,6 @@ import TipKit
 struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
-    @State private var currentIndex = 0
     @State private var showInfoPage = false
     
     func getGradientBackground(for percentage: CGFloat) -> Color {
@@ -39,8 +38,7 @@ struct StartView: View {
         
         TabView {
             VStack(alignment: .trailing) {
-                TipView(SimpleInlineTip())
-                
+                //                TipView(SimpleInlineTip())
                 staminaView
                     .id(staminaPercentage)
                     .accessibilityElement()
@@ -57,198 +55,32 @@ struct StartView: View {
                             }
                         }
                     } .sheet(isPresented: $showInfoPage) {
-                        SettingsView() // Settings view to show
+                        SettingsView()
                     }
             }
-            
             .padding()
             .containerBackground(
                 getGradientBackground(for: staminaValueGradient).gradient,
                 for: .tabView
             )
             .cornerRadius(10)
-            
-            
             VStack(alignment: .leading) {
+                TipView(SimpleInlineTip())
                 List {
-                    
-                    // MARK: Total Calories
-                    VStack (alignment: .leading) {
-                        Text("Total Cals")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.totalCalories.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    // MARK: ACTIVE CALS
-                    VStack (alignment: .leading) {
-                        Text("Active Cals")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestActiveEnergy.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    // MARK: BASAL CALORIES
-                    VStack (alignment: .leading) {
-                        Text("Basal Cals")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestRestingEnergy.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 24))
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    // MARK: STEPS
-                    VStack (alignment: .leading) {
-                        Text("Steps")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestStepCount.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "shoeprints.fill")
-                                .foregroundColor(.white.opacity(0.8))
-                                .font(.system(size: 24))
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    .accessibilityEnhanced(
-                        label: "Steps: \(healthKitModel.latestStepCount) steps",
-                        hint: "Displays the latest heart rate Variability measured using HealthKit"
-                    )
-                    
-                   
-                    
-                    VStack(alignment: .leading) {
-                        Text("Heart Rate")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestHeartRate.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(.red)
-                                .font(.system(size: 24))
-                                .accessibilityHidden(true)
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    .accessibilityEnhanced(
-                        label: "Heart Rate: \(healthKitModel.latestHeartRate) beats per minute",
-                        hint: "Displays the latest heart rate measured using HealthKit"
-                    )
-                  
-                    
-                    // MARK: HRV
-                    VStack (alignment: .leading) {
-                        Text("HRV")
-                            .font(.headline)
-                        
-                        HStack {
-                            Text(healthKitModel.latestHeartRateVariability.formatted(.number.precision(.fractionLength(0))))
-                                .font(.title2)
-                            Image(systemName: "waveform.path.ecg")
-                                .foregroundColor(.blue)
-                                .font(.system(size: 24))
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    .accessibilityEnhanced(
-                        label: "HRV: \(healthKitModel.latestHeartRateVariability)",
-                        hint: "Displays the latest heart rate Variability measured using HealthKit"
-                    )
-                    
-                    
-                    
-                    VStack(alignment: .leading) {
-                        Text("Respiratory Rate")
-                            .font(.headline)
-                        HStack {
-                            Text(healthKitModel.latestRespiratoryRate.formatted(.number.precision(.fractionLength(1))))
-                                .font(.title2)
-                            Image(systemName: "lungs.fill")
-                                .foregroundColor(.teal)
-                                .font(.system(size: 24))
-                                .accessibilityHidden(true)
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    
-                    
-                    VStack (alignment: .leading) {
-                        Text("V02 Max")
-                            .font(.headline)
-                        HStack {
-                            // Display latest VO₂ Max value
-                            Text(healthKitModel.latestV02Max.formatted(.number.precision(.fractionLength(1))))
-                                .font(.title2)
-                            
-                            // Lungs icon
-                            Image(systemName: "figure.run")
-                                .foregroundColor(.green)
-                                .font(.system(size: 24))
-                            
-                            // Display trend symbol
-                        }
-                    }
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16) // Set desired corner radius here
-                            .fill(.gray.gradient.opacity(0.5))
-                            .padding(2)
-                    )
-                    .accessibilityEnhanced(
-                        label: "V02 Max: \(healthKitModel.latestV02Max) steps",
-                        hint: "Displays the latest V02 Max measured using HealthKit"
-                    )
-                    
+                    TotalCaloriesView(healthKitModel: healthKitModel)
+                    RestingCaloriesView(healthKitModel: healthKitModel)
+                    ActiveCaloriesView(healthKitModel: healthKitModel)
+                    StepsView(healthKitModel: healthKitModel)
+                    HeartRateView(healthKitModel: healthKitModel)
+                    HRVView(healthKitModel: healthKitModel)
+                    RespiratoryRateView(healthKitModel: healthKitModel)
+                    V02MaxView(healthKitModel: healthKitModel)
                 }
             }
-                .containerBackground(
-                    getGradientBackground(for: staminaValueGradient).gradient,
-                    for: .tabView
-                )
+            .containerBackground(
+                getGradientBackground(for: staminaValueGradient).gradient,
+                for: .tabView
+            )
             
         }
         .tabViewStyle(.verticalPage)
