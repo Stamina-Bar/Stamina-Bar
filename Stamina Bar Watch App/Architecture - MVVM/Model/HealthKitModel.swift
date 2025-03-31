@@ -70,92 +70,77 @@ class HealthKitModel: ObservableObject {
         }
     }
     
-
-    
-
     func startActiveEnergyQuery() {
-            guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
-                return
-            }
-            
-            let calendar = Calendar.current
-            let now = Date()
-            let startOfDay = calendar.startOfDay(for: now)
-            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-            
-            let query = HKAnchoredObjectQuery(type: activeEnergyType,
-                                              predicate: predicate,
-                                              anchor: activeEnergyAnchor,
-                                              limit: HKObjectQueryNoLimit) { query, samples, _, newAnchor, error in
-                guard error == nil else { return }
-                self.activeEnergyAnchor = newAnchor
-                self.processActiveSamples(samples)
-            }
-            
-            query.updateHandler = { query, samples, _, newAnchor, error in
-                guard error == nil else { return }
-                self.activeEnergyAnchor = newAnchor
-                self.processActiveSamples(samples)
-            }
-            
-        healthStore?.execute(query)
+        guard let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            return
         }
         
-        private func processActiveSamples(_ samples: [HKSample]?) {
-            guard let energySamples = samples as? [HKQuantitySample] else { return }
-            
-            // Filter out already processed samples using their unique UUIDs
-            let newSamples = energySamples.filter { !processedActiveSamples.contains($0.uuid) }
-            processedActiveSamples.formUnion(newSamples.map { $0.uuid })
-            
-            let newEnergy = newSamples.reduce(0.0) { result, sample in
-                result + sample.quantity.doubleValue(for: HKUnit.kilocalorie())
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfDay = calendar.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        
+        let query = HKAnchoredObjectQuery(type: activeEnergyType,
+                                          predicate: predicate,
+                                          anchor: activeEnergyAnchor,
+                                          limit: HKObjectQueryNoLimit) { query, samples, _, newAnchor, error in
+            guard error == nil else { return }
+            self.activeEnergyAnchor = newAnchor
+            self.processActiveSamples(samples)
+        }
+        
+        query.updateHandler = { query, samples, _, newAnchor, error in
+            guard error == nil else { return }
+            self.activeEnergyAnchor = newAnchor
+            self.processActiveSamples(samples)
+        }
+        
+        healthStore?.execute(query)
+    }
+        
+    private func processActiveSamples(_ samples: [HKSample]?) {
+        guard let energySamples = samples as? [HKQuantitySample] else { return }
+        
+        // Filter out already processed samples using their unique UUIDs
+        let newSamples = energySamples.filter { !processedActiveSamples.contains($0.uuid) }
+        processedActiveSamples.formUnion(newSamples.map { $0.uuid })
+        
+        let newEnergy = newSamples.reduce(0.0) { result, sample in
+            result + sample.quantity.doubleValue(for: HKUnit.kilocalorie())
+        }
+        
+        DispatchQueue.main.async {
+            if newEnergy > 0 {
+                self.latestActiveEnergy += newEnergy
             }
+        }
+    }
+        
+    func startRestingEnergyQuery() {
+        guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
+            return
+        }
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfDay = calendar.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        
+        let statisticsQuery = HKStatisticsQuery(quantityType: restingEnergyType,
+                                                quantitySamplePredicate: predicate,
+                                                options: .cumulativeSum) { _, statistics, error in
+            guard error == nil else { return }
+            let newEnergy = statistics?.sumQuantity()?.doubleValue(for: HKUnit.kilocalorie()) ?? 0.0
             
             DispatchQueue.main.async {
                 if newEnergy > 0 {
-                    self.latestActiveEnergy += newEnergy
+                    self.latestRestingEnergy = newEnergy // Replace instead of adding
                 }
             }
         }
         
-        func startRestingEnergyQuery() {
-            guard let restingEnergyType = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
-                return
-            }
-            
-            let calendar = Calendar.current
-            let now = Date()
-            let startOfDay = calendar.startOfDay(for: now)
-            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-            
-            let statisticsQuery = HKStatisticsQuery(quantityType: restingEnergyType,
-                                                    quantitySamplePredicate: predicate,
-                                                    options: .cumulativeSum) { _, statistics, error in
-                guard error == nil else { return }
-                let newEnergy = statistics?.sumQuantity()?.doubleValue(for: HKUnit.kilocalorie()) ?? 0.0
-                
-                DispatchQueue.main.async {
-                    if newEnergy > 0 {
-                        self.latestRestingEnergy = newEnergy // Replace instead of adding
-                    }
-                }
-            }
-            
-            healthStore?.execute(statisticsQuery)
-        }
-
-    
-    
-        
-
-    
-    
-    
-
-    
-
-    
+        healthStore?.execute(statisticsQuery)
+    }
 
     func fetchDailyStepCount() {
         guard let stepCountType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
