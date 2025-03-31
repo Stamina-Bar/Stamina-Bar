@@ -238,16 +238,15 @@ class StaminaCalculationAlgorithm {
         // Convert final stamina percentage back to string for image selection
         let finalStaminaString = String(format: "%.0f", finalStaminaPercentage)
         
-        withAnimation(.easeInOut(duration: 0.5)) {
             self.currentStaminaPercentage = finalStaminaString
-        }
+        
                
         let staminaView = AnyView(
                     VStack(alignment: .leading) {
                         Image(finalStaminaString)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .transition(.opacity.combined(with: .scale)) // Smooth fade + scale transition
+//                            .transition(.opacity.combined(with: .scale)) // Smooth fade + scale transition
                     }
         )
         
