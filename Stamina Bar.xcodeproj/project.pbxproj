@@ -18,6 +18,7 @@
 		DA3463F72D88D59800CBEB3A /* HRVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3463F62D88D59800CBEB3A /* HRVView.swift */; };
 		DA3463F92D88D5A700CBEB3A /* RespiratoryRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3463F82D88D5A700CBEB3A /* RespiratoryRateView.swift */; };
 		DA3463FB2D88D5B500CBEB3A /* V02MaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3463FA2D88D5B500CBEB3A /* V02MaxView.swift */; };
+		DA3611C62D9A367C0032CE01 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3611C52D9A367C0032CE01 /* NotificationManager.swift */; };
 		DA64F6532BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64F6522BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift */; };
 		DA8E527229F0D75A00DD26AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAA3BCD429288C8A00146F96 /* Preview Assets.xcassets */; };
 		DAA3BCC929288C8700146F96 /* Stamina Bar Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DAA3BCC829288C8700146F96 /* Stamina Bar Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -103,6 +104,7 @@
 		DA3463F82D88D5A700CBEB3A /* RespiratoryRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespiratoryRateView.swift; sourceTree = "<group>"; };
 		DA3463FA2D88D5B500CBEB3A /* V02MaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V02MaxView.swift; sourceTree = "<group>"; };
 		DA346CA129DB32F8009DCB4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DA3611C52D9A367C0032CE01 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DA64F6502BDD5F7100B8E9D6 /* Stamina Bar Watch AppTestsMain.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stamina Bar Watch AppTestsMain.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA64F6522BDD5F7100B8E9D6 /* Stamina_Bar_Watch_AppTestsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamina_Bar_Watch_AppTestsMain.swift; sourceTree = "<group>"; };
 		DAA3BCC229288C8700146F96 /* Stamina Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stamina Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				DA0265AB2C386CCD0012D217 /* HealthKitModel.swift */,
+				DA3611C52D9A367C0032CE01 /* NotificationManager.swift */,
 				DA0265AD2C386CF20012D217 /* StaminaCalculationAlgorithm.swift */,
 			);
 			path = Model;
@@ -453,6 +456,7 @@
 				DAF5ED052CE8393E004C1F8B /* AccessibilityModifier.swift in Sources */,
 				DA3463F52D88D57A00CBEB3A /* HeartRateView.swift in Sources */,
 				DA3463F12D88D54100CBEB3A /* ActiveCaloriesView.swift in Sources */,
+				DA3611C62D9A367C0032CE01 /* NotificationManager.swift in Sources */,
 				DA0265AE2C386CF20012D217 /* StaminaCalculationAlgorithm.swift in Sources */,
 				DAF5ED1A2CE9CB25004C1F8B /* SimpleInlineTip.swift in Sources */,
 				DA3463EF2D88D53500CBEB3A /* RestingCaloriesView.swift in Sources */,

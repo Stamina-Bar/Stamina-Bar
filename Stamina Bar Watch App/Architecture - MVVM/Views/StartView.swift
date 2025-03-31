@@ -1,4 +1,5 @@
 import HealthKit
+import UserNotifications
 import SwiftUI
 import TipKit
 
@@ -6,7 +7,9 @@ struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
     @State private var showInfoPage = false
-    
+    @WKExtensionDelegateAdaptor(NotificationManager.self) var notificationManager
+    @AppStorage("hasNotificationPermission") private var hasNotificationPermission = false
+
     func getGradientBackground(for percentage: CGFloat) -> Color {
         let color: Color
         switch percentage {
@@ -75,13 +78,34 @@ struct StartView: View {
                     HRVView(healthKitModel: healthKitModel)
                     RespiratoryRateView(healthKitModel: healthKitModel)
                     V02MaxView(healthKitModel: healthKitModel)
+
+                    if !hasNotificationPermission {
+                        Button("Enable Reminders") {
+                            UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert]) { granted, error in
+                                if let error = error {
+                                    print("Permission error: \(error.localizedDescription)")
+                                    return
+                                }
+
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        if granted {
+                                            hasNotificationPermission = true
+                                            NotificationManager.shared.scheduleLocalNotification()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .transition(.opacity)
+                    }
+
                 }
             }
             .containerBackground(
                 getGradientBackground(for: staminaValueGradient).gradient,
                 for: .tabView
             )
-            
         }
         .tabViewStyle(.verticalPage)
         .onAppear {
