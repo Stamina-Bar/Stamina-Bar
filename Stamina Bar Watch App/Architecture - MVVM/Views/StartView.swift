@@ -7,7 +7,6 @@ struct StartView: View {
     let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
     @ObservedObject var healthKitModel = HealthKitModel()
     @State private var showInfoPage = false
-    @WKExtensionDelegateAdaptor(NotificationManager.self) var notificationManager
     @AppStorage("hasNotificationPermission") private var hasNotificationPermission = false
 
     func getGradientBackground(for percentage: CGFloat) -> Color {
@@ -41,25 +40,23 @@ struct StartView: View {
         
         TabView {
             VStack(alignment: .trailing) {
-                //                TipView(SimpleInlineTip())
                 staminaView
                     .id(staminaPercentage)
                     .accessibilityElement()
                     .accessibilityLabel(
                         Text("Stamina percentage is \(staminaPercentage)%"))
-                
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                showInfoPage = true
-                            } label: {
-                                Image(systemName:"info")
-                                    .foregroundStyle(.white)
-                            }
-                        }
-                    } .sheet(isPresented: $showInfoPage) {
-                        SettingsView()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showInfoPage = true
+                    } label: {
+                        Image(systemName:"info")
+                            .foregroundStyle(.white)
                     }
+                }
+            } .sheet(isPresented: $showInfoPage) {
+                SettingsView()
             }
             .padding()
             .containerBackground(
@@ -83,6 +80,8 @@ struct StartView: View {
                         Button("Enable Reminders") {
                             UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert]) { granted, error in
                                 if let error = error {
+                                    HapticManager.failureHaptic()
+
                                     print("Permission error: \(error.localizedDescription)")
                                     return
                                 }
@@ -91,7 +90,8 @@ struct StartView: View {
                                     withAnimation {
                                         if granted {
                                             hasNotificationPermission = true
-                                            NotificationManager.shared.scheduleLocalNotification()
+                                            NotificationManager.shared.scheduleDailyNotifications(healthKitModel: healthKitModel)
+                                            HapticManager.successHaptic()
                                         }
                                     }
                                 }
