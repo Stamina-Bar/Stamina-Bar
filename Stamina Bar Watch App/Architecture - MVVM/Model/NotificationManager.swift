@@ -46,11 +46,12 @@ final class NotificationManager: NSObject, WKExtensionDelegate, @preconcurrency 
         // Create the notification content
         let content = UNMutableNotificationContent()
         content.title = "Daily Health Check"
-
         content.body = generateHealthMessage(for: healthKitModel)
-
         content.sound = .default
-
+        
+        // Group notifications using a thread identifier
+        content.threadIdentifier = "DailyHealthCheck"
+        
         // 1) Schedule a notification at 9:00 AM (Central)
         var morningComponents = DateComponents()
         morningComponents.hour = 9
@@ -77,8 +78,9 @@ final class NotificationManager: NSObject, WKExtensionDelegate, @preconcurrency 
             trigger: afternoonTrigger
         )
         
-        // Add both requests to the notification center
-        UNUserNotificationCenter.current().add(morningRequest) { error in
+        // Register both requests
+        let center = UNUserNotificationCenter.current()
+        center.add(morningRequest) { error in
             if let error = error {
                 print("Error scheduling morning notification: \(error.localizedDescription)")
             } else {
@@ -86,7 +88,7 @@ final class NotificationManager: NSObject, WKExtensionDelegate, @preconcurrency 
             }
         }
         
-        UNUserNotificationCenter.current().add(afternoonRequest) { error in
+        center.add(afternoonRequest) { error in
             if let error = error {
                 print("Error scheduling afternoon notification: \(error.localizedDescription)")
             } else {
@@ -94,7 +96,7 @@ final class NotificationManager: NSObject, WKExtensionDelegate, @preconcurrency 
             }
         }
     }
-    
+
     /// Generates a custom message based on various HealthKit metrics.
     func generateHealthMessage(for healthKitModel: HealthKitModel) -> String {
         let steps = healthKitModel.latestStepCount

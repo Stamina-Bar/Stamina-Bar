@@ -64,7 +64,7 @@ struct SettingsView: View {
                     Text("Version: \(appVersion)")
                         .foregroundColor(.gray)
                         .font(.subheadline)
-                    Text("Released Mar. 17")
+                    Text("Released Mar. 31")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
