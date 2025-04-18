@@ -36,53 +36,107 @@ final class NotificationManager: NSObject, WKExtensionDelegate, UNUserNotificati
         }
     }
     
+    /// Schedules notifications using default times (9:00 AM and 2:30 PM in Central Time).
+    /// This is your original scheduling method.
     func scheduleDailyNotifications(healthKitModel: HealthKitModel) {
-        // Create the notification content
+        // Create the notification content.
         let content = UNMutableNotificationContent()
         content.title = generateHealthTitle(for: healthKitModel)
         content.body = generateHealthMessage(for: healthKitModel)
         content.sound = .default
-        
         content.threadIdentifier = "DailyHealthCheck"
         
-        // 1) Schedule a notification at 9:00 AM (Central)
+        // Schedule a notification at 9:00 AM (Central Time).
         var morningComponents = DateComponents()
         morningComponents.hour = 9
         morningComponents.minute = 0
         morningComponents.timeZone = TimeZone(identifier: "America/Chicago")
         
         let morningTrigger = UNCalendarNotificationTrigger(dateMatching: morningComponents, repeats: true)
-        let morningRequest = UNNotificationRequest(
-            identifier: "morningNotification",
-            content: content,
-            trigger: morningTrigger
-        )
+        let morningRequest = UNNotificationRequest(identifier: "morningNotification", content: content, trigger: morningTrigger)
         
-        // 2) Schedule a notification at 2:30 PM (Central)
+        // Schedule a notification at 2:30 PM (Central Time).
         var afternoonComponents = DateComponents()
         afternoonComponents.hour = 14
         afternoonComponents.minute = 30
         afternoonComponents.timeZone = TimeZone(identifier: "America/Chicago")
         
         let afternoonTrigger = UNCalendarNotificationTrigger(dateMatching: afternoonComponents, repeats: true)
-        let afternoonRequest = UNNotificationRequest(
-            identifier: "afternoonNotification",
-            content: content,
-            trigger: afternoonTrigger
-        )
+        let afternoonRequest = UNNotificationRequest(identifier: "afternoonNotification", content: content, trigger: afternoonTrigger)
         
         let center = UNUserNotificationCenter.current()
-        center.add(morningRequest)
-        center.add(afternoonRequest)
+        center.add(morningRequest) { error in
+            if let error = error {
+                print("Error scheduling morning notification: \(error.localizedDescription)")
+            }
+        }
+        center.add(afternoonRequest) { error in
+            if let error = error {
+                print("Error scheduling afternoon notification: \(error.localizedDescription)")
+            }
+        }
     }
+    
+    /// Schedules daily notifications based on custom morning and afternoon times provided by the user.
+    /// - Parameters:
+    ///   - morningTime: The Date representing the morning notification time.
+    ///   - afternoonTime: The Date representing the afternoon notification time.
+    func scheduleDailyNotifications(healthKitModel: HealthKitModel ,withMorning morningTime: Date, afternoonTime: Date) {
+        let content = UNMutableNotificationContent()
+        // Populate the notification content using your health data functions.
+        content.title = generateHealthTitle(for: healthKitModel)
+        content.body = generateHealthMessage(for: healthKitModel)
+        content.sound = .default
+        content.threadIdentifier = "DailyHealthCheck"
+        
+        let calendar = Calendar.current
+        
+        // Create trigger for the morning notification from the provided Date.
+        let morningComponents = calendar.dateComponents([.hour, .minute], from: morningTime)
+        var morningTriggerComponents = DateComponents()
+        morningTriggerComponents.hour = morningComponents.hour
+        morningTriggerComponents.minute = morningComponents.minute
+        // Use a desired time zone. Here we use "America/Chicago" to match your original code.
+        morningTriggerComponents.timeZone = TimeZone(identifier: "America/Chicago")
+        let morningTrigger = UNCalendarNotificationTrigger(dateMatching: morningTriggerComponents, repeats: true)
+        let morningRequest = UNNotificationRequest(identifier: "morningNotification", content: content, trigger: morningTrigger)
+        
+        // Create trigger for the afternoon notification from the provided Date.
+        let afternoonComponents = calendar.dateComponents([.hour, .minute], from: afternoonTime)
+        var afternoonTriggerComponents = DateComponents()
+        afternoonTriggerComponents.hour = afternoonComponents.hour
+        afternoonTriggerComponents.minute = afternoonComponents.minute
+        afternoonTriggerComponents.timeZone = TimeZone(identifier: "America/Chicago")
+        let afternoonTrigger = UNCalendarNotificationTrigger(dateMatching: afternoonTriggerComponents, repeats: true)
+        let afternoonRequest = UNNotificationRequest(identifier: "afternoonNotification", content: content, trigger: afternoonTrigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(morningRequest) { error in
+            if let error = error {
+                print("Error scheduling custom morning notification: \(error.localizedDescription)")
+            }
+        }
+        center.add(afternoonRequest) { error in
+            if let error = error {
+                print("Error scheduling custom afternoon notification: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Cancels any pending daily notifications (both morning and afternoon).
+    func cancelDailyNotifications() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["morningNotification", "afternoonNotification"])
+    }
+    
+    // MARK: - Health Data Methods
     
     func generateHealthTitle(for healthKitModel: HealthKitModel) -> String {
         let staminaCalculationAlgorithm = StaminaCalculationAlgorithm()
         let (_, staminaPercentage) =
-        staminaCalculationAlgorithm.stressFunction(
-            heart_rate: healthKitModel.latestHeartRate,
-            hrv: healthKitModel.latestHeartRateVariability
-        )
+            staminaCalculationAlgorithm.stressFunction(
+                heart_rate: healthKitModel.latestHeartRate,
+                hrv: healthKitModel.latestHeartRateVariability
+            )
         return "Stamina: \(Int(staminaPercentage) ?? 100)%"
     }
     
@@ -94,20 +148,20 @@ final class NotificationManager: NSObject, WKExtensionDelegate, UNUserNotificati
         let vo2Max = healthKitModel.latestV02Max
         let heartRate = healthKitModel.latestHeartRate
 
-        // ✅ Handle missing authorization or zero-data case
+        // Handle missing authorization or zero-data case.
         if steps == 0 && hrv == 0 && activeCalories == 0 && heartRate == 0 && vo2Max == 0 {
             return "Health data is not yet available. Make sure Health access is enabled in Settings and try wearing your Apple Watch throughout the day."
         }
-
+        
         let isYoung = age < 30
         let isHealthyVO2 = vo2Max > 45
         let usesStrictBaseline = isYoung && isHealthyVO2
-
+        
         let formattedSteps = NumberFormatter.localizedString(from: NSNumber(value: steps), number: .decimal)
         let formattedCalories = NumberFormatter.localizedString(from: NSNumber(value: Int(activeCalories)), number: .decimal)
         let formattedHRV = String(format: "%.0f", hrv)
         let formattedHR = String(format: "%.0f", heartRate)
-
+        
         // MARK: - HRV (Stress & Recovery)
         let hrvMessage: String
         if usesStrictBaseline {
@@ -133,7 +187,7 @@ final class NotificationManager: NSObject, WKExtensionDelegate, UNUserNotificati
                 hrvMessage = "HRV is \(formattedHRV), which is low. A calm minute could support recovery."
             }
         }
-
+        
         // MARK: - HR (Heart Awareness)
         let heartRateMessage: String
         if isYoung && heartRate >= 100 {
@@ -145,8 +199,8 @@ final class NotificationManager: NSObject, WKExtensionDelegate, UNUserNotificati
         } else {
             heartRateMessage = ""
         }
-
-        // MARK: - Activity (Steps + Active Cals)
+        
+        // MARK: - Activity (Steps + Active Calories)
         let activityMessage: String
         switch (steps, activeCalories) {
         case (let s, let c) where s >= 7500 || c >= 500:
@@ -156,13 +210,14 @@ final class NotificationManager: NSObject, WKExtensionDelegate, UNUserNotificati
         default:
             activityMessage = "So far, you’ve logged \(formattedSteps) steps and \(formattedCalories) active calories. A short walk or light stretch could help."
         }
-
+        
         return [hrvMessage, heartRateMessage, activityMessage]
             .filter { !$0.isEmpty }
             .joined(separator: " ")
     }
-
-
+    
+    // MARK: - UNUserNotificationCenterDelegate Methods
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 willPresent notification: UNNotification,

@@ -73,7 +73,6 @@ struct StartView: View {
                     StepsView(healthKitModel: healthKitModel)
                     HeartRateView(healthKitModel: healthKitModel)
                     HRVView(healthKitModel: healthKitModel)
-                    RespiratoryRateView(healthKitModel: healthKitModel)
                     V02MaxView(healthKitModel: healthKitModel)
 
                     if !hasNotificationPermission {
